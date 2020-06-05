@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 
+
 class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +81,7 @@ class Sidebar extends Component {
                 className={
                   this.state.active
                     ? 'fa fa-chevron-down down'
-                    : 'fa fa-chevron-right'
+                    : 'fa fa-chevron-right down'
                 }
                 onClick={this.handleClick}
                 aria-hidden="true"

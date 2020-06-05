@@ -5,7 +5,7 @@ export class Security extends Component {
     const Profile = this.props.heading;
     return (
       <div className="row dashboard_container">
-        <div className="col-md-10 contentcontainer">
+        <div className="col-md-12 contentcontainer">
           <div className="wallet_container">
             <h4 className="content_heading">{Profile}</h4>
             <p className="preferences_account">
@@ -50,8 +50,10 @@ export class Security extends Component {
               <div className="col-md-6 google_container">
                 <div className="row googleauth_container">
                   <div className="col-md-8 google_auth">
-                    <img src="images/cromeimg.png" className="crome_image" />
-                    <h3>Google Auth (2FA)</h3>
+                    <div className="auth_text">
+                      <img src="images/cromeimg.png" className="crome_image" />
+                      <h3>Google Auth (2FA)</h3>
+                    </div>
                   </div>
                   <div className="col-md-4 enable_button">
                     <button>Enalbe</button>

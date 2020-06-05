@@ -953,12 +953,12 @@ nav.navbar.navbar-default.main-navbar.dashboard_header{
     text-align: left;
     display: block;
 }
-.sidebarlist li.active{
+/* .sidebarlist li.active{
     background: #fff;
-}
-.sidebarlist li.active a{
+} */
+/* .sidebarlist li.active a{
     color: #0278e1;
-}
+} */
 .sidedropdown a {
     padding: 9px 16px !important;
     color: #666;

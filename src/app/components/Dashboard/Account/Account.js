@@ -6,7 +6,7 @@ class Account extends Component {
     const Profile = this.props.name;
     return (
       <div className="row dashboard_container">
-        <div className="col-md-10 contentcontainer">
+        <div className="col-md-12 contentcontainer">
           <div className="wallet_container">
             <h4 className="content_heading">{this.props.heading}</h4>
             <p className="preferences_account">

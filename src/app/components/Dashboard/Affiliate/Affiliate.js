@@ -5,7 +5,7 @@ export class Affiliate extends Component {
     const Profile = this.props.heading;
     return (
       <div className="row dashboard_container">
-        <div className="col-md-10 contentcontainer">
+        <div className="col-md-12 contentcontainer">
           <div className="wallet_container">
             <h4 className="content_heading">{Profile}</h4>
             <p className="preferences_account">
@@ -32,7 +32,7 @@ export class Affiliate extends Component {
                   <p>Total Referrals: 4</p>
                 </div>
               </div>
-              <div className="col-md-6 google_container"></div>
+              {/* <div className="col-md-6 google_container"></div> */}
             </div>
           </div>
         </div>

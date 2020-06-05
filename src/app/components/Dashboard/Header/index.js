@@ -7,7 +7,7 @@ class Header extends Component {
   render() {
     return (
       <nav className="navbar navbar-default main-navbar dashboard_header">
-        <div className="container-fluid">
+        <div className="container-fluid nopadd">
           <div className="navbar-header">
             <button
               type="button"
@@ -21,26 +21,28 @@ class Header extends Component {
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            <a className="navbar-brand" href="#">
+            {/* <a className="navbar-brand" href="#">
               <img src={Bitfixlogo} className="logo_img" />
-            </a>
+            </a> */}
           </div>
           <div
             className="collapse navbar-collapse"
             id="bs-example-navbar-collapse-1"
           >
+            <a className="navbar-brand" href="#">
+              <img src={Bitfixlogo} className="logo_img" />
+            </a>
             <ul className="nav navbar-nav dashboard_list">
               <li className>
                 <a href="#">Trade</a>
               </li>
               <li className>
-                <a href="dashboard.html">Account</a>
+                <a href="dashboard.html" className="account_header">Account</a>
               </li>
             </ul>
-            <ul className="nav navbar-nav navbar-right right_list">
+            {/* <ul className="nav navbar-nav navbar-right right_list">
               <li className="dropdown">
                 <a
-                  href="#"
                   className="dropdown-toggle"
                   data-toggle="dropdown"
                   role="button"
@@ -60,7 +62,21 @@ class Header extends Component {
                   <div></div>
                 </ul>
               </li>
+            </ul> */}
+
+<ul class="nav navbar-nav navbar-right right_list">
+
+          <li class="dropdown">
+            <a href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user-circle"></i>
+            </a>
+            <ul class=" right_logout">
+              <p class="user_email">anil.kumar@stigasoft.com</p>
+              <p class="user_logout"><a href="#"><i class="fa fa-sign-out"></i>Log Out</a></p>
             </ul>
+          </li>
+        </ul>
+
           </div>
         </div>
       </nav>

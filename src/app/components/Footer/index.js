@@ -145,7 +145,6 @@ class index extends Component {
                 </div>
               </div>
               <div className="col-sm-4">
-                &nbsp;
                 <div className="UTC-dated" id="UTC-dated">
                   2019/09/10 13:39:20
                 </div>
