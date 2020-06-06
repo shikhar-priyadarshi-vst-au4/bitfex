@@ -21,7 +21,6 @@ export default class App extends React.Component {
           <Route path="/login" component={LoginContent} />
           <Route path="/forgot" component={ForgotPasswordContent} />
           <Route path="/resetPassword" component={ResetPassContent} />
-          {/* <Redirect from="/login" to="/dashboard/account" /> */}
           <Route path="/dashboard/account" component={Dashboard} />
           <Route path="/dashboard/security" component={Dashboard} />
           <Route path="/dashboard/affiliate" component={Dashboard} />

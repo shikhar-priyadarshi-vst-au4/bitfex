@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import GoogleAuth from '../../../../assets/img/cromeimg.png';
+import GoogleAuthSVG from '../../../../assets/img/._google-authenticator.svg';
 
 export class Security extends Component {
   render() {

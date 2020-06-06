@@ -25,7 +25,7 @@ class HomePage extends Component {
               </h1>
               <p>Trade Perpetual, Futures and Exchange-quoted Spreads</p>
               <div className="view-exchange-btn">
-                <Link to="/trade" target="_blank">
+                <Link to="/login" target="_blank">
                   Trade
                 </Link>
               </div>
@@ -42,7 +42,7 @@ class HomePage extends Component {
 
                 <div className="banner-tagline">
                   <div className="signup-btn">
-                    <a href="register">Register</a>
+                    <Link to="/register">Register</Link>
                   </div>
                 </div>
               </div>
@@ -58,12 +58,12 @@ class HomePage extends Component {
                 </p>
                 <div className="banner-tagline">
                   <div className="signup-btn">
-                    <a
-                      href="login"
+                    <Link
+                      to="/login"
                       style={{marginTop: '10px', fontSize: '14px'}}
                     >
                       Join Now
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -240,7 +240,7 @@ class HomePage extends Component {
             </div>
           </div>
         </section>
-        /*Crypto Derivatives Trading*/
+        {/* Crypto Derivatives Trading */}
         <section className="crypto-derivatives-section">
           <div className="container">
             <div className="row">
@@ -250,9 +250,9 @@ class HomePage extends Component {
                   Register and Get <b>1 Test BTC</b> to Trade BTC Perpetual,
                   Futures &amp; Exchange-Quoted Spreads
                 </p>
-                <a href="register" className="try-sestnet-btn">
+                <Link to="/register" className="try-sestnet-btn">
                   Register
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -278,9 +278,7 @@ class HomePage extends Component {
                   </li>
                 </ul>
                 <div className="trading-steps-CTA">
-                  <a href="#" className="trading-register-btn">
-                    Coming Soon
-                  </a>
+                  <a className="trading-register-btn">Coming Soon</a>
                 </div>
               </div>
             </div>

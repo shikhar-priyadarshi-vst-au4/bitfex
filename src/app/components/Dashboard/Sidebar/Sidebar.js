@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
-
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faWallet, faUser, faHistory} from '@fortawesome/free-solid-svg-icons';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -22,7 +23,6 @@ class Sidebar extends Component {
   render() {
     const {color, routes} = this.props;
     const show = this.state.active ? 'show' : '';
-    //console.log(this.props);
     return (
       <div className="account_menu">
         <ul className="nav navbar-nav sidebar_nav">
@@ -33,7 +33,12 @@ class Sidebar extends Component {
               data-target="#walletsidebar"
               aria-expanded="true"
             >
-              <i className="fa fa-wallet icon-main" />
+              {/* <i className="fa fa-wallet icon-main" /> */}
+              <FontAwesomeIcon
+                icon={faWallet}
+                className="icon-main"
+                style={{width: '1.875em'}}
+              />
               <span className="nav-link-text"> Wallet</span>
               {/* <i class="fa fa-chevron-up up"></i> */}
               <i className="fa fa-chevron-down down" />
@@ -44,22 +49,22 @@ class Sidebar extends Component {
               style={{}}
             >
               <li className="nav-item">
-                <a href="balances.html" className="nav-link">
+                <a role="button" className="nav-link">
                   Balances
                 </a>
               </li>
               <li className="nav-item">
-                <a href="deposit.html" className="nav-link">
+                <a role="button" className="nav-link">
                   Deposit
                 </a>
               </li>
               <li className="nav-item">
-                <a href="address.html" className="nav-link">
+                <a role="button" className="nav-link">
                   Address
                 </a>
               </li>
               <li className="nav-item">
-                <a href="withdraw.html" className="nav-link">
+                <a role="button" className="nav-link">
                   Withdraw
                 </a>
               </li>
@@ -74,7 +79,12 @@ class Sidebar extends Component {
               role="button"
               onClick={this.handleClick}
             >
-              <i className="fa fa-user icon-main" />
+              {/* <i className="fa fa-user icon-main" /> */}
+              <FontAwesomeIcon
+                icon={faUser}
+                className="icon-main"
+                style={{width: '1.875em'}}
+              />
               <span className="nav-link-text">Account &amp; Preferences</span>
               {/* <i class="fa fa-chevron-up up"></i> */}
               <i
@@ -142,7 +152,12 @@ class Sidebar extends Component {
               data-target="#historysidebar"
               aria-expanded="true"
             >
-              <i className="fa fa-history icon-main" aria-hidden="true" />
+              {/* <i className="fa fa-history icon-main" aria-hidden="true" /> */}
+              <FontAwesomeIcon
+                icon={faHistory}
+                className="icon-main"
+                style={{width: '1.875em'}}
+              />
               <span className="nav-link-text">History</span>
               {/* <i class="fa fa-chevron-up up"></i> */}
               <i className="fa fa-chevron-down down" />
@@ -153,12 +168,12 @@ class Sidebar extends Component {
               style={{}}
             >
               <li className="nav-item">
-                <a href="tradeHistory.html" className="nav-link">
+                <a className="nav-link" role="button">
                   Trade History
                 </a>
               </li>
               <li className="nav-item">
-                <a href="orderHistory.html" className="nav-link">
+                <a className="nav-link" role="button">
                   Order History
                 </a>
               </li>

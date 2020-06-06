@@ -27,23 +27,15 @@ class index extends Component {
                 <h4>About</h4>
                 <ul className="footer-common-links">
                   <li>
-                    <a href="assets/about-us.html" target="_blank">
-                      About Us
-                    </a>
+                    <a target="_blank">About Us</a>
                   </li>
                   <li>
-                    <a
-                      href="assets/privacy-policy.html"
-                      target="_blank"
-                      title="Privacy Policy"
-                    >
+                    <a target="_blank" title="Privacy Policy">
                       Privacy Policy
                     </a>
                   </li>
                   <li>
-                    <a href="assets/terms-of-use.html" target="_blank">
-                      Terms of Use
-                    </a>
+                    <a target="_blank">Terms of Use</a>
                   </li>
                 </ul>
               </div>
@@ -141,18 +133,23 @@ class index extends Component {
             <div className="row">
               <div className="col-sm-4">
                 <div className="copyright">
-                  Copyright © 2019 Bitfex, All Right Reserved
+                  Copyright © {new Date().getFullYear()} Bitfex, All Right
+                  Reserved
                 </div>
               </div>
               <div className="col-sm-4">
-                <div className="UTC-dated" id="UTC-dated">
+                {/* <div className="UTC-dated" id="UTC-dated">
                   2019/09/10 13:39:20
-                </div>
+                </div> */}
               </div>
               <div className="col-sm-4">
                 <div className="powered-by">
                   Powered By
-                  <a href="https://www.idap.io/" target="_blank">
+                  <a
+                    href="https://www.idap.io/"
+                    target="_blank"
+                    stlye={{color: '#fff', textDecoration: 'underline'}}
+                  >
                     idap.io
                   </a>
                 </div>

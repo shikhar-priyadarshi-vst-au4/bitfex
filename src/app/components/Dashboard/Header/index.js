@@ -34,10 +34,12 @@ class Header extends Component {
             </a>
             <ul className="nav navbar-nav dashboard_list">
               <li className>
-                <a href="#">Trade</a>
+                <a role="button">Trade</a>
               </li>
               <li className>
-                <a href="dashboard.html" className="account_header">Account</a>
+                <a role="button" className="account_header">
+                  Account
+                </a>
               </li>
             </ul>
             {/* <ul className="nav navbar-nav navbar-right right_list">
@@ -64,19 +66,26 @@ class Header extends Component {
               </li>
             </ul> */}
 
-<ul class="nav navbar-nav navbar-right right_list">
-
-          <li class="dropdown">
-            <a href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user-circle"></i>
-            </a>
-            <ul class=" right_logout">
-              <p class="user_email">anil.kumar@stigasoft.com</p>
-              <p class="user_logout"><a href="#"><i class="fa fa-sign-out"></i>Log Out</a></p>
+            <ul class="nav navbar-nav navbar-right right_list">
+              <li class="dropdown">
+                <a
+                  href="#"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-user-circle"></i>
+                </a>
+                <ul class=" right_logout">
+                  <p class="user_email">anil.kumar@stigasoft.com</p>
+                  <p class="user_logout">
+                    <a href="#">
+                      <i class="fa fa-sign-out"></i>Log Out
+                    </a>
+                  </p>
+                </ul>
+              </li>
             </ul>
-          </li>
-        </ul>
-
           </div>
         </div>
       </nav>
