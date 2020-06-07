@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 class Account extends Component {
   render() {
-    console.log(this.props);
     const Profile = this.props.name;
     return (
       <div className="row dashboard_container">

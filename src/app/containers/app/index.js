@@ -21,10 +21,10 @@ export default class App extends React.Component {
           <Route path="/login" component={LoginContent} />
           <Route path="/forgot" component={ForgotPasswordContent} />
           <Route path="/resetPassword" component={ResetPassContent} />
-          <Route path="/dashboard/account" component={Dashboard} />
-          <Route path="/dashboard/security" component={Dashboard} />
-          <Route path="/dashboard/affiliate" component={Dashboard} />
-          <Route path="/dashboard/apiSecret" component={Dashboard} />
+          <Route
+            path="/dashboard"
+            render={(props) => <Dashboard {...props} />}
+          />
         </Switch>
       </Router>
     );

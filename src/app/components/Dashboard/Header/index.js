@@ -33,10 +33,10 @@ class Header extends Component {
               <img src={Bitfixlogo} className="logo_img" />
             </a>
             <ul className="nav navbar-nav dashboard_list">
-              <li className>
+              <li className="true">
                 <a role="button">Trade</a>
               </li>
-              <li className>
+              <li className="true">
                 <a role="button" className="account_header">
                   Account
                 </a>
@@ -66,21 +66,21 @@ class Header extends Component {
               </li>
             </ul> */}
 
-            <ul class="nav navbar-nav navbar-right right_list">
-              <li class="dropdown">
+            <ul className="nav navbar-nav navbar-right right_list">
+              <li className="dropdown">
                 <a
                   href="#"
                   role="button"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <i class="fa fa-user-circle"></i>
+                  <i className="fa fa-user-circle"></i>
                 </a>
-                <ul class=" right_logout">
-                  <p class="user_email">anil.kumar@stigasoft.com</p>
-                  <p class="user_logout">
-                    <a href="#">
-                      <i class="fa fa-sign-out"></i>Log Out
+                <ul className=" right_logout">
+                  <p className="user_email">anil.kumar@stigasoft.com</p>
+                  <p className="user_logout">
+                    <a className="#">
+                      <i className="fa fa-sign-out"></i>Log Out
                     </a>
                   </p>
                 </ul>

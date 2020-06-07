@@ -99,7 +99,7 @@ class Sidebar extends Component {
             </a>
             <ul
               id="accountsidebar"
-              className={'collapse sidebarlist ' + show}
+              className={`collapse sidebarlist ${show}`}
               style={{}}
             >
               {/* {routes.map((prop, key) => {

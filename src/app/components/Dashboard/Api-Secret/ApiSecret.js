@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 export class ApiSecret extends Component {
   render() {
-    console.log(this.props);
     const Profile = this.props.heading;
     return (
       <div className="row dashboard_container">

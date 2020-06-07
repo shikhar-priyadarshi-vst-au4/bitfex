@@ -2,7 +2,6 @@ import Account from './Account/Account';
 import Affiliate from './Affiliate/Affiliate';
 import ApiSecret from './Api-Secret/ApiSecret';
 import Security from './Security/Security';
-import AffiliateContent from '../../containers/dashboard/affiliate/AffiliateContent';
 
 const dashboardRoutes = [
   {

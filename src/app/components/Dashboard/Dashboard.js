@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import Sidebar from './Sidebar/Sidebar';
-//import Header from '../Header/index';
+// import Header from '../Header/index';
 import Header from './Header/index';
 import Footer from '../Footer/index';
 import routes from './routes';
 import './Dashboard.css';
 
-let userInfo = {};
+const userInfo = {};
 
 const switchRoutes = (
   <Switch>
@@ -17,10 +17,9 @@ const switchRoutes = (
         return (
           <Route
             path={prop.layout + prop.path}
-            component={(props) => {
-              const Component = prop.component;
-              return <Component {...props} {...prop} {...userInfo} />;
-            }}
+            render={(props) => (
+              <prop.component {...props} {...prop} {...userInfo} />
+            )}
             key={key}
           />
         );
@@ -36,8 +35,9 @@ class Dashboard extends Component {
       color: 'red',
     };
   }
+
   render() {
-    //console.log(switchRoutes);
+    // console.log(switchRoutes);
     return (
       <div className="dashboard_body">
         <Header />
