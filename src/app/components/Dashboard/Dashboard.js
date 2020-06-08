@@ -41,7 +41,7 @@ class Dashboard extends Component {
     return (
       <div className="dashboard_body">
         <Header />
-        <div className="row dashboard_container">
+        <div className="row dashboard_container dashboard_maincontainer">
           <div className="col-md-2 sidebar_container">
             <Sidebar routes={routes} color={this.state.color} />
           </div>

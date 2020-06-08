@@ -4,7 +4,7 @@ import './Withdraw.css';
 export class Withdraw extends Component {
   render() {
     return (
-      <div className="col-md-10 contentcontainer">
+      <div className="col-md-12 contentcontainer">
         <div className="wallet_container">
           <h4 className="content_heading">Withdraw BTC</h4>
           <p className="preferences_account">
@@ -44,7 +44,7 @@ export class Withdraw extends Component {
                     <td>
                       <i className="fa fa-btc" aria-hidden="true" /> 0.01000000
                     </td>
-                    <td>0.0010</td>
+                    {/* <td>0.0010</td> */}
                   </tr>
                   <tr>
                     <td>2020-01-02 16:54:43</td>
