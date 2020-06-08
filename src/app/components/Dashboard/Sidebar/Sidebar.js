@@ -14,6 +14,7 @@ class Sidebar extends Component {
   }
 
   handleClick() {
+    console.log('calll');
     const currentState = this.state.active;
     this.setState({
       active: !currentState,
@@ -23,6 +24,7 @@ class Sidebar extends Component {
   render() {
     const {color, routes} = this.props;
     const show = this.state.active ? 'show' : '';
+
     return (
       <div className="account_menu">
         <ul className="nav navbar-nav sidebar_nav">
@@ -39,7 +41,7 @@ class Sidebar extends Component {
                 className="icon-main"
                 style={{width: '1.875em'}}
               />
-              <span className="nav-link-text"> Wallet</span>
+              <span className="nav-link-text"> Exchange Wallet</span>
               {/* <i class="fa fa-chevron-up up"></i> */}
               <i className="fa fa-chevron-down down" />
             </a>
@@ -49,24 +51,33 @@ class Sidebar extends Component {
               style={{}}
             >
               <li className="nav-item">
-                <a role="button" className="nav-link">
-                  Balances
-                </a>
+                <NavLink
+                  to={routes[0].layout + routes[0].path}
+                  className="nav-link"
+                >
+                  {routes[0].name}
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a role="button" className="nav-link">
-                  Deposit
-                </a>
+                <NavLink
+                  to={routes[1].layout + routes[1].path}
+                  className="nav-link"
+                >
+                  {routes[1].name}
+                </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a role="button" className="nav-link">
                   Address
                 </a>
-              </li>
+              </li> */}
               <li className="nav-item">
-                <a role="button" className="nav-link">
-                  Withdraw
-                </a>
+                <NavLink
+                  to={routes[2].layout + routes[2].path}
+                  className="nav-link"
+                >
+                  {routes[2].name}
+                </NavLink>
               </li>
             </ul>
           </li>
@@ -113,6 +124,14 @@ class Sidebar extends Component {
 
               <li className="nav-item active">
                 <NavLink
+                  to={routes[3].layout + routes[3].path}
+                  className="nav-link"
+                >
+                  {routes[3].name}
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
                   to={routes[4].layout + routes[4].path}
                   className="nav-link"
                 >
@@ -127,20 +146,12 @@ class Sidebar extends Component {
                   {routes[5].name}
                 </NavLink>
               </li>
-              <li className="nav-item">
+              <li className="nav-item ">
                 <NavLink
                   to={routes[6].layout + routes[6].path}
                   className="nav-link"
                 >
                   {routes[6].name}
-                </NavLink>
-              </li>
-              <li className="nav-item ">
-                <NavLink
-                  to={routes[7].layout + routes[7].path}
-                  className="nav-link"
-                >
-                  {routes[7].name}
                 </NavLink>
               </li>
             </ul>

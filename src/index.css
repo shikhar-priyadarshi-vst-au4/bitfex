@@ -1996,80 +1996,80 @@ footer {
 .navbar-nav {
   flex-direction: row;
 }
-.nopadd{
+.nopadd {
   padding: 0;
 }
-.logo_img{
+.logo_img {
   width: 200px !important;
-  margin-top: 4px!important;
+  margin-top: 4px !important;
 }
 nav.navbar.navbar-default.main-navbar.dashboard_header {
   padding: 8px 0 !important;
 }
-.dashboard_list li a{
+.dashboard_list li a {
   font-size: 14px !important;
   padding: 10px 5px !important;
   line-height: 29px !important;
 }
-.account_header{
+.account_header {
   margin-left: 20px;
 }
 .wallet_container {
   padding: 11px 19px !important;
 }
-.content_heading{
+.content_heading {
   margin-bottom: 0 !important;
 }
-.sidebarlist li a.active{
-  color:#0278e1 !important;
-  background: #fff!important;
+.sidebarlist li a.active {
+  color: #0278e1 !important;
+  background: #fff !important;
 }
-.sidebarlist li a.nav-link{
-  padding: 6px 30px!important;
+.sidebarlist li a.nav-link {
+  padding: 6px 30px !important;
 }
-.sidebarlist li{
+.sidebarlist li {
   padding: 0 !important;
 }
-.google_auth h3{
+.google_auth h3 {
   float: left !important;
   margin-top: 0 !important;
 }
-.googleauth_container{
-  background-color: #fff!important;
-  padding: 20px 30px !important; 
+.googleauth_container {
+  background-color: #fff !important;
+  padding: 20px 30px !important;
 }
-.google_container{
-  background: none!important;
+.google_container {
+  background: none !important;
 }
-.enable_button button{
-  margin-top:0 !important
+.enable_button button {
+  margin-top: 0 !important;
 }
-.auth_text{
-  padding-top: 10px!important;
+.auth_text {
+  padding-top: 10px !important;
 }
 .crome_image {
   margin-right: 20px !important;
 }
 span.nav-link-text {
-  font-weight: bold!important;
+  font-weight: bold !important;
 }
-.dropdown-toggle::after{
-  border-top: 0!important;
-    border-right: 0!important;
+.dropdown-toggle::after {
+  border-top: 0 !important;
+  border-right: 0 !important;
 }
-.account_menu{
+.account_menu {
   height: 100% !important;
 }
-.sidebar_container{
-  padding-right: 12px!important;
+.sidebar_container {
+  padding-right: 12px !important;
 }
-.sidebarlist{
-  width: 100%!important;
+.sidebarlist {
+  width: 100% !important;
 }
-.account_menu{
-  width: initial!important;
+.account_menu {
+  width: initial !important;
 }
-.banner-rightcol-bottom h3{
+.banner-rightcol-bottom h3 {
   font-size: 28px;
   margin: 0 0 8px 0px;
 }
