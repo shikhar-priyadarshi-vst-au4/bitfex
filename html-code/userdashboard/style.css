@@ -953,12 +953,12 @@ nav.navbar.navbar-default.main-navbar.dashboard_header{
     text-align: left;
     display: block;
 }
-.sidebarlist li.active{
+/* .sidebarlist li.active{
     background: #fff;
-}
-.sidebarlist li.active a{
+} */
+/* .sidebarlist li.active a{
     color: #0278e1;
-}
+} */
 .sidedropdown a {
     padding: 9px 16px !important;
     color: #666;
@@ -1238,3 +1238,20 @@ nav.navbar.navbar-default.main-navbar.dashboard_header{
 {
     display: none!important;
 }    */
+
+
+
+
+
+.right_logout {
+    width: 220px;
+    background: #fff;
+    position: absolute;
+    left: -166px;
+    padding: 0;
+    top: 41px;
+    display: none;
+}
+li.dropdown:hover .right_logout {
+    display: block !important;
+}

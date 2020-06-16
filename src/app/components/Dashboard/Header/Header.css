@@ -1,0 +1,475 @@
+/*dashboard header*/
+.dashboard_body {
+  background: #e6e9ee;
+}
+nav.navbar.navbar-default.main-navbar.dashboard_header {
+  background: #0a1640;
+  padding: 7px 0;
+}
+.dashboard_list li {
+  font-size: 16px;
+  font-weight: 500;
+  padding-top: 4px;
+}
+.dashboard_container,
+.footer_container {
+  width: 100%;
+  margin: 0;
+}
+.footer_container {
+  background: #0a1640;
+  padding: 38px 0;
+}
+.footer_copyright {
+  background: #0a1640;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  margin: 0;
+  padding: 4px 0 30px 0;
+}
+.sidebar_container {
+  padding-left: 0;
+}
+.account_menu {
+  background: #fff;
+  height: 100vh;
+  padding: 0;
+  width: 240px;
+}
+.sidebar_nav li {
+  width: 100%;
+}
+.footer_list {
+  list-style: none;
+  padding: 0;
+}
+.footer_heading h3 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 15px;
+  margin: 0;
+}
+.footer_heading h3:after {
+  background-color: #ffd700;
+  content: '';
+  height: 1px;
+  width: 25px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.footer_heading ul li {
+  color: #fff;
+  font-size: 14px;
+  margin: 14px 0;
+}
+.footer_heading ul li span {
+  font-weight: bold;
+}
+.footer_text {
+  color: #fff;
+  font-size: 14px;
+  margin-top: 15px;
+}
+.power_by {
+  text-align: right;
+}
+.footer_icon ul {
+  margin-top: 10px;
+}
+.footer_icon ul li {
+  display: inline-block;
+  margin: 13px 0;
+  width: 29.33%;
+}
+.footer_icon ul li .fa {
+  color: #fff;
+  font-size: 28px;
+}
+.user_email {
+  color: #404040;
+  font-weight: 600;
+  text-align: center;
+  word-break: break-word;
+  border-bottom: 1px solid #ddd;
+  padding: 15px 15px !important;
+}
+/* .contentcontainer{
+    padding: 22px 40px;
+} */
+.contentcontainer {
+  padding: 0 2px;
+}
+.wallet_container {
+  padding: 22px 40px;
+}
+.right_logout {
+  width: 220px;
+}
+.user_logout a {
+  color: #404040;
+  display: block;
+  padding: 0 12px;
+}
+.user_logout a .fa {
+  margin-right: 6px;
+  vertical-align: middle;
+  color: #666;
+}
+.content_heading {
+  color: #404040 !important;
+  font-size: 30px;
+  font-weight: 400;
+  margin: 0 0 10px 0;
+}
+.preferences_account {
+  color: #666;
+  margin: 5px 0;
+  font-size: 12px;
+}
+.preferences_account span {
+  color: #263238;
+  font-weight: 600;
+}
+.account_detail {
+  width: 100%;
+  margin: 28px 0 0 0;
+}
+.user_accountdetail {
+  background: #fff;
+  padding: 20px 24px;
+  border: 1px solid #ddd;
+}
+.account_tableheading {
+  color: #0278e1;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 0;
+}
+.user_accountdetail p {
+  font-size: 14px;
+  margin: 16px 0;
+}
+.user_accountdetail p strong {
+  color: #666;
+  font-weight: 600;
+  margin-right: 20px;
+}
+.my_profilediv {
+  padding-left: 0;
+}
+.dashboard_list li a:hover {
+  color: #ffd700 !important;
+}
+.accountdetail_table {
+  background: #fff;
+  padding: 20px 24px;
+}
+.sidedropdown {
+  width: 100% !important;
+}
+.sidebarlist {
+  list-style: none;
+  padding: 5px 0;
+  background: #f2f3f8;
+  width: 100% !important;
+}
+.sidebarlist li:hover {
+  background: #fff;
+}
+.sidebarlist li {
+  padding: 6px 0;
+}
+.sidebarlist li a {
+  padding: 0px 20px 0px 30px !important;
+  text-align: left;
+  display: block;
+}
+/* .sidebarlist li.active {
+  background: #fff;
+} */
+/* .sidebarlist li.active a {
+  color: #0278e1;
+} */
+.sidedropdown a {
+  padding: 9px 16px !important;
+  color: #666;
+}
+
+/**/
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+.dashboard_container .icon-main {
+  padding-right: 10px;
+}
+.down {
+  float: right;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+/*balances_table*/
+.balances_table {
+  border: 1px solid #ccc;
+}
+.balance_div {
+  display: inline-block;
+}
+.search_div {
+  text-align: right;
+  color: #737272;
+  display: inline-block;
+  float: right;
+}
+.search_div input {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  height: 32px;
+  width: 180px;
+}
+.balance_container {
+  background: #fff;
+  padding: 20px;
+}
+.entries {
+  display: inline-block;
+  font-size: 15px;
+}
+.number_list .show {
+  display: inherit !important;
+}
+.entries button {
+  width: 70px;
+  border: 1px solid #ccc;
+  background: none;
+  height: 30px;
+  text-align: left;
+  padding: 0 10px;
+  border-radius: 3px;
+}
+.entries button .caret {
+  float: right;
+  margin-top: 9px;
+}
+.entries_container {
+  margin-bottom: 6px;
+}
+.dashboard_table tr th:after {
+  position: absolute;
+  content: '';
+  background: #bdc3c780;
+  width: 1px;
+  height: 20px;
+  right: 0;
+}
+.dashboard_table tr th:last-child:after {
+  width: 0;
+  height: 0;
+}
+.dashboard_table tr th {
+  position: relative;
+  color: #666;
+  font-weight: 600;
+}
+.number_listcontainer {
+  min-width: 72px !important;
+  border-radius: 0;
+  padding: 0;
+}
+.page_of_page {
+  text-align: right;
+  color: #0000008a;
+}
+.onetoone {
+  margin-right: 10px;
+}
+.pageofpage {
+  margin: 0 5px;
+}
+
+/*deposit_address*/
+.deposit_address {
+  background: #fff;
+  width: 500px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+.deposit_address h3 {
+  color: #0278e1;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 0;
+  text-align: left;
+}
+.deposit_address button {
+  width: 100%;
+  padding: 10px;
+  background: #c74a4a;
+  color: #fff;
+  border: none;
+}
+
+/*withdraw*/
+.crose_icon {
+  color: #666;
+  font-size: 16px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+.withdrawal {
+  text-align: left;
+}
+.withdrawalcontainer {
+  margin-top: 0;
+}
+.account_tableheading {
+  margin-bottom: 12px;
+}
+
+/*Secupsgerity_*/
+.inputWithIcon input[type='text'] {
+  width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+  padding-left: 45px;
+}
+.security_from label {
+  margin-bottom: 0;
+  color: #666;
+  font-weight: 500;
+  font-size: 15px;
+}
+.security_from {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.inputWithIcon input[type='text']:focus {
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+.inputWithIcon {
+  position: relative;
+}
+.inputWithIcon i {
+  position: absolute;
+  left: 0;
+  top: 14px;
+  padding: 8px 12px;
+  color: #aaa;
+  transition: 0.3s;
+  font-size: 22px;
+  border-right: 1px solid #0000001a;
+  height: 26px;
+  line-height: 11px;
+}
+.inputWithIcon input[type='text']:focus + i {
+  color: dodgerBlue;
+}
+.inputWithIcon.inputIconBg i {
+  background-color: #aaa;
+  color: #fff;
+  padding: 9px 4px;
+  border-radius: 4px 0 0 4px;
+}
+.inputWithIcon.inputIconBg input[type='text']:focus + i {
+  color: #fff;
+  background-color: dodgerBlue;
+}
+.update_button {
+  background-color: #f18d05;
+  border: 0;
+  color: #fff !important;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 auto;
+  height: 44px;
+  line-height: 40px;
+  padding: 0px 44px;
+}
+.googleauth_container {
+  width: 100%;
+  padding: 20px 0;
+  margin: 0;
+}
+.google_container {
+  background: #fff;
+}
+.google_auth,
+.enable_button {
+  display: inline-block;
+  padding: 0;
+}
+.enable_button {
+  text-align: right;
+}
+.google_auth h3 {
+  color: #0278e1;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+.enable_button button {
+  background-color: #f18d05;
+  border: 0;
+  color: #fff !important;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 auto;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+  margin-top: 8px;
+}
+.crome_image {
+  float: left;
+  margin-right: 10px;
+}
+.credentials {
+  background: #fff;
+  width: 600px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+.credentials p {
+  text-align: left;
+  margin: 0;
+}
+/* 
+  .collapse:not(.show)
+{
+    display: block;
+}
+.collapse.show
+{
+    display: none!important;
+}    */
+.right_logout {
+  width: 220px;
+  background: #fff;
+  position: absolute;
+  left: -174px;
+  padding: 0;
+  top: 41px;
+  display: none;
+}
+li.dropdown:hover .right_logout {
+  display: block !important;
+}
