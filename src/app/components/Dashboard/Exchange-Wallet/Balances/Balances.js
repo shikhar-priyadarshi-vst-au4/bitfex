@@ -1,73 +1,47 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faInr, faHistory} from '@fortawesome/free-solid-svg-icons';
 import './Balances.css';
+import Bitcoin from '../../../../../assets/img/bitcoin.png';
+import Tether from '../../../../../assets/img/tetherUs.png';
 
 export class Balances extends Component {
   render() {
-    const Profile = this.props.heading;
+    const {heading, routes} = this.props;
+
+    const Depositroute = routes[3].layout + routes[3].path;
+    const withdrawroute = routes[6].layout + routes[6].path;
+
+    const styles = {
+      newelementrow: {
+        marginTop: '15px',
+      },
+      select: {
+        marginTop: '20px',
+      },
+      linkbtn: {
+        fontSize: '14px',
+        border: '1px solid black',
+      },
+      img: {
+        height: '35px',
+        marginLeft: '-70px',
+      },
+    };
 
     return (
       <div className="col-md-12 contentcontainer">
         <div className="wallet_container">
-          <h4 className="content_heading">{Profile}</h4>
+          <h4 className="content_heading">{heading}</h4>
           <p className="preferences_account">
-            WALLET / <span>{Profile.toUpperCase()}</span>
+            EXCHANGE WALLET / <span>{heading.toUpperCase()}</span>
           </p>
-          <div className="values">
-            <h2>Wallet Balance</h2>
-            <p className="value title">
-              <i className="fa fa-btc" aria-hidden="true" />
-              &nbsp; 0.00
-            </p>
-          </div>
           <p className=""></p>
           <div className="row account_detail">
             <div className="col-md-12 balance_container">
               <div className="">
                 <h4 className="account_tableheading">Balances</h4>
-                <div className="entries_container">
-                  <div className="balance_div">
-                    <p className="entries">Show</p>
-                    <ul className="nav entries">
-                      <li className="dropdown">
-                        <button
-                          aria-expanded="false"
-                          aria-haspopup="true"
-                          role="button"
-                          data-toggle="dropdown"
-                          className="dropdown-toggle"
-                          href="#"
-                        >
-                          <span id="selected">10</span>
-                          <span className="caret" />
-                        </button>
-                        <ul className="dropdown-menu number_listcontainer">
-                          <li>
-                            <a href="#">10</a>
-                          </li>
-                          <li>
-                            <a href="#">25</a>
-                          </li>
-                          <li>
-                            <a href="#">50</a>
-                          </li>
-                          <li>
-                            <a href="#">100</a>
-                          </li>
-                          <div></div>
-                        </ul>
-                      </li>
-                    </ul>
-                    <p className="entries">Entries</p>
-                  </div>
-                  <div className="search_div">
-                    <form action="/action_page.php">
-                      <label htmlFor="fname">Search</label>
-                      <input type="text" id="fname" name="fname" />
-                    </form>
-                  </div>
-                </div>
               </div>
               <div className="clear-fix" />
               <div className="table-responsive">
@@ -78,29 +52,98 @@ export class Balances extends Component {
                       <th>Total Balance</th>
                       <th>Locked</th>
                       <th>Available Balance</th>
+                      <th>Action</th>
                     </tr>
                     <tr>
-                      <td>100000.58319937</td>
+                      <td>
+                        <img
+                          src={Bitcoin}
+                          alt="Bitcoin"
+                          style={{height: '22px'}}
+                        />
+                        &nbsp; BTC
+                      </td>
                       <td>-0.05166684</td>
                       <td>0.00020265</td>
                       <td>100000.53173519</td>
+                      <td>
+                        <Link to={Depositroute}>
+                          <button
+                            type="button"
+                            className="btn btn-default"
+                            style={styles.linkbtn}
+                          >
+                            Deposit
+                          </button>
+                        </Link>
+                        &nbsp;
+                        <Link to={withdrawroute}>
+                          <button
+                            type="button"
+                            className="btn btn-default"
+                            style={styles.linkbtn}
+                          >
+                            Withdraw
+                          </button>
+                        </Link>
+                        &nbsp;
+                        <Link to="">
+                          <button
+                            type="button"
+                            className="btn btn-default"
+                            style={styles.linkbtn}
+                          >
+                            Trade
+                          </button>
+                        </Link>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img
+                          src={Tether}
+                          alt="Tether"
+                          style={{height: '22px'}}
+                        />
+                        &nbsp; USDT
+                      </td>
+                      <td>-0.05166684</td>
+                      <td>0.00020265</td>
+                      <td>100000.53173519</td>
+                      <td>
+                        <Link to={Depositroute}>
+                          <button
+                            type="button"
+                            className="btn btn-default"
+                            style={styles.linkbtn}
+                          >
+                            Deposit
+                          </button>
+                        </Link>
+                        &nbsp;
+                        <Link to={withdrawroute}>
+                          <button
+                            type="button"
+                            className="btn btn-default"
+                            style={styles.linkbtn}
+                          >
+                            Withdraw
+                          </button>
+                        </Link>
+                        &nbsp;
+                        <Link to="">
+                          <button
+                            type="button"
+                            className="btn btn-default"
+                            style={styles.linkbtn}
+                          >
+                            Trade
+                          </button>
+                        </Link>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
-              </div>
-              <div className="page_of_page">
-                <span className="onetoone">1 to 1 of 1</span>
-                <span>
-                  <span>
-                    <i className="fa fa-chevron-left" />
-                    <i className="fa fa-arrow-to-left" />
-                  </span>
-                  <span className="pageofpage">Page 1of 1</span>
-                  <span>
-                    <i className="fa fa-chevron-right" />
-                    <i className="fa fa-arrow-to-right" />
-                  </span>
-                </span>
               </div>
             </div>
           </div>

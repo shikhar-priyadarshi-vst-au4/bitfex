@@ -901,16 +901,6 @@ nav.navbar.navbar-default.main-navbar.dashboard_header {
   color: #263238;
   font-weight: 600;
 }
-.values {
-  color: #263238;
-  margin: 30px 0;
-  font-size: 8px;
-}
-.value title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #263238;
-}
 .account_detail {
   width: 100%;
   margin: 28px 0 0 0;
