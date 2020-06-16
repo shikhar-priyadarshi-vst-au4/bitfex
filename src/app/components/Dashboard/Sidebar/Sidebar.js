@@ -49,7 +49,7 @@ class Sidebar extends Component {
             </a>
             <ul
               id="walletsidebar"
-              className="collapse sidebarlist show"
+              className="collapse sidebarlist in"
               style={{}}
             >
               <li className="nav-item">
@@ -98,7 +98,7 @@ class Sidebar extends Component {
             </a>
             <ul
               id="futuresidebar"
-              className="collapse sidebarlist show"
+              className="collapse sidebarlist in"
               style={{}}
             >
               <li className="nav-item">
@@ -124,7 +124,7 @@ class Sidebar extends Component {
             </a>
             <ul
               id="optionssidebar"
-              className="collapse sidebarlist show"
+              className="collapse sidebarlist in"
               style={{}}
             >
               <li className="nav-item">
@@ -135,7 +135,7 @@ class Sidebar extends Component {
                   {routes[12].name}
                 </NavLink>
               </li>
-            </ul>
+            </ul> 
           </li>
           <li className="nav-item subdrop sidedropdown">
             <a
@@ -164,7 +164,7 @@ class Sidebar extends Component {
             </a>
             <ul
               id="accountsidebar"
-              className={`collapse sidebarlist + show`}
+              className={`collapse sidebarlist + in`}
               style={{}}
             >
               {/* {routes.map((prop, key) => {
@@ -227,7 +227,7 @@ class Sidebar extends Component {
             </a>
             <ul
               id="historysidebar"
-              className="collapse sidebarlist show"
+              className="collapse sidebarlist in"
               style={{}}
             >
               <li className="nav-item">

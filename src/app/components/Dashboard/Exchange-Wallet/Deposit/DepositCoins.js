@@ -122,6 +122,7 @@ class DepositCoins extends Component {
       tdstyle: {
         color: 'black',
         paddingBottom: '11px',
+        width:'140px'
       },
       blaheading: {
         fontSize: '19px',
@@ -239,17 +240,14 @@ class DepositCoins extends Component {
               <tbody>
                 <tr>
                   <td style={styles.tdstyle}>Total</td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <td style={styles.tdstyle}>0.00000000</td>
                 </tr>
                 <tr>
                   <td style={styles.tdstyle}>In Order</td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <td style={styles.tdstyle}>0.00000000</td>
                 </tr>
                 <tr>
                   <td style={styles.tdstyle}>Available</td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <td style={styles.tdstyle}>0.00000000</td>
                 </tr>
               </tbody>

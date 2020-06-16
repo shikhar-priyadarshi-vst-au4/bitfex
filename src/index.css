@@ -2091,6 +2091,16 @@ nav.navbar.navbar-default.main-navbar.dashboard_header {
 .user_logout {
   cursor: pointer;
 }
+.google_auth h3{
+  margin-top: 20px !important;
+}
+.enable_button button {
+  margin-top: 8px !important;
+}
+ul.sidebarlist.show.collapse {
+  /* height: inherit !important; */
+  z-index: -1;
+}
 /* Media Queries */
 
 @media (min-width: 1200px) {

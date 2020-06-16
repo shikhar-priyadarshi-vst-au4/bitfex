@@ -151,6 +151,7 @@ class WithdrawCoins extends Component {
       tdstyle: {
         color: 'black',
         paddingBottom: '11px',
+        width:'140px'
       },
       blaheading: {
         fontSize: '19px',
@@ -250,23 +251,20 @@ class WithdrawCoins extends Component {
               <tbody>
                 <tr>
                   <td style={styles.tdstyle}>Total Balance</td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <td style={styles.tdstyle}>0.00000000</td>
                 </tr>
                 <tr>
                   <td style={styles.tdstyle}>In Order</td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <td style={styles.tdstyle}>0.00000000</td>
                 </tr>
                 <tr>
                   <td style={styles.tdstyle}>Available Balance</td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <td style={styles.tdstyle}>0.00000000</td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
+        </div> 
 
         <div className="row account_detail withdrawalcontainer">
           <div className="col-md-12 balance_container">
