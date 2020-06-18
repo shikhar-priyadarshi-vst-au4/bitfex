@@ -1,10 +1,14 @@
-import Account from './Account/Account';
-import Affiliate from './Affiliate/Affiliate';
-import ApiSecret from './Api-Secret/ApiSecret';
-import Security from './Security/Security';
+import Account from './Account-Preferences/Account/Account';
+import Affiliate from './Account-Preferences/Affiliate/Affiliate';
+import ApiSecret from './Account-Preferences/Api-Secret/ApiSecret';
+import Security from './Account-Preferences/Security/Security';
 import Balances from './Exchange-Wallet/Balances/Balances';
 import Deposit from './Exchange-Wallet/Deposit/Deposit';
 import Withdraw from './Exchange-Wallet/Withdraw/Withdraw';
+import DepositCoins from './Exchange-Wallet/Deposit/DepositCoins';
+import WithdrawCoins from './Exchange-Wallet/Withdraw/WithdrawCoins';
+import FuturesTransfer from './Futures-Wallet/Transfer/FuturesTransfer';
+import OptionTransfer from './Options-Wallet/Transfer/OptionTransfer';
 
 const dashboardRoutes = [
   {
@@ -15,6 +19,20 @@ const dashboardRoutes = [
     layout: '/dashboard',
   },
   {
+    path: '/deposits/BTC',
+    name: 'BTC',
+    heading: 'BTC Details',
+    component: DepositCoins,
+    layout: '/dashboard',
+  },
+  {
+    path: '/deposits/USDT',
+    name: 'USDT',
+    heading: 'USDT Details',
+    component: DepositCoins,
+    layout: '/dashboard',
+  },
+  {
     path: '/deposits',
     name: 'Deposit',
     heading: 'Deposit',
@@ -22,9 +40,23 @@ const dashboardRoutes = [
     layout: '/dashboard',
   },
   {
+    path: '/withdraw/BTC',
+    name: 'BTC',
+    heading: 'BTC Details',
+    component: WithdrawCoins,
+    layout: '/dashboard',
+  },
+  {
+    path: '/withdraw/USDT',
+    name: 'USDT',
+    heading: 'USDT Details',
+    component: WithdrawCoins,
+    layout: '/dashboard',
+  },
+  {
     path: '/withdraw',
     name: 'Withdraw',
-    heading: 'Withdraw BTC',
+    heading: 'Withdraw',
     component: Withdraw,
     layout: '/dashboard',
   },
@@ -54,6 +86,20 @@ const dashboardRoutes = [
     name: 'Get Api Secret',
     heading: 'Api Credentials',
     component: ApiSecret,
+    layout: '/dashboard',
+  },
+  {
+    path: '/futures',
+    name: 'Futures Wallet',
+    heading: 'Futures',
+    component: FuturesTransfer,
+    layout: '/dashboard',
+  },
+  {
+    path: '/options',
+    name: 'Options Wallet',
+    heading: 'Options',
+    component: OptionTransfer,
     layout: '/dashboard',
   },
 ];

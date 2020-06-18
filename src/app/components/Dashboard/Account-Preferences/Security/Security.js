@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import GoogleAuth from '../../../../assets/img/cromeimg.png';
-import GoogleAuthSVG from '../../../../assets/img/._google-authenticator.svg';
+import cromeimg from '../../../../../assets/img/cromeimg.png';
+import GoogleAuthSVG from '../../../../../assets/img/._google-authenticator.svg';
 
 export class Security extends Component {
   render() {
@@ -52,8 +52,9 @@ export class Security extends Component {
               <div className="col-md-6 google_container">
                 <div className="row googleauth_container">
                   <div className="col-md-8 google_auth">
-                    <div className="auth_text">
-                      <img src="images/cromeimg.png" className="crome_image" />
+                    <div classNme="auth_text">
+                      {/* <img src="images/cromeimg.png" className="crome_image" /> */}
+                      <img src={cromeimg} className="crome_image" />
                       <h3>Google Auth (2FA)</h3>
                     </div>
                   </div>

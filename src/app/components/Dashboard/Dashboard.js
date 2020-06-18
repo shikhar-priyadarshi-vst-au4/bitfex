@@ -18,7 +18,12 @@ const switchRoutes = (
           <Route
             path={prop.layout + prop.path}
             render={(props) => (
-              <prop.component {...props} {...prop} {...userInfo} />
+              <prop.component
+                {...props}
+                {...prop}
+                routes={routes}
+                {...userInfo}
+              />
             )}
             key={key}
           />
@@ -37,7 +42,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    // console.log(switchRoutes);
     return (
       <div className="dashboard_body">
         <Header />

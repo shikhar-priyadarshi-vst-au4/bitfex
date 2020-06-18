@@ -2059,7 +2059,7 @@ span.nav-link-text {
 }
 .account_menu {
   height: 100% !important;
-  min-height: 400px!important;
+  min-height: 400px !important;
 }
 .sidebar_container {
   padding-right: 12px !important;
@@ -2074,29 +2074,32 @@ span.nav-link-text {
   font-size: 28px;
   margin: 0 0 8px 0px;
 }
-.dashboard_maincontainer{
-  padding-top: 70px!important;
+.dashboard_maincontainer {
+  padding-top: 70px !important;
 }
-nav.navbar.navbar-default.main-navbar.dashboard_header{
-  position: fixed!important;
-  z-index: 9999!important;
-  width: 100%!important;
+nav.navbar.navbar-default.main-navbar.dashboard_header {
+  position: fixed !important;
+  z-index: 9999 !important;
+  width: 100% !important;
 }
-.account_detail{
-  margin-bottom: 20px!important;
+.account_detail {
+  margin-bottom: 20px !important;
 }
-.values h2{
-  color: #000!important;
+.powered-by a {
+  color: #fff !important;
 }
-.values p{
-  font-size: 16px;
-  color: #000!important;
-}
-.powered-by a{
-  color: #fff!important;
-}
-.user_logout{
+.user_logout {
   cursor: pointer;
+}
+.google_auth h3{
+  margin-top: 20px !important;
+}
+.enable_button button {
+  margin-top: 8px !important;
+}
+ul.sidebarlist.show.collapse {
+  /* height: inherit !important; */
+  z-index: -1;
 }
 /* Media Queries */
 
