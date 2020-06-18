@@ -17,14 +17,13 @@ class DepositCoins extends Component {
       usdtQrcode: '332NovkjmCGDiN4iD7QzsQjQb81LXvXznv',
       copied: false,
     };
-    this.onChange = this.onChange.bind(this);
   }
 
-  onChange = (e) => {
+  setLoction = (e) => {
     this.props.history.push(`${e.value}`);
   };
 
-  onCopy = () => {
+  copyToClipboard = () => {
     this.hideCopyMessage();
     this.setState({copied: true});
   };
@@ -122,7 +121,7 @@ class DepositCoins extends Component {
       tdstyle: {
         color: 'black',
         paddingBottom: '11px',
-        width:'140px'
+        width: '140px',
       },
       blaheading: {
         fontSize: '19px',
@@ -157,7 +156,7 @@ class DepositCoins extends Component {
                       ? options[0]
                       : null
                   }
-                  onChange={this.onChange}
+                  onChange={this.setLoction}
                 />
               </div>
             </div>
@@ -187,7 +186,7 @@ class DepositCoins extends Component {
                       : null}
                     &nbsp;&nbsp;
                     <CopyToClipboard
-                      onCopy={this.onCopy}
+                      onCopy={this.copyToClipboard}
                       text={
                         location.pathname === USDT
                           ? this.state.usdtQrcode

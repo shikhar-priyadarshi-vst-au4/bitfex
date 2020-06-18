@@ -9,11 +9,9 @@ export class Withdraw extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-
-    this.onChange = this.onChange.bind(this);
   }
 
-  onChange = (e) => {
+  setLoction = (e) => {
     this.props.history.push(`${e.value}`);
   };
 
@@ -99,7 +97,7 @@ export class Withdraw extends Component {
           </div>
           <div className="row dropdown">
             <div className="col-md-6" style={styles.select}>
-              <Select options={options} onChange={this.onChange} />
+              <Select options={options} onChange={this.setLoction} />
             </div>
             <div className="col-md-6" />
           </div>

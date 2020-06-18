@@ -6,29 +6,58 @@ import {
   faUser,
   faHistory,
   faAngleDoubleUp,
-  faLineChart,
 } from '@fortawesome/free-solid-svg-icons';
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: true,
+      Exchangewallet: true,
+      AccPrefences: true,
+      FuturesWallet: true,
+      OptionsWallet: true,
+      History: true,
     };
-
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-    const currentState = this.state.active;
+  ExchangewalletClick = () => {
+    const currentState = this.state.Exchangewallet;
     this.setState({
-      active: !currentState,
+      Exchangewallet: !currentState,
     });
-  }
+  };
+
+  accPrefencesClick = () => {
+    const currentState = this.state.AccPrefences;
+    this.setState({
+      AccPrefences: !currentState,
+    });
+  };
+
+  FuturesWalletClick = () => {
+    const currentState = this.state.FuturesWallet;
+    this.setState({
+      FuturesWallet: !currentState,
+    });
+  };
+
+  OptionsWalletClick = () => {
+    const currentState = this.state.OptionsWallet;
+    this.setState({
+      OptionsWallet: !currentState,
+    });
+  };
+
+  HistoryClick = () => {
+    const currentState = this.state.History;
+    this.setState({
+      History: !currentState,
+    });
+  };
 
   render() {
     const {color, routes} = this.props;
-    const show = this.state.active ? 'show' : '';
+    // const show = this.state.active ? 'show' : '';
     return (
       <div className="account_menu">
         <ul className="nav navbar-nav sidebar_nav">
@@ -38,6 +67,9 @@ class Sidebar extends Component {
               data-toggle="collapse"
               data-target="#walletsidebar"
               aria-expanded="true"
+              role="button"
+              id="1"
+              onClick={this.ExchangewalletClick}
             >
               <FontAwesomeIcon
                 icon={faWallet}
@@ -45,7 +77,13 @@ class Sidebar extends Component {
                 style={{width: '1.875em'}}
               />
               <span className="nav-link-text"> Exchange Wallet</span>
-              <i className="fa fa-chevron-down down" />
+              <i
+                className={
+                  this.state.Exchangewallet
+                    ? 'fa fa-chevron-down down'
+                    : 'fa fa-chevron-right down'
+                }
+              />
             </a>
             <ul
               id="walletsidebar"
@@ -87,6 +125,9 @@ class Sidebar extends Component {
               data-toggle="collapse"
               data-target="#futuresidebar"
               aria-expanded="true"
+              role="button"
+              id="2"
+              onClick={this.FuturesWalletClick}
             >
               <FontAwesomeIcon
                 icon={faAngleDoubleUp}
@@ -94,7 +135,13 @@ class Sidebar extends Component {
                 style={{width: '1.875em'}}
               />
               <span className="nav-link-text">Futures Wallet</span>
-              <i className="fa fa-chevron-down down" />
+              <i
+                className={
+                  this.state.FuturesWallet
+                    ? 'fa fa-chevron-down down'
+                    : 'fa fa-chevron-right down'
+                }
+              />
             </a>
             <ul
               id="futuresidebar"
@@ -117,10 +164,19 @@ class Sidebar extends Component {
               data-toggle="collapse"
               data-target="#optionssidebar"
               aria-expanded="true"
+              role="button"
+              id="3"
+              onClick={this.OptionsWalletClick}
             >
               <i className="fa fa-line-chart" style={{width: '1.875em'}}></i>
               <span className="nav-link-text">Options Wallet</span>
-              <i className="fa fa-chevron-down down" />
+              <i
+                className={
+                  this.state.OptionsWallet
+                    ? 'fa fa-chevron-down down'
+                    : 'fa fa-chevron-right down'
+                }
+              />
             </a>
             <ul
               id="optionssidebar"
@@ -135,7 +191,7 @@ class Sidebar extends Component {
                   {routes[12].name}
                 </NavLink>
               </li>
-            </ul> 
+            </ul>
           </li>
           <li className="nav-item subdrop sidedropdown">
             <a
@@ -144,7 +200,8 @@ class Sidebar extends Component {
               data-target="#accountsidebar"
               aria-expanded="true"
               role="button"
-              onClick={this.handleClick}
+              id="4"
+              onClick={this.accPrefencesClick}
             >
               <FontAwesomeIcon
                 icon={faUser}
@@ -154,11 +211,10 @@ class Sidebar extends Component {
               <span className="nav-link-text">Account &amp; Preferences</span>
               <i
                 className={
-                  this.state.active
+                  this.state.AccPrefences
                     ? 'fa fa-chevron-down down'
                     : 'fa fa-chevron-right down'
                 }
-                onClick={this.handleClick}
                 aria-hidden="true"
               />
             </a>
@@ -216,6 +272,9 @@ class Sidebar extends Component {
               data-toggle="collapse"
               data-target="#historysidebar"
               aria-expanded="true"
+              role="button"
+              id="5"
+              onClick={this.HistoryClick}
             >
               <FontAwesomeIcon
                 icon={faHistory}
@@ -223,7 +282,13 @@ class Sidebar extends Component {
                 style={{width: '1.875em'}}
               />
               <span className="nav-link-text">History</span>
-              <i className="fa fa-chevron-down down" />
+              <i
+                className={
+                  this.state.History
+                    ? 'fa fa-chevron-down down'
+                    : 'fa fa-chevron-right down'
+                }
+              />
             </a>
             <ul
               id="historysidebar"

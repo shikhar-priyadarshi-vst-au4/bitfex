@@ -6,19 +6,7 @@ import Bitcoin from '../../../../../assets/img/bitcoin.png';
 import Tether from '../../../../../assets/img/tetherUs.png';
 
 export class Deposit extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: 'BTC'};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  onChange = (e) => {
+  setLoction = (e) => {
     this.props.history.push(`${e.value}`);
   };
 
@@ -105,7 +93,7 @@ export class Deposit extends Component {
           </div>
           <div className="row dropdown">
             <div className="col-md-6" style={styles.select}>
-              <Select options={options} onChange={this.onChange} />
+              <Select options={options} onChange={this.setLoction} />
             </div>
             <div className="col-md-6" />
           </div>

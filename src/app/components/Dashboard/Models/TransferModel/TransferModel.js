@@ -16,8 +16,6 @@ export class TransferModel extends Component {
       funds: '',
       balance: '0.00000000',
     };
-    this.getCurrencyType = this.getCurrencyType.bind(this);
-    this.amntTransfer = this.amntTransfer.bind(this);
   }
 
   getCurrInstrument = () => this.props.instruments.currentInstrument;

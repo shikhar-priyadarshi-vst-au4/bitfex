@@ -14,9 +14,6 @@ export class FuturesTransfer extends Component {
       btnSecondTitle: 'Add from Exchange Wallet',
       id: '',
     };
-
-    this.showTransferBalanceModal = this.showTransferBalanceModal.bind(this);
-    this.hideTransferBalanceModal = this.hideTransferBalanceModal.bind(this);
   }
 
   showTransferBalanceModal = (e) => {

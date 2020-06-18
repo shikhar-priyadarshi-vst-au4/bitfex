@@ -10,12 +10,9 @@ class WithdrawCoins extends Component {
     super(props);
 
     this.state = {funds: '', balance: '0.00000000', minthdrawal: ''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.onChange = this.onChange.bind(this);
   }
 
-  handleChange = (e) => {
+  getAmountChange = (e) => {
     const {balance, minthdrawal} = this.state;
     if (balance < e.target.value) {
       this.setState({funds: 'Insufficient funds'});
@@ -26,7 +23,7 @@ class WithdrawCoins extends Component {
     }
   };
 
-  onChange = (e) => {
+  setLoction = (e) => {
     this.props.history.push(`${e.value}`);
   };
 
@@ -113,6 +110,8 @@ class WithdrawCoins extends Component {
         border: 'none',
         borderRadius: '3px',
         outline: 'none',
+        backgroundColor: 'white',
+        padding: '7px',
       },
       amountdiv: {
         marginBottom: '20px',
@@ -151,7 +150,7 @@ class WithdrawCoins extends Component {
       tdstyle: {
         color: 'black',
         paddingBottom: '11px',
-        width:'140px'
+        width: '140px',
       },
       blaheading: {
         fontSize: '19px',
@@ -186,7 +185,7 @@ class WithdrawCoins extends Component {
                       ? options[0]
                       : null
                   }
-                  onChange={this.onChange}
+                  onChange={this.setLoction}
                 />
               </div>
             </div>
@@ -205,7 +204,7 @@ class WithdrawCoins extends Component {
                   type="text"
                   placeholder="Amount"
                   style={styles.amountInput}
-                  onChange={this.handleChange}
+                  onChange={this.getAmountChange}
                 />
               </div>
               <div className="col-md-4">
@@ -264,7 +263,7 @@ class WithdrawCoins extends Component {
               </tbody>
             </table>
           </div>
-        </div> 
+        </div>
 
         <div className="row account_detail withdrawalcontainer">
           <div className="col-md-12 balance_container">

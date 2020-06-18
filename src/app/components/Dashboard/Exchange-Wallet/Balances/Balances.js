@@ -86,7 +86,7 @@ export class Balances extends Component {
                             Withdraw
                           </button>
                         </Link>
-                        &nbsp;
+                        {/* &nbsp;
                         <Link to="">
                           <button
                             type="button"
@@ -95,7 +95,7 @@ export class Balances extends Component {
                           >
                             Trade
                           </button>
-                        </Link>
+                        </Link> */}
                       </td>
                     </tr>
                     <tr>
@@ -130,7 +130,7 @@ export class Balances extends Component {
                             Withdraw
                           </button>
                         </Link>
-                        &nbsp;
+                        {/* &nbsp;
                         <Link to="">
                           <button
                             type="button"
@@ -139,7 +139,7 @@ export class Balances extends Component {
                           >
                             Trade
                           </button>
-                        </Link>
+                        </Link> */}
                       </td>
                     </tr>
                   </tbody>
