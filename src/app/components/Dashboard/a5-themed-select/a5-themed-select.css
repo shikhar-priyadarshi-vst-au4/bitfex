@@ -1,0 +1,78 @@
+ul {
+  list-style: none;
+}
+.a5-select-container {
+  position: relative;
+}
+
+.a5-select-input {
+  display: flex;
+  background-color: var(--base9);
+  /* border-bottom: 1px solid var(--gold-button-dark); */
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 0.5rem;
+}
+
+.drop-down-arrow::after {
+  content: "";
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 1rem;
+  transform: rotate(45deg);
+  border-right: 2px solid var(--yellow-text);
+  border-bottom: 2px solid var(--yellow-text);
+  cursor: pointer;
+}
+
+.pull-up-arrow::after {
+  content: "";
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 1rem;
+  transform: rotate(225deg);
+  border-right: 2px solid var(--yellow-text);
+  border-bottom: 2px solid var(--yellow-text);
+  cursor: pointer;
+}
+
+.a5-select-input input {
+  color: var(--yellow-text);
+  outline: none;
+  border: none;
+  width: 100%;
+  background-color: var(--light-dark-background);
+}
+
+.a5-select-input input::-webkit-input-placeholder {
+  color: var(--yellow-text);
+}
+
+.a5-select-list {
+  position: absolute;
+  width: 100%;
+  position: absolute;
+  width: 100%;
+  border: 1px solid var(--yellow-tone-light);
+  background-color: var(--dark-background);
+  z-index: 100;
+}
+
+.a5-select-list li {
+  background-color: var(--dark-background);
+  padding: 1rem;
+  position: relative;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.a5-select-list li:hover {
+  background: var(--yellow-gradient);
+}
+
+#transfer-modal-balance {
+  margin-top: 8rem;
+}
