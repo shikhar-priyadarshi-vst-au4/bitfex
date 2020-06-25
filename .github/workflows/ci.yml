@@ -6,7 +6,7 @@ on:
 jobs:
   build-development-image:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/development'
+    if: github.ref == 'refs/heads/dev'
     steps:
       - uses: actions/checkout@v2
       - uses: aws-actions/configure-aws-credentials@v1
@@ -29,7 +29,7 @@ jobs:
   deploy-development:
     runs-on: ubuntu-latest
     needs: build-development-image
-    if: github.ref == 'refs/heads/development'
+    if: github.ref == 'refs/heads/dev'
     steps:
       - name: "Update deployment image"
         uses: Eyevinn/action-eks-kubectl@master
