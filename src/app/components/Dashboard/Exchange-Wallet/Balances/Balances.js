@@ -1,12 +1,28 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faInr, faHistory} from '@fortawesome/free-solid-svg-icons';
 import './Balances.css';
 import Bitcoin from '../../../../../assets/img/bitcoin.png';
 import Tether from '../../../../../assets/img/tetherUs.png';
 
-export class Balances extends Component {
+class Balances extends Component {
+  componentDidMount() {
+    // this.props.setCurrentUser();
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push('/login');
+      document.title = 'Bitfex';
+    }
+  }
+
   render() {
     const {heading, routes} = this.props;
 
@@ -153,4 +169,12 @@ export class Balances extends Component {
   }
 }
 
-export default Balances;
+Balances.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(Balances);

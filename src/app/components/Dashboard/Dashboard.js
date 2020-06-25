@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-// import PropTypes from 'prop-types';
 import {Switch, Route, Redirect} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+// import PrivateRoute from '../../common/PrivateRoute';
+import {getCurrentProfile} from '../../redux/actions/profileActions';
 import Sidebar from './Sidebar/Sidebar';
-// import Header from '../Header/index';
 import Header from './Header/index';
 import Footer from '../Footer/index';
 import routes from './routes';
@@ -41,7 +43,31 @@ class Dashboard extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.getCurrentProfile();
+
+    if (this.props.auth.isAuthenticated) {
+      document.title = this.props.auth.user.email;
+    } else if (this.props.auth.user.email === null) {
+      document.title = 'Bitfex';
+    }
+
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push('/login');
+      document.title = 'Bitfex';
+    }
+  }
+
   render() {
+    // console.log(this.props.profile.profile);
+    console.log(this.props);
+
     return (
       <div className="dashboard_body">
         <Header />
@@ -59,4 +85,15 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, {getCurrentProfile})(Dashboard);

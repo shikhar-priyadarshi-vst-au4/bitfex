@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
-
-import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {Link, withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import './Bfx.css';
 import CoinGecko from '../../../assets/img/CoinGecko.png';
 import coinmarketcap from '../../../assets/img/coinmarketcap.png';
 
 class Bfx extends Component {
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard/account');
+    }
+  }
+
   render() {
     return (
       <div>
@@ -284,4 +291,12 @@ class Bfx extends Component {
   }
 }
 
-export default Bfx;
+Bfx.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(withRouter(Bfx));

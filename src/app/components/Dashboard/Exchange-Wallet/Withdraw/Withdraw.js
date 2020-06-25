@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Select from 'react-select';
 import './Withdraw.css';
 import Bitcoin from '../../../../../assets/img/bitcoin.png';
@@ -9,6 +11,20 @@ export class Withdraw extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentDidMount() {
+    // this.props.setCurrentUser();
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push('/login');
+      document.title = 'Bitfex';
+    }
   }
 
   setLoction = (e) => {
@@ -153,4 +169,12 @@ export class Withdraw extends Component {
   }
 }
 
-export default Withdraw;
+Withdraw.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(Withdraw);

@@ -1,11 +1,27 @@
 import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Select from 'react-select';
 import './Deposit.css';
 import Bitcoin from '../../../../../assets/img/bitcoin.png';
 import Tether from '../../../../../assets/img/tetherUs.png';
 
 export class Deposit extends Component {
+  componentDidMount() {
+    // this.props.setCurrentUser();
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push('/login');
+      document.title = 'Bitfex';
+    }
+  }
+
   setLoction = (e) => {
     this.props.history.push(`${e.value}`);
   };
@@ -147,4 +163,12 @@ export class Deposit extends Component {
   }
 }
 
-export default withRouter(Deposit);
+Deposit.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(withRouter(Deposit));

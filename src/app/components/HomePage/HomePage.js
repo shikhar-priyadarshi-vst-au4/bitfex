@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {Link, withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import './HomePage.css';
 import Perpetual from '../../../assets/img/Perpetual.svg';
 import Futures from '../../../assets/img/Futures.svg';
@@ -10,6 +12,12 @@ import Best from '../../../assets/img/Best-Security.svg';
 import Intuitive from '../../../assets/img/Intuitive-Interface.svg';
 
 class HomePage extends Component {
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard/account');
+    }
+  }
+
   render() {
     return (
       <div>
@@ -290,4 +298,12 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+HomePage.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(withRouter(HomePage));

@@ -1,6 +1,25 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 export class ApiSecret extends Component {
+  componentDidMount() {
+    // this.props.setCurrentUser();
+    // if (this.props.auth.isAuthenticated) {
+    //   document.title = this.props.auth.user.email;
+    // }
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push('/login');
+      document.title = 'Bitfex';
+    }
+  }
+
   render() {
     const Profile = this.props.heading;
     return (
@@ -24,4 +43,12 @@ export class ApiSecret extends Component {
   }
 }
 
-export default ApiSecret;
+ApiSecret.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(ApiSecret);

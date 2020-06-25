@@ -1,7 +1,16 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {Link, withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Bitfex_log from '../../../assets/img/bitfex-logo-dark.svg';
-export class ResetPassword extends Component {
+
+class ResetPassword extends Component {
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard/account');
+    }
+  }
+
   render() {
     return (
       <div className="wrapper">
@@ -103,4 +112,12 @@ export class ResetPassword extends Component {
   }
 }
 
-export default ResetPassword;
+ResetPassword.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(withRouter(ResetPassword));

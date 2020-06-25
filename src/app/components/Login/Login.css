@@ -1,0 +1,13 @@
+.auth-error {
+    background: #c74a4a;
+    width: auto;
+    color: #fff;
+    box-sizing: border-box;
+    font-size: 15px;
+    padding: 12px!important;
+    margin: 0 0 15px!important;
+    border-radius: 3px;
+    position: relative;
+    text-align: center;
+    display: block;
+}

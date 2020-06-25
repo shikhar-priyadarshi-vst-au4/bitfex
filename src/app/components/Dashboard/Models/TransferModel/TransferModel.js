@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Modal, Button} from 'react-bootstrap';
 import Select from 'react-select';
 import Bitcoin from '../../../../../assets/img/bitcoin.png';
@@ -16,6 +18,20 @@ export class TransferModel extends Component {
       funds: '',
       balance: '0.00000000',
     };
+  }
+
+  componentDidMount() {
+    // this.props.setCurrentUser();
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push('/login');
+      document.title = 'Bitfex';
+    }
   }
 
   getCurrInstrument = () => this.props.instruments.currentInstrument;
@@ -247,4 +263,12 @@ export class TransferModel extends Component {
   }
 }
 
-export default TransferModel;
+TransferModel.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(TransferModel);

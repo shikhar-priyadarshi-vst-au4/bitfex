@@ -1,10 +1,24 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {logoutUser} from '../../../redux/actions/authActions';
+import {
+  clearCurrentProfile,
+  getCurrentProfile,
+} from '../../../redux/actions/profileActions';
 import './Header.css';
 import Bitfixlogo from '../../../../assets/img/Bitfex-logo.svg';
 
 class Header extends Component {
+  Logout = (e) => {
+    e.preventDefault();
+    this.props.clearCurrentProfile();
+    this.props.logoutUser();
+  };
+
   render() {
+    // console.log(this.props.auth.user.email);
     return (
       <nav className="navbar navbar-default main-navbar dashboard_header">
         <div className="container-fluid nopadd">
@@ -42,29 +56,6 @@ class Header extends Component {
                 </a>
               </li>
             </ul>
-            {/* <ul className="nav navbar-nav navbar-right right_list">
-              <li className="dropdown">
-                <a
-                  className="dropdown-toggle"
-                  data-toggle="dropdown"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i className="fa fa-user-circle" />
-                </a>
-                <ul className="dropdown-menu right_logout">
-                  <p className="user_email">anil.kumar@stigasoft.com</p>
-                  <p className="user_logout">
-                    <a href="#">
-                      <i className="fa fa-sign-out-alt" />
-                      Log Out
-                    </a>
-                  </p>
-                  <div></div>
-                </ul>
-              </li>
-            </ul> */}
 
             <ul className="nav navbar-nav navbar-right right_list">
               <li className="dropdown">
@@ -77,9 +68,9 @@ class Header extends Component {
                   <i className="fa fa-user-circle"></i>
                 </a>
                 <ul className=" right_logout">
-                  <p className="user_email">anil.kumar@stigasoft.com</p>
+                  <p className="user_email">{this.props.auth.user.email}</p>
                   <p className="user_logout">
-                    <a className="#">
+                    <a className="#" onClick={this.Logout}>
                       <i className="fa fa-sign-out"></i>Log Out
                     </a>
                   </p>
@@ -93,4 +84,19 @@ class Header extends Component {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  clearCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, {
+  logoutUser,
+  clearCurrentProfile,
+})(Header);

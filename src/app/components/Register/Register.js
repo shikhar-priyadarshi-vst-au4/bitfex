@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {Link, withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import './Register.css';
 export class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {value: 'country'};
+  }
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard/account');
+    }
   }
 
   render() {
@@ -220,4 +228,12 @@ export class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(withRouter(Register));

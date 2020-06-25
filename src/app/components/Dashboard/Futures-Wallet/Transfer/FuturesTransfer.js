@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Button} from 'react-bootstrap';
 import Bitcoin from '../../../../../assets/img/bitcoin.png';
 import Tether from '../../../../../assets/img/tetherUs.png';
@@ -14,6 +16,20 @@ export class FuturesTransfer extends Component {
       btnSecondTitle: 'Add from Exchange Wallet',
       id: '',
     };
+  }
+
+  componentDidMount() {
+    // this.props.setCurrentUser();
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push('/login');
+      document.title = 'Bitfex';
+    }
   }
 
   showTransferBalanceModal = (e) => {
@@ -141,4 +157,12 @@ export class FuturesTransfer extends Component {
   }
 }
 
-export default FuturesTransfer;
+FuturesTransfer.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(FuturesTransfer);

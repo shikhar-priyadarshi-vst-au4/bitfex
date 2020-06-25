@@ -1,8 +1,27 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import cromeimg from '../../../../../assets/img/cromeimg.png';
 import GoogleAuthSVG from '../../../../../assets/img/._google-authenticator.svg';
 
 export class Security extends Component {
+  componentDidMount() {
+    // this.props.setCurrentUser();
+    // if (this.props.auth.isAuthenticated) {
+    //   document.title = this.props.auth.user.email;
+    // }
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push('/login');
+      document.title = 'Bitfex';
+    }
+  }
+
   render() {
     const Profile = this.props.heading;
     return (
@@ -52,7 +71,7 @@ export class Security extends Component {
               <div className="col-md-6 google_container">
                 <div className="row googleauth_container">
                   <div className="col-md-8 google_auth">
-                    <div classNme="auth_text">
+                    <div className="auth_text">
                       {/* <img src="images/cromeimg.png" className="crome_image" /> */}
                       <img src={cromeimg} className="crome_image" />
                       <h3>Google Auth (2FA)</h3>
@@ -71,4 +90,12 @@ export class Security extends Component {
   }
 }
 
-export default Security;
+Security.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(Security);
