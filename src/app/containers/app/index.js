@@ -17,23 +17,23 @@ import ForgotPasswordContent from '../ForgotPassContent/ForgotPasswordContent';
 import ResetPassContent from '../ResetPasswordContent/ResetPassContent';
 import Dashboard from '../../components/Dashboard/Dashboard';
 
-// Check for token
-if (localStorage.token) {
-  // Set auth token header auth
-  setAuthToken(localStorage.token);
-  // Decode token and get user info and expo
-  const decoded = jwt_decode(localStorage.token);
-  // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
-  // Check for expired token
-  const Cureenttime = Date.now() / 1000;
-  if (decoded.exp < Cureenttime) {
-    // Logout user
-    store.dispatch(logoutUser());
-    // Redirect to login
-    window.location.href = '/login';
-  }
-}
+// // Check for token
+// if (localStorage.token) {
+//   // Set auth token header auth
+//   setAuthToken(localStorage.token);
+//   // Decode token and get user info and expo
+//   const decoded = jwt_decode(localStorage.token);
+//   // Set user and isAuthenticated
+//   store.dispatch(setCurrentUser(decoded));
+//   // Check for expired token
+//   const Cureenttime = Date.now() / 1000;
+//   if (decoded.exp < Cureenttime) {
+//     // Logout user
+//     store.dispatch(logoutUser());
+//     // Redirect to login
+//     window.location.href = '/login';
+//   }
+// }
 
 class App extends Component {
   render() {
