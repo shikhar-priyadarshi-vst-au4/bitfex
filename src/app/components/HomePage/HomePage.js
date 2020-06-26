@@ -33,9 +33,9 @@ class HomePage extends Component {
               </h1>
               <p>Trade Perpetual, Futures and Exchange-quoted Spreads</p>
               <div className="view-exchange-btn">
-                <Link to="/login" target="_blank">
-                  Trade
-                </Link>
+              <a href="/trade">
+                Trade
+              </a>
               </div>
             </div>
             <div className="banner-right">
