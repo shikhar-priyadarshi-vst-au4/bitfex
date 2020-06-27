@@ -24,12 +24,16 @@ class index extends Component {
     this.setState({sidebarToggle});
   };
 
+  goToHome = () => {
+    this.props.history.push('/');
+  };
+
   render() {
     return (
       <>
         <>
           <header className="header d-flex align-items-center w-100">
-            <div className="logo ml-5">
+            <div onClick={this.goToHome} className="logo ml-5">
               <img src={A5Logo} alt="Alpha5" />
             </div>
             <div

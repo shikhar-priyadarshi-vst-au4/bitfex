@@ -18,6 +18,7 @@ export class FuturesTransfer extends Component {
   };
 
   showTransferBalanceModal = (to, from) => {
+    console.log(this.walletsObj[to], this.walletsObj[from]);
     this.setState({
       isTransferBalModalVisible: true,
       toWallet: this.walletsObj[to],
@@ -35,23 +36,16 @@ export class FuturesTransfer extends Component {
         <div className="containment">
           <div className="balances pb-5">
             <h3>Futures Wallet</h3>
+            <hr />
             <div className="left-sided">
               <div className="d-flex justify-content-start">
-                <button
-                  onClick={() => {
-                    this.showTransferBalanceModal('futures', 'options');
-                  }}
-                  className="a5-button-primary transfer-balance mr-1"
-                >
-                  Transfer
-                </button>
                 <button
                   onClick={() => {
                     this.showTransferBalanceModal('exchange', 'futures');
                   }}
                   className="a5-button-primary transfer-balance"
                 >
-                  Add From Exchange Wallet
+                  Transfer
                 </button>
               </div>
             </div>

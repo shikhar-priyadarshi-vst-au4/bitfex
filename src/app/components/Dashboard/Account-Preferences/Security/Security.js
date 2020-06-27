@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import cromeimg from '../../../../../assets/img/cromeimg.png';
-import GoogleAuthSVG from '../../../../../assets/img/._google-authenticator.svg';
 
 export class Security extends Component {
   constructor(props) {
@@ -19,6 +17,7 @@ export class Security extends Component {
         <div className="containment">
           <div className="balances">
             <h3>Change Login Password</h3>
+            <hr />
             <div className="centered">
               <div className="balances-form mt-2">
                 <div className="a5-form-field">

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {Switch, Route} from 'react-router-dom';
 import Sidebar from './Sidebar/Sidebar';
-// import Header from '../Header/index';
+import {connect} from 'react-redux';
+
 import Header from './Header/index';
 import routes from './routes';
 
@@ -40,12 +41,15 @@ class Dashboard extends Component {
   }
 
   componentDidMount = () => {
-    let sidebar = document.getElementById('main-sidebar');
-    sidebar.style.top = 85;
-    document.onscroll = () => {
-      sidebar.style.height = document.body.scrollHeight + 'px';
-    };
-    document.body.addEventListener('click', this.bodyClickListener);
+    this.adjustSideBarHeight();
+    if (this.props.auth.isAuthenticated) {
+      document.title = this.props.auth.user.email;
+    } else if (this.props.auth.user.email === null) {
+      document.title = 'ALPHA 5';
+    }
+    // if (!this.props.auth.isAuthenticated) {
+    //   this.props.history.push('/login');
+    // }
   };
 
   bodyClickListener = (e) => {
@@ -57,6 +61,15 @@ class Dashboard extends Component {
         });
       });
     }
+  };
+
+  adjustSideBarHeight = () => {
+    // let sidebar = document.getElementById('main-sidebar');
+    // sidebar.style.top = 85;
+    // document.onscroll = () => {
+    //   sidebar.style.height = document.body.scrollHeight + 'px';
+    // };
+    // document.body.addEventListener('click', this.bodyClickListener);
   };
 
   toggleSidebar = () => {
@@ -82,4 +95,15 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+  // getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, {})(Dashboard);

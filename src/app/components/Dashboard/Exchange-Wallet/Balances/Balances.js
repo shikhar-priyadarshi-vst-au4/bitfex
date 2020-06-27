@@ -17,8 +17,9 @@ export class Balances extends Component {
     return (
       <>
         <div className="containment">
-          <div className="balances pt-5">
+          <div className="balances">
             <h3>Balances</h3>
+            <hr />
             <div className="table-container contained deposits pb-3">
               <div className="table-header">
                 <h3>Balances</h3>

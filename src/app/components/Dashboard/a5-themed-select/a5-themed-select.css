@@ -11,23 +11,25 @@ ul {
   /* border-bottom: 1px solid var(--gold-button-dark); */
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  padding: 0.5rem;
 }
 
-.drop-down-arrow::after {
-  content: "";
+.a5-select-input::after {
+  content: ' ';
   display: block;
   width: 0.5rem;
   height: 0.5rem;
+  position: absolute;
   margin: 1rem;
   transform: rotate(45deg);
   border-right: 2px solid var(--yellow-text);
   border-bottom: 2px solid var(--yellow-text);
   cursor: pointer;
+  right: 5px;
+  padding: 0.1rem;
 }
 
 .pull-up-arrow::after {
-  content: "";
+  content: '';
   display: block;
   width: 0.5rem;
   height: 0.5rem;
@@ -51,22 +53,28 @@ ul {
 }
 
 .a5-select-list {
-  position: absolute;
   width: 100%;
   position: absolute;
   width: 100%;
   border: 1px solid var(--yellow-tone-light);
   background-color: var(--dark-background);
   z-index: 100;
+  transition: all 0.1s ease-in;
+  overflow: auto;
+}
+
+.a5-select-list::-webkit-scrollbar {
+  width: 0.5rem;
 }
 
 .a5-select-list li {
   background-color: var(--dark-background);
-  padding: 1rem;
+  padding: 0.5rem;
   position: relative;
   font-size: 1.2rem;
   cursor: pointer;
   z-index: 100;
+  text-align: left;
 }
 
 .a5-select-list li:hover {

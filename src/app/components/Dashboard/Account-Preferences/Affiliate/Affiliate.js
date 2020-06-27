@@ -8,6 +8,7 @@ export class Affiliate extends Component {
         <div className="containment">
           <div className="balances">
             <h3>Referral</h3>
+            <hr />
             <div className="centered">
               <div className="balance-notice mt-5">
                 <h3>Copy Referral</h3>

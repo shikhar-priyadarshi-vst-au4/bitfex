@@ -32,6 +32,7 @@ class Sidebar extends Component {
     )[0];
     if (
       activeRoute &&
+      activeRoute &&
       this.state.activeDashboard != activeRoute.activeDashboard
     ) {
       this.setState({activeDashboard: activeRoute.activeDashboard});
@@ -44,7 +45,10 @@ class Sidebar extends Component {
     let activeRoute = this.props.routes.filter(
       (el) => el.layout + el.path == this.props.location.pathname,
     )[0];
-    if (this.state.activeDashboard != activeRoute.activeDashboard) {
+    if (
+      this.state &&
+      this.state.activeDashboard != activeRoute.activeDashboard
+    ) {
       this.setState({activeDashboard: activeRoute.activeDashboard});
     }
   };
@@ -387,12 +391,12 @@ class Sidebar extends Component {
                 >
                   <li>
                     <a
-                      onClick={(e) => {
-                        this.handleRouteChanged(
-                          'Trade History',
-                          '/dashboard/tradeHistory',
-                        );
-                      }}
+                      // onClick={(e) => {
+                      //   this.handleRouteChanged(
+                      //     'Trade History',
+                      //     '/dashboard/tradeHistory',
+                      //   );
+                      // }}
                       className={
                         this.state.activeDashboard == 'Trade History'
                           ? 'selected'
@@ -404,12 +408,12 @@ class Sidebar extends Component {
                   </li>
                   <li>
                     <a
-                      onClick={(e) => {
-                        this.handleRouteChanged(
-                          'Order History',
-                          '/dashboard/orderHistory',
-                        );
-                      }}
+                      // onClick={(e) => {
+                      //   this.handleRouteChanged(
+                      //     'Order History',
+                      //     '/dashboard/orderHistory',
+                      //   );
+                      // }}
                       className={
                         this.state.activeDashboard == 'Order History'
                           ? 'selected'

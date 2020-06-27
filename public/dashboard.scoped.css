@@ -163,6 +163,11 @@ ul {
   transform: scaleX(1.5);
 }
 
+.balances > h3 + hr {
+  border-top: 1px solid;
+  margin-bottom: 5rem;
+}
+
 .balances > p.transfer {
   height: 3.5625rem;
 }
@@ -201,10 +206,9 @@ button.transfer-balance {
   padding: 0 1rem;
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
-  /* margin-right: 4.9375rem; */
-  /* margin-left: 26.125rem; */
   line-height: 1.5rem;
   letter-spacing: 0.2px;
+  min-width: 9rem;
 }
 
 .balances > div.centered {
@@ -218,11 +222,12 @@ button.transfer-balance {
 
 .show-total {
   background-color: var(--light-dark-background);
-  min-height: 9.5rem;
-  box-sizing: border-box;
-  width: calc(33% - 20px);
-  margin: 5px;
-  box-sizing: border-box;
+  padding: 1rem;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  min-width: 15rem;
+  align-items: center;
 }
 
 .show-total h4 {
@@ -230,6 +235,12 @@ button.transfer-balance {
   font-size: 2rem;
   line-height: 1.625rem;
   margin-bottom: 0;
+}
+
+.coin-holder-details {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
 }
 
 span.info img {
@@ -251,7 +262,10 @@ span.info img {
 
 .show-total .logo {
   width: 2.5rem;
-  margin-bottom: 1.2rem;
+  height: 2.5rem;
+  margin-bottom: auto;
+  margin-top: auto;
+  margin-right: 0.5rem;
 }
 
 .show-total .available-balance {
@@ -337,9 +351,9 @@ span.info img {
   outline: var(--yellow-tone-dark) solid 1px;
 }
 
-.a5-form-field .a5-select-container {
+/* .a5-form-field .a5-select-container {
   margin-left: 0.5rem;
-}
+} */
 
 .a5-form-field span.form-field-info {
   color: var(--back-ground-white);
@@ -433,7 +447,7 @@ span.info img {
 .qr-container .two-factor-code input {
   border: none 3.5px;
   background-color: var(--light-dark-background);
-  min-width: 16.5625rem;
+  min-width: 80%;
   min-height: 3.1rem;
   color: var(--white-text);
   padding: 0.5rem;
@@ -571,14 +585,7 @@ span.diamond {
 }
 
 .a5-table::-webkit-scrollbar {
-  margin-top: 1rem;
-  height: 3px;
-  background-color: var(--dark-tone-dark);
-  width: 2px;
-}
-
-.a5-table::-webkit-scrollbar-thumb {
-  background-color: var(--faded-text);
+  display: none;
 }
 
 .a5-table tr {
@@ -646,7 +653,7 @@ span.btc::after {
 
 .contained.table-container {
   width: 90%;
-  border: 1px solid var(--yellow-text);
+  border: 1px solid var(--dark);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -858,6 +865,10 @@ div.header-profile img {
   width: 2.2rem;
 }
 
+.header .logo {
+  cursor: pointer;
+}
+
 .header-rt-menu {
   display: none !important;
   position: absolute;
@@ -934,7 +945,7 @@ footer.footer-dashboard .footer-left {
   left: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 100;
+  z-index: 10100;
 }
 
 .modal-container {
@@ -982,7 +993,19 @@ footer.footer-dashboard .footer-left {
   color: var(--back-ground-white);
 }
 
+@media (max-width: 1440px) {
+  .qr-container .two-factor-code ul li {
+    font-size: 1.1rem;
+  }
+}
+
 @media (max-width: 1280px) {
+  .qr-left-sided {
+    flex-direction: column;
+  }
+  .currency-balance-details {
+    margin-left: unset;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -1107,6 +1130,16 @@ footer.footer-dashboard .footer-left {
   .a5-form-field span.form-field-info {
     margin-left: unset;
   }
+  .a5-table::-webkit-scrollbar {
+    margin-top: 1rem;
+    height: 3px;
+    background-color: var(--dark-tone-dark);
+    width: 2px;
+  }
+
+  .a5-table::-webkit-scrollbar-thumb {
+    background-color: var(--faded-text);
+  }
 }
 
 @media (min-width: 526px) and (max-width: 767px) {
@@ -1119,8 +1152,8 @@ footer.footer-dashboard .footer-left {
   .a5-form-field {
     margin-top: 2.75rem;
   }
-  .balances-list{
-    margin-left:3rem;
+  .balances-list {
+    margin-left: 3rem;
   }
 }
 

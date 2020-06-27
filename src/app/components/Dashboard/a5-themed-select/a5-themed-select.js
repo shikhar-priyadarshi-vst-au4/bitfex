@@ -98,28 +98,25 @@ class A5DBSelect extends Component {
       allowDisplay: false,
       displayList: this.props.itemList,
     });
+
     this.inputRef.current.value = item.symbol;
     this.inputRef.current.blur();
     this.props.onChange(item);
   };
 
   renderList = () => {
-    if (this.state.allowDisplay)
-      return this.state.displayList.map((item, ind) => (
-        <li
-          onMouseDown={(e) => {
-            e.preventDefault();
-            this.selectItem(item);
-          }}
-          key={ind}
-          className="a5-list-item"
-        >
-          {item.symbol}
-        </li>
-      ));
-    else {
-      return <></>;
-    }
+    return this.state.displayList.map((item, ind) => (
+      <li
+        onMouseDown={(e) => {
+          e.preventDefault();
+          this.selectItem(item);
+        }}
+        key={ind}
+        className="a5-list-item"
+      >
+        {item.symbol}
+      </li>
+    ));
   };
 
   render() {
@@ -138,14 +135,18 @@ class A5DBSelect extends Component {
               defaultValue={this.state.selectedValue}
               onKeyDown={this.handleNavKeys}
             />
-
-            <div onClick={this.toggleList} className="drop-down-arrow"></div>
           </div>
-          {this.state.allowDisplay ? (
-            <ul className="a5-select-list">{this.renderList()}</ul>
-          ) : (
-            <></>
-          )}
+
+          <ul
+            style={
+              this.state.allowDisplay
+                ? {height: this.state.displayList.length * 3 + 'rem'}
+                : {height: 0, border: 'none'}
+            }
+            className="a5-select-list"
+          >
+            {this.renderList()}
+          </ul>
         </div>
       </>
     );

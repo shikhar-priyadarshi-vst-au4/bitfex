@@ -36,23 +36,16 @@ export class OptionTransfer extends Component {
         <div className="containment">
           <div className="balances pb-5">
             <h3>Options Wallet</h3>
+            <hr />
             <div className="left-sided">
               <div className="d-flex justify-content-start">
-                <button
-                  onClick={() => {
-                    this.showTransferBalanceModal('options', 'futures');
-                  }}
-                  className="a5-button-primary transfer-balance mr-1"
-                >
-                  Transfer
-                </button>
                 <button
                   onClick={() => {
                     this.showTransferBalanceModal('exchange', 'options');
                   }}
                   className="a5-button-primary transfer-balance"
                 >
-                  Add From Exchange Wallet
+                  Transfer
                 </button>
               </div>
             </div>

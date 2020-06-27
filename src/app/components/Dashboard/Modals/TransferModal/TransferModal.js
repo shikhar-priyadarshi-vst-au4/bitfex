@@ -34,6 +34,7 @@ export class TransferModel extends Component {
   amountRef = React.createRef();
 
   componentDidMount = () => {
+    console.log(this.props);
     let currencyArrayForSelect = this.currencyKeys.map((key) => ({
       ...currencyOptions[key],
     }));
@@ -43,8 +44,12 @@ export class TransferModel extends Component {
     });
   };
 
+  componentDidUpdate = () => {
+    // console.log(this.state, this.props);
+  };
+
   componentWillReceiveProps = (newProps) => {
-    if (newProps.toWallet != this.props.toWallet) {
+    if (newProps.fromWallet != this.props.fromWallet) {
       this.setState({
         from_string: newProps.fromWallet,
         to_String: newProps.toWallet,
@@ -93,9 +98,9 @@ export class TransferModel extends Component {
 
   getErrorMsg = () => {
     return this.state.amountRequiredError ? (
-      <span className="form-field-error">Amount Required !</span>
+      <span className="transfer-form-field-error">Amount Required !</span>
     ) : this.state.insufficientFundError ? (
-      <span className="form-field-error">Insufficient Funds !</span>
+      <span className="transfer-form-field-error">Insufficient Funds !</span>
     ) : (
       <></>
     );
@@ -108,71 +113,73 @@ export class TransferModel extends Component {
     return this.props.show ? (
       <>
         <div onClick={this.curtainClick} className="curtain">
-          <div onClick={(e) => e.stopPropagation()} className="modal-container">
-            <div className="balances">
+          <div
+            className="box-modal"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <div className="box-modal-header">
               <h3>
-                Transfer{' '}
-                <span onClick={this.closeModal} className="rt-icons-balances">
+                Transfer
+                <span onClick={this.closeModal} className="close-modal">
                   X
                 </span>
               </h3>
-              <div className="container-fluid">
-                <div className="row">
-                  <div className="col-md-2"></div>
-                  <div className="col-md-6">
-                    <div className="transfer-bubble-holder d-flex justify-content-center align-items-center">
-                      <div className="bubble-container">
-                        <h3>From</h3>
-                        <div className="bubble">{this.state.from_string}</div>
-                      </div>
-                      <img
-                        onClick={() => this.swapWallets()}
-                        src="db-assets/transfer-icon.svg"
-                      />
-                      <div className="bubble-container">
-                        <h3>To</h3>
-                        <div className="bubble">{this.state.to_String}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-3"></div>
+            </div>
+            <div className="box-modal-body">
+              <div className="transfer-bubble-holder d-flex justify-content-center align-items-center">
+                <div className="bubble-container">
+                  <h3>From</h3>
+                  <div className="bubble">{this.state.from_string}</div>
+                </div>
+                <img
+                  onClick={this.swapWallets}
+                  src="db-assets/transfer-icon.svg"
+                />
+                <div className="bubble-container">
+                  <h3>To</h3>
+                  <div className="bubble">{this.state.to_String}</div>
                 </div>
               </div>
-              <div className="left-sided">
-                <div className="mb-6rem balances-form with-inline-info">
-                  <div className="a5-form-field">
-                    <label>Select Currency</label>
-                    <A5DBSelect
-                      defaultValue={slctdCurr}
-                      itemList={this.state.currencyArrayForSelect}
-                      placeholder={'Select...'}
-                      onChange={(item) => {
-                        this.handleCoinSelect(item);
-                      }}
-                    />
-                  </div>
-                  <div className="a5-form-field with-inline-info">
-                    <label>Amount</label>
-                    <input
-                      ref={this.amountRef}
-                      type="number"
-                      onInput={this.handleAmountInput}
-                      step={10 ** (slctdCurr.toFixed * -1)}
-                      min={0}
-                    />
-                    <span className="form-field-info">
-                      {slctdCurr
-                        ? this.getBalance().toFixed(slctdCurr.toFixed)
-                        : ''}{' '}
-                      {slctdCurr.symbol}
-                    </span>
-                    {this.getErrorMsg()}
-                  </div>
-                  <div className="a5-form-btn-grp">
-                    <button className="form-btn-yellow withdrawl-coin-send-button">
-                      Send
-                    </button>
-                  </div>
+              <div className="transfer-form">
+                <div className="transfer-form-field">
+                  <label>Select Asset</label>
+                  <A5DBSelect
+                    placeholder={'Select...'}
+                    itemList={this.state.currencyArrayForSelect}
+                    onChange={(item) => {
+                      this.handleCoinSelect(item);
+                    }}
+                    defaultValue={slctdCurr}
+                  />
+                </div>
+                <div className="transfer-form-field">
+                  <input
+                    placeholder={'Enter Amount'}
+                    className="value"
+                    onInput={this.handleAmountInput}
+                    type="number"
+                    ref={this.amountRef}
+                    step={slctdCurr ? 10 ** (-1 * slctdCurr.toFixed) : 1}
+                  />
+                  <input
+                    value={
+                      'Avl Bal ' + this.getBalance() + ' ' + slctdCurr.symbol
+                    }
+                    onClick={() => {
+                      this.amountRef.current.focus();
+                    }}
+                    className="info"
+                    type="text"
+                    readOnly
+                  />
+                  {this.getErrorMsg()}
+                </div>
+                <div className="transfer-center-button">
+                  <button className="form-btn-yellow send-button-modal">
+                    Send
+                  </button>
                 </div>
               </div>
             </div>

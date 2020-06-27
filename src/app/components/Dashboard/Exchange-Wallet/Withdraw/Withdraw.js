@@ -37,6 +37,7 @@ export class Withdraw extends Component {
         <div className="containment">
           <div className="balances">
             <h3>Withdraw</h3>
+            <hr />
             <div className="left-sided  d-flex flex-wrap">
               {/* map */}
               {this.currencyKeysArray.map((key, index) => {
@@ -45,10 +46,12 @@ export class Withdraw extends Component {
                   <div
                     onClick={() => this.handleSelect(currency)}
                     key={index}
-                    className="show-total coin-holder d-flex flex-column align-items-center justify-content-center"
+                    className="show-total coin-holder "
                   >
-                    <img className="logo" src={currency.imgSrc()} />
-                    <h4>{currency.fullName}</h4>
+                    <div className="coin-holder-details">
+                      <img className="logo" src={currency.imgSrc()} />
+                      <h4>{currency.fullName}</h4>
+                    </div>
                     <p className="available-balance">
                       <span>Avl</span>{' '}
                       {currency.availableBalanceExchange.toFixed(

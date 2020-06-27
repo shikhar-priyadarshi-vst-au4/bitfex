@@ -88,7 +88,7 @@ class DepositCoins extends Component {
       <>
         <div className="containment">
           <div className="balances">
-            <h3>{heading} </h3>
+            <h3> Deposit </h3>
             <div className="left-sided">
               <div className="a5-form-field mt-5">
                 <A5DBSelect
@@ -101,7 +101,7 @@ class DepositCoins extends Component {
                 />
               </div>
             </div>
-            <div className="left-sided d-flex">
+            <div className="left-sided qr-left-sided d-flex">
               <div className="qr-container mt-4 d-flex">
                 <QRCode
                   includeMargin={true}
@@ -136,8 +136,7 @@ class DepositCoins extends Component {
                   </ul>
                 </div>
               </div>
-            </div>
-            <div className="left-sided">
+
               <div className="currency-balance-details">
                 <h3>
                   {location.pathname == BTC

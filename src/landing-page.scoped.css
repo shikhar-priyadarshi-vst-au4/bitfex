@@ -776,6 +776,11 @@ footer.footer {
   padding-top: 1rem;
 }
 
+.form-body h3.error {
+  color: var(--danger);
+  font-size: 1.25rem;
+}
+
 .form-body .form-container {
   max-width: 25.625rem;
   margin: 0 auto;
@@ -783,7 +788,7 @@ footer.footer {
 }
 
 .a5-login-field {
-  margin: 0.8rem 0;
+  margin: 1.5rem 0;
   padding-top: 2rem;
   height: 60px;
 }
@@ -808,6 +813,11 @@ footer.footer {
 .a5-login-field input:focus {
   color: var(--gold-pop);
   border-bottom: 1.5px solid var(--gold-pop);
+}
+
+.a5-login-error {
+  color: red;
+  font-size: 0.8rem;
 }
 
 .agreement {
@@ -886,7 +896,7 @@ footer.footer {
 .form-btn-holder {
   display: flex;
   padding-bottom: 3rem;
-  margin-top: 2rem;
+  margin-top: 5rem;
 }
 
 .already {
@@ -907,6 +917,7 @@ footer.footer {
   font-weight: bolder;
   font-family: var(--btn-font);
   color: var(--black-text) !important;
+  cursor: pointer;
 }
 
 .i-agree-text {

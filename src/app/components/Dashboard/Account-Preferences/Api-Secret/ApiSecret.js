@@ -7,6 +7,7 @@ export class ApiSecret extends Component {
         <div className="containment">
           <div className="balances pb-5">
             <h3>API Credentials</h3>
+            <hr />
             <div className="balance-notice">
               <h3>Activate 2FA</h3>
               <p>

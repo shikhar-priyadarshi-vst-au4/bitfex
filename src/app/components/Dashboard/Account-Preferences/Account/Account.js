@@ -8,6 +8,7 @@ class Account extends Component {
         <div className="containment">
           <div className="balances">
             <h3>My Profile</h3>
+            <hr />
             <div className="centered">
               <div className="balances-form">
                 <div className="a5-form-field">
