@@ -6,7 +6,7 @@ import {GET_ERRORS, SET_CURRENT_USER, LOGOUT} from '../types';
 
 const {SERVER_URL} = process.env;
 const BASE_URL =
-  'http://a709df5a6c069404588da7c01c9fb326-1769513376.ap-south-1.elb.amazonaws.com/api/v1';
+  'https://dev.bitfex.com/api/v1';
 
 // Register User
 
