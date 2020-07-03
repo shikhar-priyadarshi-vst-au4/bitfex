@@ -1,8 +1,21 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Account extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: this.props.profile,
+    };
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({profile: nextProps.profile});
+  };
+
   render() {
-    const Profile = this.props.name;
+    const {profile} = this.state;
     return (
       <>
         <div className="containment">
@@ -13,15 +26,15 @@ class Account extends Component {
               <div className="balances-form">
                 <div className="a5-form-field">
                   <label>Email</label>
-                  <input
-                    value="anil.kumar@stigasoft.com"
-                    readOnly
-                    type="text"
-                  />
+                  <input value={profile.profile.email} readOnly type="text" />
                 </div>
                 <div className="a5-form-field">
                   <label>Name</label>
-                  <input value="Anil" readOnly type="text" />
+                  <input
+                    value={profile.profile.full_name}
+                    readOnly
+                    type="text"
+                  />
                 </div>
               </div>
             </div>
@@ -101,5 +114,12 @@ class Account extends Component {
     );
   }
 }
+Account.propTypes = {
+  profile: PropTypes.object.isRequired,
+};
 
-export default Account;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, {})(Account);

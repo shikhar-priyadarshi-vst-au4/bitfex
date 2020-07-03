@@ -763,7 +763,7 @@ footer.footer {
 
 .form-body {
   background-color: var(--back-ground-white);
-  max-width: 36.25rem;
+  max-width: 30.25rem;
   margin: 0.5rem auto;
   border-radius: 5px;
   contain: content;
@@ -779,6 +779,7 @@ footer.footer {
 .form-body h3.error {
   color: var(--danger);
   font-size: 1.25rem;
+  min-height: 40px;
 }
 
 .form-body .form-container {

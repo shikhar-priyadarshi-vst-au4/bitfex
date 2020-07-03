@@ -183,7 +183,7 @@ class Sidebar extends Component {
                   </li>
                 </ul>
               </li>
-              <li>
+              {/* <li>
                 <a
                   className={`has-arrow ${
                     this.state.optionsWalletExpanded ? 'arrow-up' : 'arrow-down'
@@ -199,7 +199,7 @@ class Sidebar extends Component {
                 >
                   Options Wallet
                 </a>
-                <ul
+                 <ul
                   style={
                     this.state.optionsWalletExpanded
                       ? {height: '3rem'}
@@ -223,9 +223,9 @@ class Sidebar extends Component {
                     >
                       Options Wallet
                     </a>
-                  </li>
-                </ul>
-              </li>
+                  </li> 
+                </ul> 
+              </li> */}
               <li>
                 <a
                   className={`has-arrow ${
@@ -329,7 +329,7 @@ class Sidebar extends Component {
                       Security
                     </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a
                       onClick={(e) => {
                         this.handleRouteChanged(
@@ -345,7 +345,7 @@ class Sidebar extends Component {
                     >
                       Affiliate
                     </a>
-                  </li>
+                  </li> */}
                   <li>
                     <a
                       onClick={(e) => {
@@ -365,7 +365,7 @@ class Sidebar extends Component {
                   </li>
                 </ul>
               </li>
-              <li>
+              {/* <li>
                 <a
                   className={`has-arrow ${
                     this.state.historyExpanded ? 'arrow-up' : 'arrow-down'
@@ -424,7 +424,7 @@ class Sidebar extends Component {
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </aside>

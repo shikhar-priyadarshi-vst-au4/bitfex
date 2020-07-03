@@ -362,6 +362,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Parimutuel%20Options/" title="Parimutuel Options" class="md-nav__link">
+      Parimutuel Options
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../API/" title="API" class="md-nav__link">
       API
     </a>
@@ -376,6 +388,18 @@
   <li class="md-nav__item">
     <a href="../MM/" title="Trading Opportunities" class="md-nav__link">
       Trading Opportunities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../OES/" title="OES" class="md-nav__link">
+      OES
     </a>
   </li>
 
@@ -425,8 +449,8 @@
                 
                 
                 <h1 id="futures">Futures</h1>
-<p>Futures contracts allow traders to bet on the future price of Bitcoin. On Alpha5, these are ‘inverse futures’, and settle in Bitcoin (not Dollars) upon expiration.</p>
-<p>2-3 quarterly futures will be continuously available for trading on Alpha5.</p>
+<p>Futures contracts allow traders to bet on the future price of Bitcoin. </p>
+<p>Multiple quarterly futures will be continuously available for trading on Alpha5.</p>
 <p>These futures will settle on the last Friday of the expiration month at 08:00 UTC. Settlement price will be determined by a 30-minute TWAP from 07:30 to 08:00, with observations taken every minute.</p>
 <h2 id="contract-specification">Contract Specification</h2>
 <table>
@@ -447,11 +471,11 @@
 </tr>
 <tr>
 <td align="center">Contract Size</td>
-<td align="center">1 USD</td>
+<td align="center">0.001 BTC</td>
 </tr>
 <tr>
 <td align="center">Instrument Type</td>
-<td align="center">Inverse</td>
+<td align="center">Linear</td>
 </tr>
 <tr>
 <td align="center">Initial Margin</td>
@@ -463,27 +487,31 @@
 </tr>
 <tr>
 <td align="center">Price Quotation</td>
-<td align="center">US Dollars per 1 BTC</td>
+<td align="center">USDT per 1 BTC</td>
 </tr>
 <tr>
 <td align="center">Tick Size</td>
-<td align="center">0.5</td>
+<td align="center">0.5 USDT</td>
 </tr>
 <tr>
 <td align="center">P&amp;L Settlement</td>
-<td align="center">BTC</td>
+<td align="center">USDT</td>
 </tr>
 <tr>
 <td align="center">Expiration</td>
-<td align="center">Last Friday of the expiration month at 08:00 UTC.</td>
+<td align="center">Last Friday of the expiration month at 08:00 UTC</td>
 </tr>
 <tr>
 <td align="center">Position-Limit</td>
-<td align="center">5,000,000 contracts.</td>
+<td align="center">1000 BTC contracts</td>
+</tr>
+<tr>
+<td align="center">Order-Limit</td>
+<td align="center">TBD</td>
 </tr>
 <tr>
 <td align="center">Fees</td>
-<td align="center">0bps Maker. 5bps Taker.</td>
+<td align="center">0bps Maker. 5bps Taker</td>
 </tr>
 </tbody>
 </table>
@@ -545,7 +573,7 @@
       <div class="md-footer-copyright">
         
         return to
-        <a href="http://alpha5.io" target="_blank" rel="noopener"><font size="3.7rem">Alpha5 Home</a>
+        <a href="http://alpha5.io/#/" target="_blank" rel="noopener"><font size="4.5rem">Alpha5</a>
       </div>
       
     </div>

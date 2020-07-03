@@ -2,7 +2,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../../utils/setAuthToken';
 
-import {GET_ERRORS, SET_CURRENT_USER, LOGOUT} from '../types';
+import {SET_ERRORS, SET_CURRENT_USER, LOGOUT} from '../types';
 
 const {SERVER_URL} = process.env;
 const BASE_URL =
@@ -33,7 +33,7 @@ export const loginUser = (userData) => (dispatch) => {
     })
     .catch((error) =>
       dispatch({
-        type: GET_ERRORS,
+        type: SET_ERRORS,
         payload: error.response.data,
       }),
     );
@@ -55,7 +55,6 @@ export const logoutUser = () => (dispatch) => {
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
-
   dispatch({
     type: LOGOUT,
     payload: {},

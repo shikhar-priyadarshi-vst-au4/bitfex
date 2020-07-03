@@ -112,9 +112,11 @@ class WithdrawCoins extends Component {
         <div className="containment">
           <div className="balances">
             <h3>Withdrawal</h3>
+            <hr />
             <div className="left-sided">
               <div className="balances-list">
                 <h3>Notes</h3>
+
                 <ul>
                   <li>
                     <span className="diamond"></span>
@@ -134,7 +136,7 @@ class WithdrawCoins extends Component {
                 </ul>
               </div>
               <div className="balances-form with-inline-info">
-                <div className="a5-form-field">
+                <div className="a5-form-field with-inline-info">
                   <label>Currency</label>
                   <A5DBSelect
                     itemList={this.state.currencyArrayForSelect}

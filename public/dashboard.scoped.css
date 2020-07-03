@@ -228,6 +228,7 @@ button.transfer-balance {
   flex-direction: column;
   min-width: 15rem;
   align-items: center;
+  margin-top: 5px;
 }
 
 .show-total h4 {
@@ -440,6 +441,11 @@ span.info img {
   border-radius: 5px;
 }
 
+.qr-container {
+  padding: 0.75rem;
+  background-color: var(--dark-tone-dark);
+}
+
 .qr-container .two-factor-code {
   margin-left: 2rem;
 }
@@ -447,7 +453,7 @@ span.info img {
 .qr-container .two-factor-code input {
   border: none 3.5px;
   background-color: var(--light-dark-background);
-  min-width: 80%;
+  min-width: 75%;
   min-height: 3.1rem;
   color: var(--white-text);
   padding: 0.5rem;
@@ -797,6 +803,20 @@ nav.sidebar-nav > ul > li > a.has-arrow.arrow-up::before {
 
 /* header starts */
 
+.header-left {
+  align-items: center;
+  margin-left: 12rem;
+}
+
+.header-left a {
+  margin: auto 1rem;
+  color: var(--yellow-text);
+}
+
+.header-left a:hover {
+  color: var(--white-text);
+}
+
 ul.header-margins {
   font-size: 1rem;
   margin: 0 1rem;
@@ -859,10 +879,35 @@ div.header-profile {
   text-align: center;
   padding-top: 0.5rem;
   margin-left: 2rem;
+  position: relative;
 }
 
 div.header-profile img {
   width: 2.2rem;
+}
+
+.header-profile-menu {
+  position: absolute;
+  min-width: 7rem;
+  text-align: left;
+  top: 45px;
+  right: 0;
+  border: 1px solid var(--faded-text);
+}
+
+.header-profile-menu h3 {
+  font-size: 1rem;
+  border-bottom: 1px solid var(--faded-text);
+  padding: 0.5rem;
+  margin: 0;
+  color: var(--white-text);
+}
+
+.header-logout {
+  padding: 0.5rem;
+  color: var(--white-text);
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .header .logo {
@@ -880,6 +925,38 @@ div.header-profile img {
   padding-bottom: 2rem;
   border-radius: 5px solid var(--yellow-text);
   z-index: 100;
+}
+
+.header-rt-menu-equity {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-rt-menu-equity .head {
+  color: var(--gold-button-dark);
+}
+
+.header-rt-menu-equity .value {
+}
+
+.header-rt-menu-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-rt-menu-links a {
+  color: var(--gold-pop);
+}
+
+.header-rt-menu-links a:hover {
+  color: var(--white-text);
+}
+
+.header-rt-menu-item {
+  border-bottom: 1px solid var(--faded-text);
+  font-size: 0.9rem;
+  color: var(--back-ground-white);
+  padding: 0.5rem;
 }
 
 .user-name span {
@@ -1033,6 +1110,10 @@ footer.footer-dashboard .footer-left {
     bottom: 0;
     width: 100vw;
   }
+
+  .header-left {
+    margin-left: 2rem;
+  }
 }
 
 @media (min-width: 784px) and (max-width: 881px) {
@@ -1145,6 +1226,9 @@ footer.footer-dashboard .footer-left {
 @media (min-width: 526px) and (max-width: 767px) {
   .a5-form-field.with-inline-info label {
     text-align: left;
+  }
+  .a5-form-field .a5-select-container {
+    width: 100%;
   }
   .a5-form-field.with-inline-info span.form-field-error {
     margin-left: 0.5rem;

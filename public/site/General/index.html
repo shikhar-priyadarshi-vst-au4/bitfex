@@ -268,22 +268,9 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#average-entry-price" class="md-nav__link">
-    Average Entry Price
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
-  <a href="#fifo-pnl" class="md-nav__link">
-    FIFO &amp; PnL
+  <a href="#average-entry-price-pnl-calculations" class="md-nav__link">
+    Average Entry Price &amp; PnL Calculations
   </a>
   
 </li>
@@ -328,8 +315,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#portfolio-margin" class="md-nav__link">
-    Portfolio Margin
+  <a href="#cross-margin" class="md-nav__link">
+    Cross Margin
   </a>
   
 </li>
@@ -497,6 +484,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Parimutuel%20Options/" title="Parimutuel Options" class="md-nav__link">
+      Parimutuel Options
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../API/" title="API" class="md-nav__link">
       API
     </a>
@@ -511,6 +510,18 @@
   <li class="md-nav__item">
     <a href="../MM/" title="Trading Opportunities" class="md-nav__link">
       Trading Opportunities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../OES/" title="OES" class="md-nav__link">
+      OES
     </a>
   </li>
 
@@ -599,22 +610,9 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#average-entry-price" class="md-nav__link">
-    Average Entry Price
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
-  <a href="#fifo-pnl" class="md-nav__link">
-    FIFO &amp; PnL
+  <a href="#average-entry-price-pnl-calculations" class="md-nav__link">
+    Average Entry Price &amp; PnL Calculations
   </a>
   
 </li>
@@ -659,8 +657,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#portfolio-margin" class="md-nav__link">
-    Portfolio Margin
+  <a href="#cross-margin" class="md-nav__link">
+    Cross Margin
   </a>
   
 </li>
@@ -711,35 +709,37 @@
 </li>
 </ul>
 <h2 id="alpha5-xbt-index">Alpha5 XBT Index</h2>
-<p>The calculation of the Index is taken from 5 different exchanges, namely Coinbase, Gemini, Bitstamp, Itbit and Kraken. Each exchange contributes a mid-price using their respective best bid and offer prices on a continuous basis. The highest-priced and lowest-priced exchanges are discarded for each calculation, and the other 3 are averaged to derive the A5XBT Index.</p>
+<p>The calculation of the Index is taken from 5 different exchanges, namely Bitfinex, Binance, Huobi, OKEx, and Bittrex. Each exchange contributes a mid-price using their respective best bid and offer prices on a continuous basis. The highest-priced and lowest-priced exchanges are discarded for each calculation, and the other 3 are averaged to derive the A5XBT Index.</p>
 <p>In the event one or more of the constituent exchanges’ price feeds is unavailable the average of 2 out of 4 or the mid of 1 out of 3 exchanges will be used to calculate the A5XBT Index. If there are only 2 constituents, both will be equally weighted, and if there is only a single feed available, that sole feed will be the A5XBT Index. In the event, no exchange feed is able to be used, trading will be temporarily halted until a connection is re-established with any one of the exchanges.</p>
 <h2 id="mark-prices">Mark Prices</h2>
-<p><strong>Perpetual Swap:</strong> The Mark Price is dependent on the A5XBT Index and the Funding Rate. In the event the Perpetual Swap deviates more than 2.5% from the A5XBT Index, the Mark Price will be fixed at the maximum <strong>2.5%</strong> deviation.</p>
+<p>The Mark Price is used for unrealised PnL calculation and liquidation purposes.</p>
+<p><strong>Perpetual Swap:</strong> The Mark Price is dependent on the A5XBT Index and the Funding Rate. In the event the Perpetual Swap deviates more than 2.5% from the A5XBT Index, the Mark Price will be capped at the <strong>+/-2.5%</strong> deviation. </p>
+<p>Thus, Maximum value of Perpetual Swap Mark Price will be <strong>(1 + 2.5%) * A5XBT Index Price</strong> and Minimum value of Perpetual Swap Mark Price will be <strong>(1 - 2.5%) * A5XBT Index Price</strong>.</p>
 <p><strong>Futures Contracts:</strong> The Mark Price of a futures contract is the average of the Best Bid Price and Best Ask Price, so long as such average is within a set field of parameters. </p>
-<p>If the average of the Best Price and Best Ask Price for the first quarterly future is more than 5% apart from the A5XBT Index, the Mark Price of the future will be the fixed at that maximum <strong>5%</strong> deviation.  </p>
-<p>If the average of the Best Price and Best Ask Price for the second quarterly future is more than 7.5% apart from the A5XBT Index, the Mark Price of the future will be fixed at that maximum <strong>7.5%</strong> deviation.</p>
+<p>The Maximum Deviation of the Mark Price for any Futures Contract from the A5XBT Index Price is capped at </p>
+<p><strong>Dev = 2.5 + 30 * (Time to Expiry/365) per cent</strong></p>
+<p>where Time to Expiry is the number of days left for the futures contract to expire.</p>
+<p>Thus, Maximum and Minimum deviations possible in the Mark Price of a futures contract are</p>
+<p><strong>Mark Price (Max) = (1 + Dev) * A5XBT Index Price</strong></p>
+<p><strong>Mark Price (Min) = (1 - Dev) * A5XBT Index Price</strong></p>
 <p><strong>Futures Spreads:</strong> Any spread product’s Mark Price will be the difference between the Mark Prices of its individual legs.</p>
 <h2 id="funding">Funding</h2>
 <p>The Perpetual Swap will have a funding mechanism, which will attempt to anchor the price of the perpetual swap to the A5XBT Index.  Every 8 hours, a settlement will occur as per the prevailing funding rate, during which funds will either be paid or collected by any user that has an open position in the Perpetual Swap contract at that time.</p>
 <p>Funding will happen 3 times a day at 00:00 UTC, 08:00 UTC, and 16:00 UTC.</p>
+<p>The funding a trader has to pay or will collect is calculated as:</p>
+<p><strong>Funding = Position Value * Funding Rate</strong></p>
+<p>Here Position Value is given as: Number of Contracts (in BTC) * A5XBT Index Price</p>
 <p>The Interest Rate is a highly varied figure. There is no consistent overnight cost of USD (or equivalent) and BTC in the industry, and hence this figure can be a fabrication, or a reliance on concentrated source(s). As a result, Alpha5 will look to amplify this figure, to create opportunities between varied rates across the industry. </p>
-<p>To do so, Alpha5 will reference the .XBTBON Index.  </p>
+<p>To do so, Alpha5 will reference the <a href="https://www.bitmex.com/app/index/.BXBT">.XBTBON Index</a>. The .XBTBON Index is now fixed at 0.03% per day. Alpha5 will be amplifying this value by 2, setting the Interest Rate permanently to <strong>0.06% per day</strong> (i.e. 0.02% for every 8-hour cycle.) </p>
+<p><strong>[I] = 0.02 %</strong> for all calculations.  </p>
 <p>The Premium Index will be derived according to the following formula:</p>
-<p>Premium Index [P] = ((Max (0, Bid Price - Mark Price) – Max (0, Mark Price – Ask Price))/Spot Price) + Funding Rate of Current Interval</p>
-<p>Funding Rate [F] = Premium Index [P] + clamp(Interest Rate [I] – Premium Index [P], 0.10%, -0.10%)</p>
-<p>Thus, if <strong>(I-P)</strong> is within +/- .10%, then <strong>F = P + (I-P) = I</strong>. If this is the case, F will be amplified.</p>
-<ul>
-<li>
-<p>If   <strong>-.03% &lt; (I-P) &lt; .03%</strong>, F will be multiplied by 2</p>
-</li>
-<li>
-<p>If   <strong>-.06% ≤ (I-P) ≤-.03%</strong> or <strong>.03% ≤ (I-P) ≤ .06%</strong>, F will be multiplied by 1.5</p>
-</li>
-<li>
-<p>If   <strong>-.10% ≤ (I-P) &lt;-.06%</strong> or <strong>.06% &lt; (I-P) ≤ .10%</strong>, F will be multiplied by 1.25</p>
-</li>
-</ul>
-<p>Funding Rate Cap: (Initial Margin – Maintenance Margin) * 25%</p>
+<p><strong>Premium Index [P] = ((Max (0, Bid Price - Mark Price) – Max (0, Mark Price – Ask Price))/ALPHA5 (BTC/USDT) Index Price) + Funding Rate of Current Interval</strong></p>
+<p>Where Mark Price is calculated as </p>
+<p><em>Funding Basis = Funding Rate of Current Interval * (Time Until Funding / Funding Interval)</em>
+<em>Mark Price = Index Price * (1 + Funding Basis)</em></p>
+<p><strong>Funding Rate [F] = Premium Index [P] + clamp(Interest Rate [I] – Premium Index [P], 0.05%, -0.05%)</strong> </p>
+<p>Thus, if (I-P) is within +/- .05%, then F = P + (I-P) = I. If this is the case, F will equal I = 0.02%</p>
+<p><strong>Note:</strong> Funding Rate Cap: (Initial Margin – Maintenance Margin) * 25%</p>
 <p><strong>If the funding rate is positive, longs will pay shorts, and if it is negative, shorts will pay longs.</strong></p>
 <h2 id="futures-expiration">Futures Expiration</h2>
 <p>The Futures settlement price, is the price at which a Future expires. It is tabulated as the 30-minute time-weighted average from 07:30 to 08:00 UTC, with each instance being observed every 1 minute, for a total of 30 inputs into the expiration price calculation.</p>
@@ -748,11 +748,11 @@
 <p>Notional Amount * 1/Leverage</p>
 <p>The leverage offered on Alpha5 is 25x.</p>
 <p><em>Example</em>: </p>
-<pre><code>A trader deposits 1 BTC. 
-He wishes to open a position of long 10XBT in the Perpetual Swap.
+<pre><code>A trader deposits 1,000 USDT. 
+He wishes to open a position of long 10,000 USDT in the Perpetual Swap.
 
-The Initial Margin reserved would be: 10*1/25 = .40BTC. 
-Thus of the 1 BTC deposited, 0.60 BTC would be the Available Balance.
+The Initial Margin reserved would be: 10,000*1/25 = 400 USDT. 
+Thus, of the 1,000 USDT deposited, 600 USDT would be the Available Balance.
 </code></pre>
 <p>Initial Margin is reserved for all open positions and all open orders, except for orders that would reduce the any open positions (where no extra Initial Margin is reserved).</p>
 <h2 id="maintenance-margin">Maintenance Margin</h2>
@@ -760,70 +760,86 @@ Thus of the 1 BTC deposited, 0.60 BTC would be the Available Balance.
 <p>Maintenance Margin will simply be: Notional Amount * Maintenance Margin Threshold.</p>
 <p>On Alpha5 the threshold is 2%</p>
 <p><em>Example:</em></p>
-<pre><code>A trader deposits 1 BTC, and buys 10 XBT in the Perpetual Swap (as above).
+<pre><code>A trader deposits 1000 USDT, and buys 10,000 USDT in the Perpetual Swap (as above).
 
-The Initial Margin reserved is .40 BTC.
+The Initial Margin reserved is 400 USDT.
 
-The MM is .20BTC.
+The MM is 200 USDT.
 
-Meaning if the account value drops to .20BTC (10 BTC * 2%), liquidations will commence.
+Meaning if the account value drops to 200 USDT (10,000 * 2%), liquidations will commence.
 </code></pre>
 <p>Further examples below with PnL will delineate the implications at various price points.</p>
 <h2 id="profit-and-loss">Profit and Loss</h2>
 <p>All PnL is settled in BTC, and thus it is subject to inverse calculations.<br />
 For any given trade, the PnL  (before any trading fees) would be tabulated as:  </p>
-<p><strong>Number of Contracts * (1/Entry – 1/Exit)</strong>  </p>
+<p><strong>Number of Contracts (in BTC) * [Exit Price - Entry Price]</strong>  </p>
 <h3 id="realized-pnl"><em>Realized PnL</em></h3>
-<p>Realized PnL is any PnL that has accrued from closed positions and trading fees.</p>
+<p>Realized PnL is any PnL that has accrued from closed positions, funding and trading fees.</p>
 <h3 id="unrealized-pnl"><em>Unrealized PnL</em></h3>
 <p>Unrealized PnL is the running PnL of any open position. It is calibrated to the Mark Price of the instrument.  </p>
 <p><strong>Note</strong>: The Mark Price can be different at any given point in time from the rate at which the market is trading. Thus, it is entirely possible that the immediate opening of a position has a negative or positive PnL based on where the Mark Price is.  </p>
 <p>Unrealized PnL is immediately available for use in the trader’s Equity as part of Alpha5’s portfolio margining offering.</p>
-<h2 id="average-entry-price">Average Entry Price</h2>
-<p>The Average Entry Price is the total number of contracts divided by the BTC value of the total position.</p>
-<h3 id="fifo-pnl">FIFO &amp; PnL</h3>
-<p>Alpha5 uses a FIFO basis (“First-In-First-Out”) for the tabulation of realized pnL. This means that contracts that were purchased/sold first, will also be the first to be sold/purchased during any unwind.</p>
+<h3 id="average-entry-price-pnl-calculations">Average Entry Price &amp; PnL Calculations</h3>
+<p>Average Entry Price is obtained by dividing the total contract value in USDT by the Total number of contracts (in BTC). </p>
+<p><strong>Total contract value in USDT = [(Number of Contracts1(BTC) * Price1) + (Number of Contracts2(BTC) * Price2) + (Number of Contracts3(BTC) * Price3)....]</strong></p>
+<p>Please note that the average entry price for a position changes only if the position size is increased, not if it is reduced. </p>
 <p><em>Example</em>:</p>
-<pre><code>A trader buys 1000 contracts of XBT Perpetual Swap at $9,000.
+<pre><code>Suppose you enter a long position (buy) of 1 BTC contracts in BTCUSDT at $6000
 
-Later, they buy another 1000 contracts at $10,000.
+You enter another long position of 1 BTC contracts in BTCUSDT at $5000 and 
+another long position of 1 BTC contracts when BTCUSDT price is $7000
 
-And later, they buy another 1000 contracts at $11,000.
+  Now, Contract Value (in USDT) = 1 * 6000 + 1 * 5000 + 1 * 7000
+= 18,000 USDT
 
-Total Position (BTC) = 1000/9000 + 1000/10000 + 1000/11000 = .3 BTC  
-Total Contracts = 1000 + 1000 + 1000 = 3000
+Total Amount (BTC)) = 1+1+1 = 3 BTC
 
-Average Entry Price = 3000/.3 = $10,000
+Average Entry Price = Total Contract Value/ Total Amount (BTC)
+= 18000/3 = $6000
+
+Now suppose, after some days the Mark Price for BTCUSDT is $9050
+You unrealised PnL will be calculated as follows
+
+Unrealised PnL = Total Amount (BTC) * [Mark Price - Average Entry Price]
+
+= 3*[9050 - 6000] = 9150 USDT
+
+Now, suppose you exit at $9000 by selling half your total position, 
+i.e. 1.5 BTC contracts, then your Realised PnL will be calculated as follows
+
+Realised PnL = Amount (BTC) Sold for this Position * [Exit Price - Average Entry Price for this position] 
+
+= 1.5 * [9000 - 6000] = 4500 USDT
+
+The average entry price remains unchanged at $6000 for the now net position of 
+long 1.5 BTC contracts since the position was reduced with respect to the earlier scenario. 
+
+Suppose you now buy another 1.5 BTC contracts when the market is at $10,000. 
+
+Then, the new average entry price, since the position has increased, will be given by
+
+Now, Contract Value (in USDT) = 1.5 * 6000 + 1.5 * 10000
+= 24,000 USDT
+
+Total Amount (BTC)) = 1.5 +1.5 = 3 BTC
+
+Average Entry Price = Total Contract Value/ Total Amount (BTC)
+= 24000/3 = $8000
+
 </code></pre>
-<p>Assume at a later stage the price of the XBT Perpetual Swap is $15,000 (Mark Price).</p>
-<pre><code>For each position, the unrealized PnL would be calculated as:
 
-[1/Entry Price – 1/Exit Price] * Number of Contracts.
-</code></pre>
-<p>Exit Price in this instance is the Mark Price.</p>
-<p>If the trader chose to sell any of their position, the realized PnL calculation would follow the FIFO basis. In this instance, let’s assume the trader sells half of their entire position at $15,000.</p>
-<p>The contracts that were bought first will be sold first.</p>
-<pre><code>Realized PnL = [1/9000 – 1/15000] * 1000 + [1/10000 – 1/15000]*500 = .0444 + .0166 = .061 BTC
-</code></pre>
-<p>As a result, your Average Entry Price for your remaining open position will be adjusted to:  </p>
-<pre><code>Position: 500/10000 + 1000/11000 = .141 BTC
-
-Total Contracts: 1500
-
-AEP = 1500/.141 = 10,638.29
-</code></pre>
 <h2 id="equity-available-balance-and-firepower">Equity, Available Balance, and Firepower</h2>
 <p>Equity is the total value of your account at any given point in time. It is checked by the liquidation engine to ensure compliance to the Margin thresholds.</p>
 <p>Available Balance is used to determine if there are sufficient funds for order placement.</p>
 <p>By definition: Available Balance  = Equity – Initial Margin (IM)  </p>
 <p><em>Example</em></p>
-<pre><code>A trader deposits 1 BTC. That is their Equity.
+<pre><code>A trader deposits 1,000 USDT. That is their Equity.
 
 At the beginning, that is also their Available Balance.
 
-If they buy 10 XBT of Perpetual Swap, then with IM at 4% and fees of 0.05%,
+If they buy 10,000 USDT of Perpetual Swap, then with IM at 4% and fees of 0.05%,
 
-the Available Balance would be = 1 BTC - .04*10 -.0005*10 = .595 BTC
+the Available Balance would be = 1,000 - .04*10,000 - .0005*10,000 = 595 USDT
 </code></pre>
 <p>If opening any new order would require IM &gt; Available Balance, the order will be rejected.  </p>
 <p>Firepower, is displayed at the top of a trader’s dashboard. It is an optical look at the percentage of capital of your portfolio that is available for use and is calculated as: <strong>Available Balance/Equity</strong>. The higher the figure, the more you are able to do with your account.</p>
@@ -845,17 +861,17 @@ the Available Balance would be = 1 BTC - .04*10 -.0005*10 = .595 BTC
 </ul>
 <p>The Alpha5 Risk Engine will not try and market-sell the trader’s entire position. Its intent is to create a continuous flow of smaller orders in an attempt to limit market impact, and to try and have <strong>Equity&gt;MM</strong> to restore control to the trader.  </p>
 <h2 id="insurance-fund">Insurance Fund</h2>
-<p>Alpha5 operates an Insurance Fund that is capitalized by liquidation fees (see <a href="../Fees/">fees</a>). In the event the Risk Engine incurs a loss beyond the remaining Equity of the liquidated trader, the Insurance Fund will cover the difference. Because Alpha5 employs a more sensible leverage ratio (25x vs. 100x exchanges in the ecosystem), it would take repeated, large movements, to have to constantly utilize the Insurance Fund. Therefore, it is likely that the Insurance Fund would continue to be capitalized even if a few accounts had adverse outcomes.  </p>
-<p>However, as a contingency, in any extraordinary circumstances, where the Insurance Fund is also depleted, a mechanism to socialize losses amongst profitable traders will be employed. Alpha5 will make efforts to predict such risks, and may revise margin requirements in an attempt to curb such outcomes.</p>
+<p>Alpha5 operates an Insurance Fund that is capitalized by liquidation fees (see <a href="../Fees/">fees</a>). In the event the Risk Engine incurs a loss beyond the remaining Equity of the liquidated trader, the Insurance Fund will cover the difference. Because Alpha5 employs a lower leverage ratio (25x vs. 100x exchanges in the ecosystem), it would take repeated, large movements, to have to constantly utilize the Insurance Fund. Therefore, it is likely that the Insurance Fund would continue to be capitalized even if a few accounts had adverse outcomes.  </p>
+<p>However, as a contingency, in any extraordinary circumstances, where the Insurance Fund is also depleted, a mechanism to socialize losses amongst profitable traders may be employed. Alpha5 will make efforts to predict such risks, and may revise margin requirements in an attempt to curb such outcomes. Notice of this will be provided.</p>
 <h2 id="implied-orderbook-logic">Implied Orderbook Logic</h2>
 <p>One of the key features of Alpha5 is implied orderbook logic. This allows for the immediate combination of liquidity.  </p>
-<p>For instance, if the XBT Perpetual Swap and June Futures Orderbooks had prices, Implied Orders (fully tradeable) would be created in the XBT Perp – Jun Fut swap; the price differential could be traded with a single click. There would be no risk of execution on a single-leg, and no hassle of manually managing a position. This logic, which is implemented on legacy exchanges such as the CME, serves as the bedrock for deepening the infrastructure of interest rate and futures markets.</p>
+<p>For instance, if the XBT Perpetual Swap and June Futures Orderbooks had prices, Implied Orders (fully tradeable) would be created in the XBT Perp – Jun Fut swap; the price differential could be traded with a single click. There would be no risk of execution on a single-leg, and no hassle of manually managing a position. This logic, which is implemented on sophisticated legacy exchanges, serves as the bedrock for deepening the infrastructure of interest rate and futures markets.</p>
 <p>There are two-types of Implied Orders: <em>In</em> and <em>Out</em></p>
 <p><strong><em>Implied-In</em></strong> orders are as mentioned above. Prices of single futures legs are combined to create a price in a swap between them, synthetically. These prices adjust dynamically just as those futures adjust.</p>
 <p><strong><em>Implied-Out</em></strong> orders go in reverse. Anyone that places an order in a swap (say XBT Perp- Jun Fut) will also be contributing orders into both the XBT Perpetual Swap and Jun Futures Orderbooks without any risk of being wrongfully executed.  </p>
 <p>This logic is a key cornerstone of the Alpha5 offering and is deeply embedded into the risk engine.</p>
-<h2 id="portfolio-margin">Portfolio Margin</h2>
-<p>Alpha5 categorizes its margin implementation as Portfolio Margin. There are various iterations in the market, that are curated with different parameters.</p>
+<h2 id="cross-margin">Cross Margin</h2>
+<p>Alpha5 categorizes its margin implementation as Cross Margin. There are various iterations in the market, that are specified with different parameters.</p>
 <p>On Alpha5:</p>
 <ul>
 <li>
@@ -868,7 +884,7 @@ the Available Balance would be = 1 BTC - .04*10 -.0005*10 = .595 BTC
 <p>IM is reserved on every position and on every order. However, any order that is created that would reduce a current position will not be charged IM.  </p>
 </li>
 <li>
-<p>If an account falls below IM, but is still above the MM threshold, they are NOT subject to liquidation. However, in such an instance, a trader can only close positions/orders, or add capital.  </p>
+<p>If an account falls below IM, but is still above the MM threshold, it is NOT subject to liquidation. However, in such an instance, a trader can only close positions/orders, or add capital.  </p>
 </li>
 <li>
 <p>Below MM, the Alpha5 Risk Engine takes over the account of a trader in a bid to reduce account exposure to get Equity&gt;MM.</p>
@@ -876,7 +892,7 @@ the Available Balance would be = 1 BTC - .04*10 -.0005*10 = .595 BTC
 </ul>
 <h2 id="deposits-withdrawals">Deposits &amp; Withdrawals</h2>
 <p>At any given point in time, a trader may request a withdrawal that is up their Withdrawal Balance. This will in most instances be equal to the Available Balance.</p>
-<p>As a function of a secure and complex storage process, Alpha5 processes withdrawals once every 24 hours. Withdrawal requests made prior to 11:00 UTC will be processed (if approved) in the same withdrawal cycle. Requests made after such time, will be subject to process in the next withdrawal cycle. </p>
+<p>As a function of a secure and complex storage process, Alpha5 processes withdrawals typically, directly from deep cold storage. As a result, there may be a lag on real-time withdrawals, though the team will endeavour to process all withdrawals as seamlessly as possible. </p>
 <p>Once you have requested a withdrawal, it is sent for approval. Post approval, the transaction will be broadcast to the Bitcoin network and you will receive your funds post the requisite number of confirmations on the Bitcoin blockchain. (*<em>Note depending on the receiving wallet, the number of confirmations required may vary. This is not something Alpha5 controls</em>). Withdrawals can take longer in case the network mempool has a lot of traffic. You may always view the status of your transaction by tracking the transaction ID in a Bitcoin explorer. </p>
 <p>Please note that Alpha5 bears no responsibility for loss of funds if they are requested to be withdrawn to an incorrect address. The trader must take due care in all instances to ensure that the funds are being withdrawn to an address they intended, and that such address is indeed a compatible BTC address.</p>
 <h2 id="alpha5-risk-engine">Alpha5 Risk Engine</h2>

@@ -12,10 +12,18 @@ import portfolioIcon from '../../../lp-assets/portfolio-icon.svg';
 import A5TIcon from '../../../lp-assets/a5t-icon.svg';
 import gravityDeviceUIMockup from '../../../lp-assets/Gravity-Devices-UI-Mockup-Set-Scene.png';
 import gravityDeviceUIMockupIpad from '../../../lp-assets/Gravity-Devices-UI-Mockup-Set-Scene.png';
-
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 import '../../../landing-page.scoped.css';
 
 class HomePage extends Component {
+  componentDidMount = () => {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard/account');
+    }
+  };
+
   render() {
     return (
       <>
@@ -211,4 +219,12 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+HomePage.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(withRouter(HomePage));

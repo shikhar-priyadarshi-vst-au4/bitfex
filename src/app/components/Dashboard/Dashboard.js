@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import {Switch, Route} from 'react-router-dom';
 import Sidebar from './Sidebar/Sidebar';
 import {connect} from 'react-redux';
-
+import {getCurrentProfile} from '../../redux/actions/profileActions';
 import Header from './Header/index';
 import routes from './routes';
+import setAuthToken from '../../utils/setAuthToken';
 
 const userInfo = {};
 
@@ -42,14 +43,26 @@ class Dashboard extends Component {
 
   componentDidMount = () => {
     this.adjustSideBarHeight();
+    this.checkLoginStatus();
     if (this.props.auth.isAuthenticated) {
-      document.title = this.props.auth.user.email;
+      setAuthToken(localStorage.getItem('token'));
+      this.props.getCurrentProfile();
+    }
+  };
+
+  componentDidUpdate = () => {
+    this.checkLoginStatus();
+  };
+
+  checkLoginStatus = () => {
+    if (this.props.auth.isAuthenticated) {
+      document.title = this.props.profile.profile.email;
     } else if (this.props.auth.user.email === null) {
       document.title = 'ALPHA 5';
     }
-    // if (!this.props.auth.isAuthenticated) {
-    //   this.props.history.push('/login');
-    // }
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
   };
 
   bodyClickListener = (e) => {
@@ -69,7 +82,7 @@ class Dashboard extends Component {
     // document.onscroll = () => {
     //   sidebar.style.height = document.body.scrollHeight + 'px';
     // };
-    // document.body.addEventListener('click', this.bodyClickListener);
+    document.body.addEventListener('click', this.bodyClickListener);
   };
 
   toggleSidebar = () => {
@@ -96,7 +109,7 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  // getCurrentProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
@@ -106,4 +119,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, {})(Dashboard);
+export default connect(mapStateToProps, {getCurrentProfile})(Dashboard);

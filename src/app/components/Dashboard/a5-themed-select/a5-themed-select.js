@@ -19,6 +19,8 @@ class A5DBSelect extends Component {
     };
   }
 
+  componentDidMount = () => {};
+
   componentWillReceiveProps = (newProps) => {
     if (!_.isEqual(newProps.itemList, this.props.itemList)) {
       this.setState({displayList: newProps.itemList});
@@ -122,7 +124,10 @@ class A5DBSelect extends Component {
   render() {
     return (
       <>
-        <div className="a5-select-container">
+        <div
+          onClick={(e) => this.inputRef.current.focus()}
+          className="a5-select-container"
+        >
           <div className="a5-select-input">
             <input
               onInput={this.inputHandle}

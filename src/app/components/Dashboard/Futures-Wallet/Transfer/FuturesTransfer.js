@@ -53,7 +53,7 @@ export class FuturesTransfer extends Component {
           <div className="balances mt-2">
             <div className="table-container contained futures-wallet-table pb-3">
               <div className="table-header">
-                <h3>Options Wallet Details</h3>
+                <h3>Futures Wallet Details</h3>
               </div>
               <div className="a5-table d-flex-justify-content-center">
                 <table className="table">
@@ -61,7 +61,7 @@ export class FuturesTransfer extends Component {
                     <tr>
                       <th>Asset</th>
                       <th>NAV</th>
-                      <th>UPL</th>
+                      {/* <th>UPL</th> */}
                       <th>Available Balance</th>
                     </tr>
                   </thead>
@@ -69,15 +69,15 @@ export class FuturesTransfer extends Component {
                     <tr>
                       <td>BTC</td>
                       <td>0.000</td>
-                      <td>0.000</td>
+                      {/* <td>0.000</td> */}
                       <td>0.000</td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td>USDT</td>
                       <td>0.000</td>
                       <td>0.000</td>
                       <td>0.000</td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
               </div>

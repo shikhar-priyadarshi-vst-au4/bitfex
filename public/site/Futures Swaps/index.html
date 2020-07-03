@@ -369,6 +369,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Parimutuel%20Options/" title="Parimutuel Options" class="md-nav__link">
+      Parimutuel Options
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../API/" title="API" class="md-nav__link">
       API
     </a>
@@ -383,6 +395,18 @@
   <li class="md-nav__item">
     <a href="../MM/" title="Trading Opportunities" class="md-nav__link">
       Trading Opportunities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../OES/" title="OES" class="md-nav__link">
+      OES
     </a>
   </li>
 
@@ -462,22 +486,22 @@
 <p>It’s important to understand that a Futures Swap is a ‘look-through’ instrument. Though you trade the instrument, your risk is reflected as two separate legs (either a future + future or future + perpetual swap). All risk management and margin management is done at the individual leg level. This leads to a simplified interface.</p>
 <h2 id="example">Example</h2>
 <pre><code>
-XBTUSD is trading at $10,000/$10,001.
+XBTUSD is trading at 10,000/10,001 USDT
 
-XBTJun is trading at $10,500/$10,501.  
+XBTJun is trading at 10,500/10,501 USDT  
 
-The XBT-Jun Swap is auto-populated (via implied orderbook logic) to create a market of -$501/-$499.
+The XBT-Jun Swap is auto-populated (via implied orderbook logic) to create a market of - 501/-499 USDT
 
-If a trader purchases the 5000 contracts of XBT-JunSwap at $499, they will have created positions of:  
+If a trader purchases the 2 BTC contracts of XBT-JunSwap at $499, they will have created positions of:  
 
-+5000 contracts in XBTUSD
++2 BTC contracts in XBTUSD
 
--5000 contracts in XBTJun
+-2 BTC contracts in XBTJun
 
 This means as the price converges between the two, he/she stands to profit.  
 
 If at some point the trader thought Bitcoin as a whole was going to outperform, he/she would simply 
-close out the -5000 XBTJun by buying it back, and their position would be just long +5000 XBTUSD.
+close out the -2 BTC XBTJun by buying it back, and their position would be just long +2 BTC XBTUSD.
 
 Once a trade is executed through the Futures Swap, the normal rules &amp; guidelines for futures and 
 perpetual swap apply and they are managed on a separate basis.
@@ -506,7 +530,7 @@ perpetual swap apply and they are managed on a separate basis.
 </tr>
 <tr>
 <td align="center">Instrument Type</td>
-<td align="center">Inverse</td>
+<td align="center">Linear</td>
 </tr>
 <tr>
 <td align="center">Initial Margin</td>
@@ -518,15 +542,15 @@ perpetual swap apply and they are managed on a separate basis.
 </tr>
 <tr>
 <td align="center">Price Quotation</td>
-<td align="center">US Dollars per 1 BTC</td>
+<td align="center">USDT per 1 BTC</td>
 </tr>
 <tr>
 <td align="center">Tick Size</td>
-<td align="center">0.5</td>
+<td align="center">0.5 USDT</td>
 </tr>
 <tr>
 <td align="center">P&amp;L Settlement</td>
-<td align="center">BTC</td>
+<td align="center">USDT</td>
 </tr>
 <tr>
 <td align="center">Expiration</td>
@@ -534,7 +558,15 @@ perpetual swap apply and they are managed on a separate basis.
 </tr>
 <tr>
 <td align="center">Position-Limit</td>
-<td align="center">5,000,000 contracts.</td>
+<td align="center">1000 BTC contracts</td>
+</tr>
+<tr>
+<td align="center">Order-Limit</td>
+<td align="center">TBD</td>
+</tr>
+<tr>
+<td align="center">Fees</td>
+<td align="center">5bps Maker. 7.5bps Taker. (per trade)</td>
 </tr>
 </tbody>
 </table>
@@ -596,7 +628,7 @@ perpetual swap apply and they are managed on a separate basis.
       <div class="md-footer-copyright">
         
         return to
-        <a href="http://alpha5.io" target="_blank" rel="noopener"><font size="3.7rem">Alpha5 Home</a>
+        <a href="http://alpha5.io/#/" target="_blank" rel="noopener"><font size="4.5rem">Alpha5</a>
       </div>
       
     </div>

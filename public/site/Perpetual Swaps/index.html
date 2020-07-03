@@ -238,6 +238,26 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#funding-rate-calculation" class="md-nav__link">
+    Funding Rate Calculation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#predictive-funding-rate-calculations" class="md-nav__link">
+    Predictive Funding Rate calculations:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     Example
   </a>
@@ -376,6 +396,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Parimutuel%20Options/" title="Parimutuel Options" class="md-nav__link">
+      Parimutuel Options
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../API/" title="API" class="md-nav__link">
       API
     </a>
@@ -390,6 +422,18 @@
   <li class="md-nav__item">
     <a href="../MM/" title="Trading Opportunities" class="md-nav__link">
       Trading Opportunities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../OES/" title="OES" class="md-nav__link">
+      OES
     </a>
   </li>
 
@@ -413,6 +457,26 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#funding-rate-calculation" class="md-nav__link">
+    Funding Rate Calculation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#predictive-funding-rate-calculations" class="md-nav__link">
+    Predictive Funding Rate calculations:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
@@ -455,39 +519,87 @@
                 <h1 id="perpetual-swaps">Perpetual Swaps</h1>
 <p>A Perpetual Swap is similar to a spot instrument, except that it is synthetic (no physical exchange), and allows for you to have leverage. It is also similar to a future in that it can diverge from the spot price (largely due to the leverage), but it does not have an expiration.</p>
 <p>To ensure that a Perpetual Swap mimics as close to a spot price (A5XBT Index) as possible, a Funding Rate is used. Generally speaking, continued periods of Perpetual Swap trading over the Index will lead to a higher (positive) funding rate, whereby longs are charged for the benefit of the shorts (who receive funding payments). Likewise, when the Perpetual Swap trades for a sustained period below the Index, longs will receive funding payments at the expense of shorts.</p>
-<p>Funding payments are calculated as per the Funding Rate formula.</p>
 <p>Every 8 hours, a settlement will occur as per the prevailing funding rate, during which funds will either be paid or collected by any user that has an open position in the Perpetual Swap contract at that time.</p>
 <p>Funding will happen 3 times a day at 00:00 UTC, 08:00 UTC, and 16:00 UTC.</p>
-<p>Alpha5 employs an Amplified Funding Rate to allow for larger notional settlement amounts. 
-The Interest Rate is a highly varied figure. There is no consistent overnight cost of USD (or equivalent) and BTC in the industry, and hence this figure can be a fabrication, or a reliance on concentrated source(s). As a result, Alpha5 will look to amplify this figure, to create opportunities between varied rates across the industry. </p>
-<p>To do so, Alpha5 will reference the .XBTBON Index.  </p>
+<p>The funding a trader has to pay or will collect is calculated as:</p>
+<p><strong>Funding = Position Value * Funding Rate</strong></p>
+<p>Here Position Value is given as: Number of Contracts (in BTC) * A5XBT Index Price</p>
+<p>If the rate is positive, longs (buyers) will pay the shorts (sellers). If the rate is negative, the shorts pay the longs.</p>
+<p>Funding is a net-zero operation for the exchange; it is payments being exchanged between buyers and sellers.</p>
+<p>The notification for funding paid/received shows under the Transaction History tab.</p>
+<h2 id="funding-rate-calculation">Funding Rate Calculation</h2>
+<p>A predictive funding rate for the next 8-hour cycle will be calculated every minute over the current 8-hour cycle. At the end of each cycle, a time-weighted average of the 480 predictive funding rate values (one value for each minute over an 8-hour interval) will be calculated, becoming the Funding Rate for the new cycle. </p>
+<h3 id="predictive-funding-rate-calculations">Predictive Funding Rate calculations:</h3>
+<p>The Funding Rate will have 2 components: The <strong>Interest Rate [I]</strong> and the <strong>Premium Index [P]</strong></p>
+<p>The Interest Rate is a highly varied figure. There is no consistent overnight cost of USD (or equivalent) and BTC in the industry, and hence this figure can be a fabrication, or a reliance on concentrated source(s). As a result, Alpha5 will look to amplify this figure, to create opportunities between varied rates across the industry. </p>
+<p>To do so, Alpha5 will reference the <a href="https://www.bitmex.com/app/index/.BXBT">.XBTBON Index</a>. The .XBTBON Index is now fixed at 0.03% per day. Alpha5 will be amplifying this value by 2, setting the Interest Rate permanently to <strong>0.06% per day</strong> (i.e. 0.02% for every 8-hour cycle.) </p>
+<p><strong>[I] = 0.02 %</strong> for all calculations. </p>
 <p>The Premium Index will be derived according to the following formula:</p>
-<p>Premium Index [P] = ((Max (0, Bid Price - Mark Price) – Max (0, Mark Price – Ask Price))/Spot Price) + Funding Rate of Current Interval</p>
-<p>Funding Rate [F] = Premium Index [P] + clamp(Interest Rate [I] – Premium Index [P], 0.10%, -0.10%)</p>
-<p>Thus, if <strong>(I-P)</strong> is within +/- .10%, then <strong>F = P + (I-P) = I</strong>. If this is the case, F will be amplified.</p>
-<ul>
-<li>
-<p>If   <strong>-.03% &lt; (I-P) &lt; .03%</strong>, F will be multiplied by 2</p>
-</li>
-<li>
-<p>If   <strong>-.06% ≤ (I-P) ≤-.03%</strong> or <strong>.03% ≤ (I-P) ≤ .06%</strong>, F will be multiplied by 1.5</p>
-</li>
-<li>
-<p>If   <strong>-.10% ≤ (I-P) &lt;-.06%</strong> or <strong>.06% &lt; (I-P) ≤ .10%</strong>, F will be multiplied by 1.25</p>
-</li>
-</ul>
-<p>Funding Rate Cap: (Initial Margin – Maintenance Margin) * 25%</p>
-<p>The core funding rate (to which the amplification factor has been applied) is a market determined rate, and is calculated using best practices across various venues.</p>
-<p><strong>If the funding rate is positive, longs will pay shorts, and if it is negative, shorts will pay longs.</strong></p>
+<p><strong>Premium Index [P] = ((Max (0, Bid Price - Mark Price) – Max (0, Mark Price – Ask Price))/ALPHA5 (BTC/USDT) Index Price) + Funding Rate of Current Interval</strong></p>
+<p>Where Mark Price is calculated as </p>
+<p><em>Funding Basis = Funding Rate of Current Interval * (Time Until Funding / Funding Interval)</em>
+<em>Mark Price    = Index Price * (1 + Funding Basis)</em></p>
+<p><strong>Funding Rate [F] = Premium Index [P] + clamp(Interest Rate [I] – Premium Index [P], 0.05%, -0.05%)</strong> </p>
+<p>Thus, if (I-P) is within +/- .05%, then F = P + (I-P) = I. If this is the case, F will equal I = 0.02%</p>
+<p><strong>Note:</strong> Funding Rate Cap: (Initial Margin – Maintenance Margin) * 25%</p>
 <h2 id="example">Example</h2>
-<pre><code>It is 09:00. Alpha5’s amplified funding rate at 16:00 is going to be +0.15%.
+<p>Ex-i(a)</p>
+<pre><code>Let 
 
-Meaning, any long position will pay that amount, and any short position will receive the amount 
-(prior to fees).
+Bid Price = 9675 USDT
+Ask Price = 9676 USDT
+BTC/USDT Index Price = 9671 USDT
+Funding Rate of Current Interval = 0.01%
+Time Until Funding = 4 hours
 
-In this instance, if a trader is short 100,000 contracts, and the price of the XBT Perpetual Swap 
-at 16:00 is $10,000, he is due to receive a gross funding payment of (100,000/10000)*.0015 = .015 BTC.
+Then, Mark Price:
+
+Funding Basis = 0.01% * (4/8) = 0.005% or 0.00005
+Mark Price = 9671 * (1+0.00005) = 9671.48
+
+Premium Index [P] = ((Max (0, 9675 - 9671.48) – Max (0, 9671.48 – 9676))/9671) + 0.01% 
+= (3.52/9671) + 0.0001 = 0.00036 + 0.0001 = 0.00046 or 0.046%
+
+Funding Rate [F] = 0.046% + clamp(0.02% – 0.046%, 0.05%, -0.50%) 
+= 0.046% + clamp(-0.026%, 0.05%, -0.05%) = 0.046% – 0.026% = 0.02%
+
+Since, -.05% ≤ (I-P) ≤+.05% for this F, F = I = 0.02%
 </code></pre>
+
+<p>Ex-i(b)</p>
+<pre><code>Let 
+
+Bid Price = 9675 USDT
+Ask Price = 9676 USDT
+BTC/USDT Index Price = 9686 USDT
+Funding Rate of Current Interval = -0.08%
+Time Until Funding = 6 hours
+
+Then, Mark Price: 
+Funding Basis = -0.08% * (6/8) = -0.06% or -0.0006
+Mark Price = 9686 * (1-0.0006) = 9680.19
+
+Premium Index [P] = ((Max (0, 9675 - 9680.19) – Max (0, 9680.19 – 9676))/9686) - 0.08% 
+= (-4.19/9686) - 0.0008 = -0.00043 - 0.0008 = -0.00123 or -0.123%
+
+Funding Rate [F] = -0.123% + clamp(0.02% – (-0.123%), 0.05%, -0.05%) 
+= -0.123% + clamp(0.143%, 0.05%, -0.05%) = -0.123% + 0.05% = -0.073%
+
+In this case, F is as is since I - P &gt; 0.05%
+
+</code></pre>
+
+<p>Ex-ii</p>
+<pre><code>It is 09:00. Alpha5’s funding rate at 16:00 is going to be +0.15%. 
+
+Meaning, any long position will pay that amount, and any short position will 
+receive the amount (prior to fees).  
+
+In this instance, if a trader is short 10 BTC contracts, and the price of 
+the XBT Perpetual Swap at 16:00 is 10,000 USDT, 
+he is due to receive a gross funding payment of (10*10000)*.0015 = 150 USDT.
+</code></pre>
+
 <h2 id="contract-specification">Contract Specification</h2>
 <table>
 <thead>
@@ -507,11 +619,11 @@ at 16:00 is $10,000, he is due to receive a gross funding payment of (100,000/10
 </tr>
 <tr>
 <td align="center">Contract Size</td>
-<td align="center">1 USD</td>
+<td align="center">0.001 BTC</td>
 </tr>
 <tr>
 <td align="center">Instrument Type</td>
-<td align="center">Inverse</td>
+<td align="center">Linear</td>
 </tr>
 <tr>
 <td align="center">Initial Margin</td>
@@ -523,15 +635,15 @@ at 16:00 is $10,000, he is due to receive a gross funding payment of (100,000/10
 </tr>
 <tr>
 <td align="center">Price Quotation</td>
-<td align="center">US Dollars per 1 BTC</td>
+<td align="center">USDT per 1 BTC</td>
 </tr>
 <tr>
 <td align="center">Tick Size</td>
-<td align="center">0.5</td>
+<td align="center">0.5 USDT</td>
 </tr>
 <tr>
 <td align="center">P&amp;L Settlement</td>
-<td align="center">BTC</td>
+<td align="center">USDT</td>
 </tr>
 <tr>
 <td align="center">Expiration</td>
@@ -539,7 +651,11 @@ at 16:00 is $10,000, he is due to receive a gross funding payment of (100,000/10
 </tr>
 <tr>
 <td align="center">Position-Limit</td>
-<td align="center">5,000,000 contracts.</td>
+<td align="center">1000 BTC contracts</td>
+</tr>
+<tr>
+<td align="center">Order-Limit</td>
+<td align="center">TBD</td>
 </tr>
 <tr>
 <td align="center">Fees</td>
@@ -548,12 +664,11 @@ at 16:00 is $10,000, he is due to receive a gross funding payment of (100,000/10
 </tbody>
 </table>
 <h2 id="mark-price-calculation">Mark Price Calculation</h2>
-<pre><code>Funding Basis = Core Funding Rate * (Time Until Funding / Funding Interval)
+<pre><code>Funding Basis = Funding Rate for Current Interval * (Time Until Funding / Funding Interval)
 
 Mark Price = Index Price * (1 + Funding Basis)
 </code></pre>
 
-<p><strong>Note:</strong> Amplifier is not used in the Mark Price Calculation</p>
 <p>To increase limits, please contact <a href="mailto:support@alpha5.io"><strong>support@alpha5.io</strong></a></p>
                 
                   

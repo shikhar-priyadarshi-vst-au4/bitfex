@@ -399,8 +399,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-is-portfolio-margin" class="md-nav__link">
-    What is Portfolio Margin?
+  <a href="#what-is-cross-margin" class="md-nav__link">
+    What is Cross Margin?
   </a>
   
 </li>
@@ -429,13 +429,6 @@
           <li class="md-nav__item">
   <a href="#how-does-amplified-funding-work" class="md-nav__link">
     How does Amplified Funding work?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-are-alpha5-products-called-inverse" class="md-nav__link">
-    Why are Alpha5 products called “Inverse”?
   </a>
   
 </li>
@@ -519,6 +512,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../Parimutuel%20Options/" title="Parimutuel Options" class="md-nav__link">
+      Parimutuel Options
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../API/" title="API" class="md-nav__link">
       API
     </a>
@@ -533,6 +538,18 @@
   <li class="md-nav__item">
     <a href="../MM/" title="Trading Opportunities" class="md-nav__link">
       Trading Opportunities
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../OES/" title="OES" class="md-nav__link">
+      OES
     </a>
   </li>
 
@@ -656,8 +673,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-is-portfolio-margin" class="md-nav__link">
-    What is Portfolio Margin?
+  <a href="#what-is-cross-margin" class="md-nav__link">
+    What is Cross Margin?
   </a>
   
 </li>
@@ -686,13 +703,6 @@
           <li class="md-nav__item">
   <a href="#how-does-amplified-funding-work" class="md-nav__link">
     How does Amplified Funding work?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-are-alpha5-products-called-inverse" class="md-nav__link">
-    Why are Alpha5 products called “Inverse”?
   </a>
   
 </li>
@@ -747,8 +757,9 @@
 <h4 id="what-can-i-deposit-on-alpha-5">What can I deposit on Alpha 5?</h4>
 <p>Only Bitcoin at the moment. All of products right now are focused on the Bitcoin ecosystem. This will expand in the future. </p>
 <h4 id="what-can-i-trade-on-alpha-5">What can I trade on Alpha 5?</h4>
-<p>Alpha5 offers variation on Bitcoin products, and will be continually evolving the product offering. As of right now, traders can use the XBTUSD Perpetual Swap, XBT Futures, XBT Futures Swaps.</p>
-<p>Parimutuel Options, Credit Futures, and other products will be launched shortly thereafter.</p>
+<p>Alpha5 offers variation on Bitcoin products, and will be continually evolving the product offering. 
+As of right now, traders can use the XBTUSD Perpetual Swap, XBT Futures, XBT Futures Swaps.
+Parimutuel Options, and other products will be launched shortly thereafter.</p>
 <h4 id="what-fees-are-charged">What fees are charged?</h4>
 <p>For trading, Alpha5 has a very simple structure:</p>
 <ul>
@@ -783,42 +794,42 @@ What is Initial Margin and Maintenance Margin?</p>
 <p>Notional Amount * 1/Leverage</p>
 <p>The leverage offered on Alpha5 is 25x. 
 Example: </p>
-<pre><code>A trader deposits 1 BTC. He wishes to open a position of long 10XBT in the Perpetual Swap. 
+<pre><code>A trader deposits 1,000 USDT. 
+He wishes to open a position of long 10,000 USDT in the Perpetual Swap.
 
-The Initial Margin reserved would be: 10*1/25 = .40 BTC. 
-
-Thus of the 1 BTC deposited, 0.60 BTC would be the Available Balance.
+The Initial Margin reserved would be: 10,000*1/25 = 400 USDT. 
+Thus, of the 1,000 USDT deposited, 600 USDT would be the Available Balance.
 </code></pre>
 
 <p>Initial Margin is reserved for all open positions and all open orders, except for orders that would reduce the any open positions (where no extra Initial Margin is reserved).</p>
-<p>Maintenance Margin is the amount of Margin that must be available at all times for a trader to keep full control over his/her portfolio. Should the Maintenance Margin drop below a certain level, Alpha5 will begin to partially liquidate any open orders or positions to bring the account above the Maintenance Margin level. </p>
+<p>Maintenance Margin is the amount of Margin that must be available at all times for a trader to keep full control over his/her account. Should the Maintenance Margin drop below a certain level, Alpha5 will begin to partially liquidate any open orders or positions to bring the account above the Maintenance Margin level. </p>
 <p>Maintenance Margin will simply be: Notional Amount * Maintenance Margin Threshold. </p>
 <p>On Alpha5 the threshold is 2%</p>
 <p>Example:</p>
-<pre><code>A trader deposits 1 BTC, and buys 10 XBT in the Perpetual Swap (as above).
+<pre><code>A trader deposits 1000 USDT, and buys 10,000 USDT in the Perpetual Swap (as above).
 
-The Initial Margin reserved is .40 BTC. The Maintenance Margin is .20BTC. 
+The Initial Margin reserved is 400 USDT. The MM is 200 USDT. 
 
-Meaning if the account value drops to .20BTC (10 BTC * 2%), liquidations will commence.
+Meaning if the account value drops to 200 USDT (10,000 * 2%), liquidations will commence.
 </code></pre>
 
 <p>Further examples below with PnL will delineate the implications at various price points.</p>
-<h4 id="what-is-portfolio-margin">What is Portfolio Margin?</h4>
-<p>Alpha5 categorizes its margin implementation as Portfolio Margin. There are various iterations in the market, that are curated with different parameters.</p>
+<h4 id="what-is-cross-margin">What is Cross Margin?</h4>
+<p>Alpha5 categorizes its margin implementation as Cross Margin. There are various iterations in the market, that are curated with different parameters.</p>
 <p>On Alpha5:</p>
 <ul>
 <li>IM on Perpetual Swaps and Futures is 4%. MM on the same products is 2%. </li>
 <li>Any Unrealized PnL is immediately available for use and is added to the Available Balance.</li>
 </ul>
 <p>IM is reserved on every position and on every order. However, any order that is created that would reduce a current position will not be charged IM.</p>
-<p>If an account falls below IM, but is still above the MM threshold, they are NOT subject to liquidation. However, in such an instance, a trader can only close positions/orders, or add capital.</p>
+<p>If an account falls below IM, but is still above the MM threshold, it is NOT subject to liquidation. However, in such an instance, a trader can only close positions/orders, or add capital.</p>
 <p>Below MM, the Alpha5 Risk Engine takes over the account of a trader in a bid to reduce account exposure to get Equity&gt;MM. </p>
 <h4 id="what-is-a-liquidation">What is a liquidation?</h4>
 <p>A liquidation occurs when an account’s Equity &lt; MM. At this point, a trader does not have control of their account, and Alpha5’s Risk Engine will try to cancel orders and liquidate positions to try and bring Equity &gt;MM. It is entirely possible that such efforts do not succeed and a trader has 0 Equity left, in which case they will be bankrupt. </p>
 <h4 id="what-is-the-relationship-between-equity-available-balance-and-firepower">What is the relationship between Equity, Available Balance, and Firepower?</h4>
 <p>Equity is the total value of the account at any given time. This includes the live PnL of any open positions. </p>
 <p>Available Balance is the amount of capital available for deployment. By definition this is the Equity less any IM. Available Balance will also usually be the same as the Withdrawal Balance. </p>
-<p>Firepower is a metric that lets you understand how much of your portfolio you are using; it is the Available Balance/Equity.  The higher the number, the less your portfolio is being utilized, the more you are able to do.</p>
+<p>Firepower is a metric that lets you understand how much of your account value you are using; it is the Available Balance/Equity.  The higher the number, the less your account value is being utilized, the more you are able to do.</p>
 <h4 id="what-are-futures-swaps">What are Futures Swaps?</h4>
 <p>Futures Swaps are referred to by various names; futures spreads, calendar spreads, basis etc. At the end of the day, they represent the price differential between two different futures (or a perpetual swap and a future). Trading the instrument means you are buying one leg and selling the other.</p>
 <p>Trading Futures Swaps on Alpha5 can be done in a single-click, via a single instrument.
@@ -837,18 +848,16 @@ None of the larger exchanges offer this instrument, though the benefits include:
 <p>This Amplified Funding Rate is to be seen as an opportunity, allowing for cross-exchange arbitrage, and the ability to create new paradigms between funding trades. The funding market is already highly fragmented. By taking a known quantity, and changing it by a factor, there is more predictability and a more certain opportunity.</p>
 <p><strong>If the funding rate is positive, longs will pay shorts, and if it is negative, shorts will pay longs.</strong></p>
 <p>Funding payments will be tabulated as:  Notional Position * Amplified Funding Rate.</p>
-<h4 id="why-are-alpha5-products-called-inverse">Why are Alpha5 products called “Inverse”?</h4>
-<p>In traditional markets, where the invested capital is in the form of USD, or equivalents, PnL is calculated simply. However, when the product of investment is also the product of settlement (or PnL), it begins to exhibit ‘inverse characteristics.’ For instance, if you deposited $100 into your stock brokerage account and bought a share of a stock for $100, your account could only go bankrupt if the stock went to $0.</p>
-<p>With Inverse, it’s the other way. If you deposited 1 BTC, and sold 1 BTC worth of XBTUSD perpetual swap, you could never get liquidated on the topside.  Whereas, if you deposited 1 BTC, AND bought 1 BTC worth of XBTUSD perpetual swap, you would be liquidated well before 0.</p>
-<p>There are some nuances to inverse settlement, but by toggling the inputs to the PnL formula (see below), the picture becomes clearer.</p>
 <h4 id="what-is-mark-price">What is Mark Price?</h4>
 <p>The Mark Price is the price at which the instrument was last measured for purposes of accounting and the risk system. It is typically most referred to in the calculation of Unrealized PnL.</p>
 <h4 id="how-do-i-calculate-profit-and-loss">How do I calculate profit and loss?</h4>
-<p>PnL is calculated for any position as <strong>[1/Entry – 1/Exit]* Number of Contracts</strong></p>
+<p>PnL is calculated for any position as follows:</p>
+<p>For a Long Position: <strong>Number of Contracts * (Exit Price – Entry Price)</strong></p>
+<p>For a Short Position: <strong>Number of Contracts * (Entry Price- Exit Price)</strong></p>
 <h4 id="what-is-the-difference-between-upl-and-rpl">What is the difference between UPL and RPL?</h4>
 <p>Realized PnL (RPL) is any PnL that has accrued from closed positions, trading fees, and funding fees. 
 Unrealized PnL (UPL) is the running PnL of any open position. It is calibrated to the Mark Price of the instrument. </p>
-<p>Unrealized PnL is immediately available for use in the trader’s Equity as part of Alpha5’s portfolio margining offering. </p>
+<p>Unrealized PnL is immediately available for use in the trader’s Equity as part of Alpha5’s cross margining offering. </p>
                 
                   
                 
@@ -907,7 +916,7 @@ Unrealized PnL (UPL) is the running PnL of any open position. It is calibrated t
       <div class="md-footer-copyright">
         
         return to
-        <a href="http://alpha5.io" target="_blank" rel="noopener"><font size="3.7rem">Alpha5 Home</a>
+        <a href="http://alpha5.io/#/" target="_blank" rel="noopener"><font size="4.5rem">Alpha5</a>
       </div>
       
     </div>

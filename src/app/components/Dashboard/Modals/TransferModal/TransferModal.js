@@ -144,14 +144,20 @@ export class TransferModel extends Component {
               </div>
               <div className="transfer-form">
                 <div className="transfer-form-field">
-                  <label>Select Asset</label>
-                  <A5DBSelect
+                  <label>Asset</label>
+                  {/* <A5DBSelect
                     placeholder={'Select...'}
                     itemList={this.state.currencyArrayForSelect}
                     onChange={(item) => {
                       this.handleCoinSelect(item);
                     }}
                     defaultValue={slctdCurr}
+                  /> */}
+                  <input
+                    placeholder={'BTC'}
+                    style={{width: '100%'}}
+                    readOnly
+                    type="text"
                   />
                 </div>
                 <div className="transfer-form-field">

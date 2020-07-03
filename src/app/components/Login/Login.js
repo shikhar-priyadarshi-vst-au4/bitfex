@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {loginUser} from '../../redux/actions/authActions';
-import {connect} from 'react-redux';
+import {clearErrors} from '../../redux/actions/errorActions';
 import './Login.css';
 import isEmpty from '../../validation/is-empty';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
@@ -19,15 +20,15 @@ class Login extends Component {
       value: 'country',
       email: '',
       password: '',
+      isDirty: false,
     };
   }
 
   errorMap = {
-    password_or_email_invalid: 'Invalid Email or Password',
+    password_or_email_invalid: 'Incorrect Email or Password!',
   };
 
   componentDidMount = () => {
-    console.log(this.props.auth);
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard/account');
     }
@@ -36,16 +37,21 @@ class Login extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (!isEmpty(nextProps.errors)) {
       console.log(nextProps.errors);
-      let errorKey = nextProps.errors.type;
-      this.setState({formError: this.errorMap[errorKey]});
     } else if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/dashboard/account');
     }
   };
 
+  componentDidUpdate = () => {
+    if (!isEmpty(this.props.errors) && !this.state.formError) {
+      let formError = this.errorMap[this.props.errors.type];
+      this.setState({formError});
+    }
+  };
+
   allowSubmission = () => {
-    const {emailError, passwordError} = this.state;
-    return !(emailError || passwordError);
+    const {emailError, passwordError, isDirty} = this.state;
+    return !(emailError || passwordError) && isDirty;
   };
 
   onSubmit = (e) => {
@@ -53,6 +59,24 @@ class Login extends Component {
     const {email, password} = this.state;
     if (this.allowSubmission()) {
       this.props.loginUser({email, password});
+    } else {
+      let emailError = '';
+      let passwordError = '';
+      if (!email) {
+        emailError = 'Email is Required !';
+      } else if (!validEmailRegex.test(email)) {
+        emailError = 'Please enter a valid email!';
+      }
+      if (!password) {
+        passwordError = 'Password is required !';
+      }
+      this.setState({
+        emailError,
+        passwordError,
+        email,
+        formError: '',
+        isDirty: true,
+      });
     }
   };
 
@@ -65,7 +89,8 @@ class Login extends Component {
     } else if (!validEmailRegex.test(email)) {
       emailError = 'Please enter a valid email!';
     }
-    this.setState({emailError, email, formError: ''});
+    this.props.clearErrors();
+    this.setState({emailError, email, formError: '', isDirty: true});
   };
 
   handlePasswordInput = (e) => {
@@ -75,7 +100,8 @@ class Login extends Component {
     if (!password) {
       passwordError = 'Password is required !';
     }
-    this.setState({password, passwordError, formError: ''});
+    this.props.clearErrors();
+    this.setState({password, passwordError, formError: '', isDirty: true});
   };
 
   render() {
@@ -143,4 +169,6 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {loginUser})(withRouter(Login));
+export default connect(mapStateToProps, {loginUser, clearErrors})(
+  withRouter(Login),
+);

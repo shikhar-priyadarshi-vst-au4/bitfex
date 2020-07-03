@@ -89,6 +89,7 @@ class DepositCoins extends Component {
         <div className="containment">
           <div className="balances">
             <h3> Deposit </h3>
+            <hr />
             <div className="left-sided">
               <div className="a5-form-field mt-5">
                 <A5DBSelect
