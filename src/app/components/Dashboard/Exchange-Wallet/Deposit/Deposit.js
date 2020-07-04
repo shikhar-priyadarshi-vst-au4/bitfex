@@ -3,11 +3,19 @@ import {withRouter, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Select from 'react-select';
+import AlertDismissible from '../../Alert/GoogleAuth';
 import './Deposit.css';
 import Bitcoin from '../../../../../assets/img/bitcoin.png';
 import Tether from '../../../../../assets/img/tetherUs.png';
 
 export class Deposit extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      googleAuth: false,
+    };
+  }
+
   componentDidMount() {
     // this.props.setCurrentUser();
     if (!this.props.auth.isAuthenticated) {
@@ -25,6 +33,10 @@ export class Deposit extends Component {
   setLoction = (e) => {
     this.props.history.push(`${e.value}`);
   };
+
+  // chekGoogleAuth = (e) => {
+  //   <AlertDismissible />;
+  // };
 
   render() {
     const {heading, routes} = this.props;
@@ -71,6 +83,16 @@ export class Deposit extends Component {
         marginLeft: '-70px',
       },
     };
+    // const alertData = (
+    //   <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+    //     <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+    //     <p>
+    //       Change this and that and try again. Duis mollis, est non commodo
+    //       luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+    //       Cras mattis consectetur purus sit amet fermentum.
+    //     </p>
+    //   </Alert>
+    // );
 
     return (
       <div className="col-md-12 contentcontainer">
@@ -81,29 +103,55 @@ export class Deposit extends Component {
           </p>
           <div className="row select-button" style={styles.newelementrow}>
             <div className="col-md-7">
-              <Link to={BTC}>
+              {this.state.googleAuth ? (
+                <Link to={BTC}>
+                  <button
+                    type="button"
+                    className="btn btn-default"
+                    style={styles.btn}
+                  >
+                    <img src={Bitcoin} alt="Bitcoin" style={styles.img} />
+                    &nbsp; Bitcoin &nbsp;
+                    <span>Avl: 0</span>
+                  </button>
+                </Link>
+              ) : (
                 <button
                   type="button"
                   className="btn btn-default"
                   style={styles.btn}
+                  onClick={() => alert('You need to enable Google Auth 2FA')}
                 >
                   <img src={Bitcoin} alt="Bitcoin" style={styles.img} />
                   &nbsp; Bitcoin &nbsp;
                   <span>Avl: 0</span>
                 </button>
-              </Link>
+              )}
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <Link to={USDT}>
+              {this.state.googleAuth ? (
+                <Link to={USDT}>
+                  <button
+                    type="button"
+                    className="btn btn-default"
+                    style={styles.btn}
+                  >
+                    <img src={Tether} alt="Tether" style={styles.img} />
+                    &nbsp; Tether &nbsp;
+                    <span>Avl: 0</span>
+                  </button>
+                </Link>
+              ) : (
                 <button
                   type="button"
                   className="btn btn-default"
                   style={styles.btn}
+                  onClick={() => alert('You need to enable Google Auth 2FA')}
                 >
                   <img src={Tether} alt="Tether" style={styles.img} />
                   &nbsp; Tether &nbsp;
                   <span>Avl: 0</span>
                 </button>
-              </Link>
+              )}
             </div>
             <div className="col-md-5" />
           </div>

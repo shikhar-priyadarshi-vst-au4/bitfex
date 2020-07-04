@@ -1,29 +1,28 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-// import {getCurrentProfile} from '../../../../redux/actions/profileActions';
 
 class Account extends Component {
-  componentDidMount() {
-    // this.props.getCurrentProfile();
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: this.props.profile,
+    };
+  }
 
-    // if (this.props.auth.isAuthenticated) {
-    //   document.title = this.props.auth.user.email;
-    // }
+  componentDidMount() {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/login');
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.auth.isAuthenticated) {
-      this.props.history.push('/login');
-      document.title = 'Bitfex';
-    }
-  }
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({profile: nextProps.profile});
+  };
 
   render() {
     const Profile = this.props.name;
+    const {profile} = this.state;
     // console.log(this.props.profile.profile);
     console.log(this.props);
     return (
@@ -40,12 +39,11 @@ class Account extends Component {
                   <h4 className="account_tableheading">My Profile</h4>
                   <p>
                     <strong>Email:</strong>
-                    {this.props.auth.user.email}
+                    {profile.profile.email}
                   </p>
                   <p>
                     <strong>Name:</strong>
-                    {this.props.auth.user.first_name}{' '}
-                    {this.props.auth.user.last_name}
+                    {profile.profile.full_name}
                   </p>
                   <p>
                     <strong>Desktop User ID:</strong>ANIL_KUMAR_STIGASOFT_COM

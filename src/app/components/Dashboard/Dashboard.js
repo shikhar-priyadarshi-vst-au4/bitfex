@@ -8,6 +8,7 @@ import Sidebar from './Sidebar/Sidebar';
 import Header from './Header/index';
 import Footer from '../Footer/index';
 import routes from './routes';
+import setAuthToken from '../../utils/setAuthToken';
 import './Dashboard.css';
 
 const userInfo = {};
@@ -44,25 +45,27 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.props.getCurrentProfile();
-
+    this.checkLoginStatus();
     if (this.props.auth.isAuthenticated) {
-      document.title = this.props.auth.user.email;
+      setAuthToken(localStorage.getItem('token'));
+      this.props.getCurrentProfile();
+    }
+  }
+
+  componentDidUpdate = () => {
+    this.checkLoginStatus();
+  };
+
+  checkLoginStatus = () => {
+    if (this.props.auth.isAuthenticated) {
+      document.title = this.props.profile.profile.email;
     } else if (this.props.auth.user.email === null) {
       document.title = 'Bitfex';
     }
-
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/login');
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.auth.isAuthenticated) {
-      this.props.history.push('/login');
-      document.title = 'Bitfex';
-    }
-  }
+  };
 
   render() {
     // console.log(this.props.profile.profile);

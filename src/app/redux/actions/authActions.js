@@ -2,13 +2,18 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../../utils/setAuthToken';
 
-import {GET_ERRORS, SET_CURRENT_USER, LOGOUT} from '../types';
+import {GET_ERRORS, SET_CURRENT_USER, LOGOUT, SET_ERRORS} from '../types';
 
 const {SERVER_URL} = process.env;
-const BASE_URL =
-  'https://dev.bitfex.com/api/v1';
+const BASE_URL = 'https://dev.bitfex.com/api/v1';
 
 // Register User
+export const registerUser = (UserForm, history) => (dispatch) => {
+  axios
+    .post(`${BASE_URL}/users/sign_up`, UserForm)
+    .then((res) => console.log(res.data))
+    .catch((error) => console.log(error.response));
+};
 
 // Login - Get User Token
 export const loginUser = (userData) => (dispatch) => {

@@ -2,8 +2,10 @@ import isEmpty from '../../validation/is-empty';
 
 import {SET_CURRENT_USER, LOGOUT} from '../types';
 
+const getFromLS = (key) => localStorage.getItem('token');
+
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: !isEmpty(getFromLS('token')),
   loading: true,
   user: {},
 };

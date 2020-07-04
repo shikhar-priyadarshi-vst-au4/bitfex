@@ -7,3 +7,4 @@ export const PROFILE_NOT_FOUND = 'PROFILE_NOT_FOUND';
 export const CLEAR_CURRENT_PROFILE = 'CLEAR_CURRENT_PROFILE';
 export const GET_PROFILES = 'GET_PROFILES';
 export const LOGOUT = 'LOGOUT';
+export const SET_ERRORS = 'SET_ERRORS';

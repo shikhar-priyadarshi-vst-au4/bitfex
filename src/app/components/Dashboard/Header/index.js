@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import _ from 'lodash';
 import {logoutUser} from '../../../redux/actions/authActions';
 import {
   clearCurrentProfile,
@@ -11,6 +12,20 @@ import './Header.css';
 import Bitfixlogo from '../../../../assets/img/Bitfex-logo.svg';
 
 class Header extends Component {
+  componentDidMount = () => {
+    console.log(this.props);
+  };
+
+  componentWillReceiveProps = (nextProps) => {
+    if (!_.isEqual(nextProps.profile, this.props.profile)) {
+      this.forceUpdate();
+    }
+  };
+
+  componentDidUpdate = () => {
+    console.log(this.props);
+  };
+
   Logout = (e) => {
     e.preventDefault();
     this.props.clearCurrentProfile();
@@ -68,7 +83,9 @@ class Header extends Component {
                   <i className="fa fa-user-circle"></i>
                 </a>
                 <ul className=" right_logout">
-                  <p className="user_email">{this.props.auth.user.email}</p>
+                  <p className="user_email">
+                    {this.props.profile.profile.email}
+                  </p>
                   <p className="user_logout">
                     <a className="#" onClick={this.Logout}>
                       <i className="fa fa-sign-out"></i>Log Out

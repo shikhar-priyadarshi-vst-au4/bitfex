@@ -2,20 +2,219 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+import classnames from 'classnames';
+import {registerUser} from '../../redux/actions/authActions';
+import {clearErrors} from '../../redux/actions/errorActions';
+import isEmpty from '../../validation/is-empty';
 import './Register.css';
+
+const validEmailRegex = RegExp(
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+);
+const validPassword = RegExp(
+  '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})',
+);
+
 export class Register extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: 'country'};
+    this.state = {
+      value: 'country',
+      email: '',
+      password: '',
+      password_confirmation: '',
+      first_name: '',
+      last_name: '',
+      country: '',
+      formError: '',
+      emailError: '',
+      passError: '',
+      cnfPassError: '',
+      countryError: '',
+      firstNameError: '',
+      lastnameError: '',
+    };
   }
 
-  componentDidMount() {
+  errorMap = {
+    password_or_email_invalid: 'User Registration fail.',
+  };
+
+  componentDidMount = () => {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard/account');
     }
-  }
+  };
+
+  componentWillReceiveProps = (nextProps) => {
+    if (!isEmpty(nextProps.errors)) {
+      console.log(nextProps.errors);
+    }
+    // } else if (nextProps.auth.isAuthenticated) {
+    //   this.props.history.push('/dashboard/account');
+    // }
+  };
+
+  componentDidUpdate = () => {
+    if (!isEmpty(this.props.errors) && !this.state.formError) {
+      let formError = this.errorMap[this.props.errors.type];
+      this.setState({formError});
+    }
+  };
+
+  registerForm = (e) => {
+    e.preventDefault();
+
+    const UserForm = {
+      email: this.state.email,
+      password: this.state.password,
+      password_confirmation: this.state.password_confirmation,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      country: this.state.country,
+    };
+
+    if (!UserForm.email) {
+      this.setState({
+        emailError: 'Email is required!',
+      });
+    } else {
+      this.setState({
+        emailError: '',
+      });
+    }
+
+    if (!UserForm.password) {
+      this.setState({
+        passError: 'Please enter your password!',
+      });
+    } else {
+      this.setState({
+        passError: '',
+      });
+    }
+
+    if (!UserForm.password_confirmation) {
+      this.setState({
+        cnfPassError: 'Please enter confirm password!',
+      });
+    } else {
+      this.setState({
+        cnfPassError: '',
+      });
+    }
+
+    if (!UserForm.country) {
+      this.setState({
+        countryError: 'Please choose a country!',
+      });
+    } else {
+      this.setState({
+        countryError: '',
+      });
+    }
+
+    if (!UserForm.first_name) {
+      this.setState({
+        firstNameError: 'First Name is required!',
+      });
+    } else {
+      this.setState({
+        firstNameError: '',
+      });
+    }
+
+    if (!UserForm.last_name) {
+      this.setState({
+        lastnameError: 'last Name is required!',
+      });
+    } else {
+      this.setState({
+        lastnameError: '',
+      });
+    }
+
+    this.props.registerUser(UserForm);
+  };
+
+  handleEmailInput = (e) => {
+    e.preventDefault();
+    let email = e.target.value;
+    let emailError = '';
+    if (!email) {
+      emailError = 'Email is Required !';
+    } else if (!validEmailRegex.test(email)) {
+      emailError = 'Please enter a valid email!';
+    }
+    this.props.clearErrors();
+    this.setState({emailError, email, formError: ''});
+  };
+
+  handlePasswordInput = (e) => {
+    e.preventDefault();
+    let password = e.target.value;
+    let passError = '';
+    if (!password) {
+      passError = 'Password is required !';
+    } else if (password.length < 8) {
+      passError = 'Password should be minimum of min 8 characters!';
+    } else if (!validPassword.test(password)) {
+      passError =
+        'Your password must contain at least one lowercase letter, one capital letter, one special character and one number!';
+    }
+    this.props.clearErrors();
+    this.setState({password, passError, formError: ''});
+  };
+
+  handleCnfrmPasswordInput = (e) => {
+    e.preventDefault();
+    let password_confirmation = e.target.value;
+    const {password} = this.state;
+    let cnfPassError = '';
+    if (!password_confirmation) {
+      cnfPassError = 'Please enter confirm password!';
+    } else if (password_confirmation !== password) {
+      cnfPassError = 'Password must match!';
+    }
+    this.props.clearErrors();
+    this.setState({password_confirmation, cnfPassError, formError: ''});
+  };
+
+  handleContryChange = (e) => {
+    e.preventDefault();
+    let country = e.target.value;
+    let countryError = '';
+    if (!country) {
+      countryError = 'Please choose a country!';
+    }
+    this.props.clearErrors();
+    this.setState({country, countryError, formError: ''});
+  };
+
+  handleFirstNameInput = (e) => {
+    e.preventDefault();
+    let first_name = e.target.value;
+    let firstNameError = '';
+    if (!first_name) {
+      firstNameError = 'First Name is required!';
+    }
+    this.props.clearErrors();
+    this.setState({firstNameError, first_name, formError: ''});
+  };
+
+  handleLastnameInput = (e) => {
+    e.preventDefault();
+    let last_name = e.target.value;
+    let lastnameError = '';
+    if (!last_name) {
+      lastnameError = 'last Name is required!';
+    }
+    this.props.clearErrors();
+    this.setState({lastnameError, last_name, formError: ''});
+  };
 
   render() {
+    console.log(this.props.errors);
     return (
       <div>
         <div>
@@ -37,10 +236,10 @@ export class Register extends Component {
                           </li>
                         </ul>
                         <div className="frm-body signin-wd">
-                          <form>
-                            {/* <div className="auth-error">
-                              <p>error</p>
-                            </div> */}
+                          <form onSubmit={this.registerForm}>
+                            {this.state.formError ? (
+                              <h3 className="error">{this.state.formError}</h3>
+                            ) : null}
                             <div className="login-signup-heading">
                               Create Bitfex Account
                             </div>
@@ -54,17 +253,19 @@ export class Register extends Component {
                               <input
                                 formcontrolname="email"
                                 type="email"
-                                className="form-input"
+                                name="email"
+                                id="email"
+                                className={classnames('form-input', {
+                                  'is-invalid': this.state.emailError,
+                                })}
                                 maxLength="{50}"
+                                onInput={this.handleEmailInput}
                               />
-                              {/* <div className="form-valid-error">
-                                <div className="error-msg">
-                                  Please enter valid email address!
+                              {this.state.emailError && (
+                                <div className="invalid-feedback">
+                                  {this.state.emailError}
                                 </div>
-                                <div className="error-msg">
-                                  Email is required!
-                                </div>
-                              </div> */}
+                              )}
                             </div>
                             <div className="form-group input-ico pwd">
                               <label htmlFor="password" className="form-label">
@@ -73,26 +274,21 @@ export class Register extends Component {
                               <input
                                 formcontrolname="password"
                                 type="password"
-                                className="form-input"
+                                name="password"
+                                className={classnames('form-input', {
+                                  'is-invalid': this.state.passError,
+                                })}
                                 placeholder="8-20 alpha numeric characters"
                                 maxLength="{20}"
                                 minLength="{8}"
                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                onInput={this.handlePasswordInput}
                               />
-                              {/* <div className="form-valid-error">
-                                <div className="error-msg">
-                                  Please enter your password!
+                              {this.state.passError && (
+                                <div className="invalid-feedback">
+                                  {this.state.passError}
                                 </div>
-                                <div className="error-msg">
-                                  Password should be minimum of min 8
-                                  characters!
-                                </div>
-                                <div className="error-msg">
-                                  Your password must contain at least one
-                                  lowercase letter, one capital letter and one
-                                  number!
-                                </div>
-                              </div> */}
+                              )}
                             </div>
                             <div className="form-group input-ico pwd">
                               <label htmlFor="password" className="form-label">
@@ -101,19 +297,20 @@ export class Register extends Component {
                               <input
                                 formcontrolname="confirmPassword"
                                 type="password"
-                                className="form-input"
+                                name="password_confirmation"
+                                className={classnames('form-input', {
+                                  'is-invalid': this.state.cnfPassError,
+                                })}
                                 placeholder="8-20 alpha numeric characters"
                                 maxLength="{20}"
                                 minLength="{8}"
+                                onInput={this.handleCnfrmPasswordInput}
                               />
-                              {/* <div className="form-valid-error">
-                                <div className="error-msg">
-                                  Please enter confirm password!
+                              {this.state.cnfPassError && (
+                                <div className="invalid-feedback">
+                                  {this.state.cnfPassError}
                                 </div>
-                                <div className="error-msg">
-                                  Password must match!
-                                </div>
-                              </div> */}
+                              )}
                             </div>
                             <div className="form-group input-ico globe">
                               <label
@@ -126,7 +323,10 @@ export class Register extends Component {
                                 <select
                                   formcontrolname="country"
                                   name="country"
-                                  className="form-input"
+                                  className={classnames('form-input', {
+                                    'is-invalid': this.state.countryError,
+                                  })}
+                                  onChange={this.handleContryChange}
                                 >
                                   <option value={this.state.value}>
                                     Click to choose a Country
@@ -137,11 +337,11 @@ export class Register extends Component {
                                   <option value="5">Australia</option>
                                   <option value="6">China</option>
                                 </select>
-                                {/* <div className="form-valid-error">
-                                  <div className="error-msg">
-                                    Please choose a country!
+                                {this.state.countryError && (
+                                  <div className="invalid-feedback">
+                                    {this.state.countryError}
                                   </div>
-                                </div> */}
+                                )}
                               </div>
                             </div>
                             <div className="form-group input-ico user">
@@ -151,10 +351,19 @@ export class Register extends Component {
                               </label>
                               <input
                                 formcontrolname="firstName"
+                                name="first_name"
                                 type="text"
-                                className="form-input"
+                                className={classnames('form-input', {
+                                  'is-invalid': this.state.firstNameError,
+                                })}
                                 maxLength="{30}"
+                                onInput={this.handleFirstNameInput}
                               />
+                              {this.state.firstNameError && (
+                                <div className="invalid-feedback">
+                                  {this.state.firstNameError}
+                                </div>
+                              )}
                             </div>
                             <div className="form-group input-ico user">
                               <label htmlFor="username" className="form-label">
@@ -163,10 +372,19 @@ export class Register extends Component {
                               </label>
                               <input
                                 formcontrolname="lastName"
+                                name="last_name"
                                 type="text"
-                                className="form-input"
+                                className={classnames('form-input', {
+                                  'is-invalid': this.state.lastnameError,
+                                })}
                                 maxLength="{30}"
+                                onInput={this.handleLastnameInput}
                               />
+                              {this.state.lastnameError && (
+                                <div className="invalid-feedback">
+                                  {this.state.lastnameError}
+                                </div>
+                              )}
                             </div>
                             <div className="form-group">
                               <div className="terms-wrapper">
@@ -229,11 +447,16 @@ export class Register extends Component {
 }
 
 Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  errors: state.errors,
 });
 
-export default connect(mapStateToProps, {})(withRouter(Register));
+export default connect(mapStateToProps, {registerUser, clearErrors})(
+  withRouter(Register),
+);
