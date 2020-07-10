@@ -1009,3 +1009,6 @@ nav.navbar.navbar-default.main-navbar.dashboard_header {
   margin-right: 10px;
   margin-top: -8px;
 }
+.nopadd{
+  padding: 0!important;
+}

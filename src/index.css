@@ -2101,6 +2101,35 @@ ul.sidebarlist.show.collapse {
   /* height: inherit !important; */
   z-index: -1;
 }
+.nopadd{
+  padding: 0!important;
+}
+.security_from{
+  width: 100%;
+}
+.google_authinput{
+  padding-left: 16px
+   !important;
+}
+.scan_text{
+  width: 100%;
+}
+.input_img{
+  position: absolute;
+  left: 0;
+  top: 14px;
+  margin: 0px 12px;
+  color: #aaa;
+  transition: 0.3s;
+  font-size: 22px;
+  border-right: 1px solid #0000001a;
+  height: 26px;
+  line-height: 11px;
+  padding-right: 8px;
+}
+button:focus {
+  outline: none;
+}
 /* Media Queries */
 
 @media (min-width: 1200px) {
