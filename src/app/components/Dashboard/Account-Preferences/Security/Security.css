@@ -1040,3 +1040,7 @@ nav.navbar.navbar-default.main-navbar.dashboard_header {
   padding: 12px 40px !important;
   text-align: center;
 }
+
+.nopadd {
+  padding: 0 !important;
+}

@@ -20,3 +20,19 @@ export const allapisecretkey = () => (dispatch) => {
     )
     .catch((error) => console.log(error.response));
 };
+
+// Delete api key
+
+export const deleteapikey = (apiKeyName) => (dispatch) => {
+  axios
+    .post(`${BASE_URL}/users/delete_key_pair`, apiKeyName, {
+      headers: {
+        'Content-type': 'application/json; charset=utf-8',
+        Accept: 'application/json; charset=utf-8',
+      },
+    })
+    .then((res) => {
+      return dispatch(allapisecretkey());
+    })
+    .catch((error) => console.log(error.response));
+};

@@ -6,6 +6,8 @@ import {changePassword} from '../../../../redux/actions/authActions';
 import isEmpty from '../../../../validation/is-empty';
 import cromeimg from '../../../../../assets/img/cromeimg.png';
 import GoogleAuthSVG from '../../../../../assets/img/._google-authenticator.svg';
+import scanimg from '../../../../../assets/img/scanimg.png';
+import inputimg from '../../../../../assets/img/inputimg.png';
 import './Security.css';
 
 const validPassword = RegExp(
@@ -55,10 +57,10 @@ class Security extends Component {
   }
 
   componentDidUpdate = () => {
-    if (!isEmpty(this.props.errors) && !this.state.formError) {
-      let formError = this.errorMap[this.props.errors.type];
-      this.setState({formError});
-    }
+    // if (!isEmpty(this.props.errors) && !this.state.formError) {
+    //   let formError = this.errorMap[this.props.errors.type];
+    //   this.setState({formError});
+    // }
     // if (!isEmpty(this.props.auth.userNewpasswor)) {
     //   let successmsg = this.successmap[this.props.auth.userNewpasswor];
     //   this.setState({successmsg});
@@ -79,6 +81,7 @@ class Security extends Component {
   };
 
   upadtePassword = (e) => {
+    // alert('call');
     e.preventDefault();
     const {old_password, password, password_confirmation} = this.state;
     if (this.allowSubmission()) {
@@ -172,7 +175,7 @@ class Security extends Component {
   render() {
     const Profile = this.props.heading;
     console.log(this.props);
-    console.log(this.state.successmsg);
+    console.log(this.state.formError);
     return (
       <div className="row dashboard_container">
         <div className="col-md-12 contentcontainer">
@@ -252,7 +255,7 @@ class Security extends Component {
               <div className="col-md-6 google_container">
                 <div className="row googleauth_container">
                   <div className="col-md-8 google_auth">
-                    <div className="auth_text">
+                    <div className="auth_text nopadd">
                       {/* <img src="images/cromeimg.png" className="crome_image" /> */}
                       <img src={cromeimg} className="crome_image" />
                       <h3>Google Auth (2FA)</h3>
@@ -260,6 +263,34 @@ class Security extends Component {
                   </div>
                   <div className="col-md-4 enable_button">
                     <button>Enalbe</button>
+                  </div>
+                  <div className="security_from">
+                    <label>Select</label>
+                    <div className="inputWithIcon">
+                      <input
+                        type="text"
+                        placeholder="JDHFJSDHGKHVJKVHKD"
+                        className="google_authinput"
+                      />
+                      {/* <i className="fa fa-lock" /> */}
+                    </div>
+                  </div>
+                  <p className="scan_text">
+                    Scan this with the Google Authenticator
+                  </p>
+                  <div>
+                    <img src={scanimg} />
+                  </div>
+                  <div className="security_from">
+                    <label>Two-factor code</label>
+                    <div className="inputWithIcon">
+                      <input type="text" placeholder="" />
+                      {/* <i class="fa fa-codiepie" /> */}
+                      <img src={inputimg} className="input_img" />
+                    </div>
+                  </div>
+                  <div className="enable_button">
+                    <button>Submit</button>
                   </div>
                 </div>
               </div>
