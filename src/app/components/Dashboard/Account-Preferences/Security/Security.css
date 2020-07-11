@@ -1009,3 +1009,34 @@ nav.navbar.navbar-default.main-navbar.dashboard_header {
   margin-right: 10px;
   margin-top: -8px;
 }
+/*Secupsgerity_*/
+.inputWithIcon input[type='password'] {
+  width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+  padding-left: 45px;
+}
+
+/*error classes starts*/
+.error span {
+  color: #f64747;
+  display: block;
+  margin-top: 5px;
+}
+/* success msg*/
+.msg-success {
+  background-color: rgba(50, 194, 77, 0.05);
+  border: 1px solid #32c24d;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 20px !important;
+  color: #289a3d;
+  border-radius: 0;
+  padding: 12px 40px !important;
+  text-align: center;
+}

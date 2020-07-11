@@ -1,6 +1,6 @@
 import isEmpty from '../../validation/is-empty';
 
-import {SET_CURRENT_USER, LOGOUT} from '../types';
+import {SET_CURRENT_USER, LOGOUT, USER_PASSWORD_CHANGE} from '../types';
 
 const getFromLS = (key) => localStorage.getItem('token');
 
@@ -8,6 +8,7 @@ const initialState = {
   isAuthenticated: !isEmpty(getFromLS('token')),
   loading: true,
   user: {},
+  userNewpasswor: '',
 };
 
 export default function (state = initialState, action) {
@@ -24,6 +25,11 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: false,
         loading: false,
+      };
+    case USER_PASSWORD_CHANGE:
+      return {
+        ...state,
+        userNewpasswor: action.payload,
       };
     default:
       return state;

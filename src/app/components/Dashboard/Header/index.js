@@ -13,7 +13,7 @@ import Bitfixlogo from '../../../../assets/img/Bitfex-logo.svg';
 
 class Header extends Component {
   componentDidMount = () => {
-    console.log(this.props);
+    // console.log(this.props);
   };
 
   componentWillReceiveProps = (nextProps) => {
@@ -23,7 +23,7 @@ class Header extends Component {
   };
 
   componentDidUpdate = () => {
-    console.log(this.props);
+    // console.log(this.props);
   };
 
   Logout = (e) => {

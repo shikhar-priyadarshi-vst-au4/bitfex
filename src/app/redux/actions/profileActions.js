@@ -1,8 +1,7 @@
 import axios from 'axios';
 import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE} from '../types';
 
-const BASE_URL =
-  'https://dev.bitfex.com/api/v1';
+const BASE_URL = 'https://dev.bitfex.com/api/v1';
 
 // Get current profile
 export const getCurrentProfile = () => (dispatch) => {

@@ -9,6 +9,8 @@ import DepositCoins from './Exchange-Wallet/Deposit/DepositCoins';
 import WithdrawCoins from './Exchange-Wallet/Withdraw/WithdrawCoins';
 import FuturesTransfer from './Futures-Wallet/Transfer/FuturesTransfer';
 import OptionTransfer from './Options-Wallet/Transfer/OptionTransfer';
+import WithdraWrongAddress from './Exchange-Wallet/Withdraw/WithdraWrongAddress';
+import WithdraSuccessAddress from './Exchange-Wallet/Withdraw/WithdraSuccessAddress';
 
 const dashboardRoutes = [
   {
@@ -37,6 +39,20 @@ const dashboardRoutes = [
     name: 'Deposit',
     heading: 'Deposit',
     component: Deposit,
+    layout: '/dashboard',
+  },
+  {
+    path: '/withdraw/BTC/address',
+    name: 'BTC Address',
+    heading: 'BTC Details',
+    component: WithdraSuccessAddress,
+    layout: '/dashboard',
+  },
+  {
+    path: '/withdraw/USDT/address',
+    name: 'USDT Address',
+    heading: 'USDT Details',
+    component: WithdraSuccessAddress,
     layout: '/dashboard',
   },
   {

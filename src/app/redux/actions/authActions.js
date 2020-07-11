@@ -2,7 +2,13 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../../utils/setAuthToken';
 
-import {GET_ERRORS, SET_CURRENT_USER, LOGOUT, SET_ERRORS} from '../types';
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  LOGOUT,
+  USER_PASSWORD_CHANGE,
+  SET_ERRORS,
+} from '../types';
 
 const {SERVER_URL} = process.env;
 const BASE_URL = 'https://dev.bitfex.com/api/v1';
@@ -65,4 +71,22 @@ export const logoutUser = () => (dispatch) => {
     type: LOGOUT,
     payload: {},
   });
+};
+
+export const changePassword = (UserPasswordDetails) => (dispatch) => {
+  // changing user password
+  axios
+    .post(`${BASE_URL}/users/change_password`, UserPasswordDetails)
+    .then((res) =>
+      dispatch({
+        type: USER_PASSWORD_CHANGE,
+        payload: res.data,
+      }),
+    )
+    .catch((error) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data,
+      }),
+    );
 };

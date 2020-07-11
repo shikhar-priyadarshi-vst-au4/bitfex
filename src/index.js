@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode';
 import {Provider} from 'react-redux';
 import store from './app/redux/store';
 
-import setAuthToken from './app/utils/setAuthToken';
+// import setAuthToken from './app/utils/setAuthToken';
 import {setCurrentUser, logoutUser} from './app/redux/actions/authActions';
 
 import 'bootstrap/dist/css/bootstrap.min.css';

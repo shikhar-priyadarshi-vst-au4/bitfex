@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Select from 'react-select';
@@ -11,7 +11,12 @@ class WithdrawCoins extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {funds: '', balance: '0.00000000', minthdrawal: ''};
+    this.state = {
+      funds: '',
+      balance: '5.00000000',
+      minthdrawal: '',
+      address: '',
+    };
   }
 
   componentDidMount() {
@@ -43,10 +48,20 @@ class WithdrawCoins extends Component {
     this.props.history.push(`${e.value}`);
   };
 
+  forSucessAddress = (e) => {
+    console.log(e.target.value);
+    this.setState({address: e.target.value});
+  };
+
   render() {
+    console.log(this.state.address);
     const {heading, name, routes, location} = this.props;
-    const BTC = routes[4].layout + routes[4].path;
-    const USDT = routes[5].layout + routes[5].path;
+    const BTC = routes[6].layout + routes[6].path;
+    const USDT = routes[7].layout + routes[7].path;
+    const btcAdrress = routes[4].layout + routes[4].path;
+    const usdtAdress = routes[5].layout + routes[5].path;
+
+    console.log(this.props);
 
     const options = [
       {
@@ -211,6 +226,7 @@ class WithdrawCoins extends Component {
                   type="text"
                   placeholder="Address"
                   style={styles.adressInput}
+                  onChange={this.forSucessAddress}
                 />
               </div>
             </div>
@@ -236,7 +252,17 @@ class WithdrawCoins extends Component {
             </div>
             <div className="row" style={styles.errdiv}>
               <div className="col-md-12">
-                <button style={styles.sendBtn}>SEND</button>
+                <Link
+                  to={
+                    location.pathname === BTC
+                      ? btcAdrress
+                      : location.pathname === USDT
+                      ? usdtAdress
+                      : null
+                  }
+                >
+                  <button style={styles.sendBtn}>SEND</button>
+                </Link>
               </div>
             </div>
             <div className="row">

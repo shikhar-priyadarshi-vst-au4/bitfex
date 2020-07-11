@@ -32,10 +32,11 @@ export class Withdraw extends Component {
   };
 
   render() {
+    console.log(this.props);
     const {heading, routes} = this.props;
 
-    const BTC = routes[4].layout + routes[4].path;
-    const USDT = routes[5].layout + routes[5].path;
+    const BTC = routes[6].layout + routes[6].path;
+    const USDT = routes[7].layout + routes[7].path;
 
     const options = [
       {

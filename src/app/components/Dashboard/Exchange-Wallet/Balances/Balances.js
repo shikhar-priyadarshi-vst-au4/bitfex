@@ -27,7 +27,7 @@ class Balances extends Component {
     const {heading, routes} = this.props;
 
     const Depositroute = routes[3].layout + routes[3].path;
-    const withdrawroute = routes[6].layout + routes[6].path;
+    const withdrawroute = routes[8].layout + routes[8].path;
 
     const styles = {
       newelementrow: {

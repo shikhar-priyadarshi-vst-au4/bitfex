@@ -58,6 +58,7 @@ class Sidebar extends Component {
   render() {
     const {color, routes} = this.props;
     // const show = this.state.active ? 'show' : '';
+    // console.log(this.props);
     return (
       <div className="account_menu">
         <ul className="nav navbar-nav sidebar_nav">
@@ -111,10 +112,10 @@ class Sidebar extends Component {
               </li>
               <li className="nav-item">
                 <NavLink
-                  to={routes[6].layout + routes[6].path}
+                  to={routes[8].layout + routes[8].path}
                   className="nav-link"
                 >
-                  {routes[6].name}
+                  {routes[8].name}
                 </NavLink>
               </li>
             </ul>
@@ -150,10 +151,10 @@ class Sidebar extends Component {
             >
               <li className="nav-item">
                 <NavLink
-                  to={routes[11].layout + routes[11].path}
+                  to={routes[13].layout + routes[13].path}
                   className="nav-link"
                 >
-                  {routes[11].name}
+                  {routes[13].name}
                 </NavLink>
               </li>
             </ul>
@@ -185,10 +186,10 @@ class Sidebar extends Component {
             >
               <li className="nav-item">
                 <NavLink
-                  to={routes[12].layout + routes[12].path}
+                  to={routes[14].layout + routes[14].path}
                   className="nav-link"
                 >
-                  {routes[12].name}
+                  {routes[14].name}
                 </NavLink>
               </li>
             </ul>
@@ -234,34 +235,34 @@ class Sidebar extends Component {
 
               <li className="nav-item active">
                 <NavLink
-                  to={routes[7].layout + routes[7].path}
-                  className="nav-link"
-                >
-                  {routes[7].name}
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to={routes[8].layout + routes[8].path}
-                  className="nav-link"
-                >
-                  {routes[8].name}
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
                   to={routes[9].layout + routes[9].path}
                   className="nav-link"
                 >
                   {routes[9].name}
                 </NavLink>
               </li>
-              <li className="nav-item ">
+              <li className="nav-item">
                 <NavLink
                   to={routes[10].layout + routes[10].path}
                   className="nav-link"
                 >
                   {routes[10].name}
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  to={routes[11].layout + routes[11].path}
+                  className="nav-link"
+                >
+                  {routes[11].name}
+                </NavLink>
+              </li>
+              <li className="nav-item ">
+                <NavLink
+                  to={routes[12].layout + routes[12].path}
+                  className="nav-link"
+                >
+                  {routes[12].name}
                 </NavLink>
               </li>
             </ul>

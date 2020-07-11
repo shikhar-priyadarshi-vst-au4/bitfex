@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 import {Provider} from 'react-redux';
 import store from '../../redux/store';
 
-import setAuthToken from '../../utils/setAuthToken';
+// import setAuthToken from '../../utils/setAuthToken';
 import {setCurrentUser, logoutUser} from '../../redux/actions/authActions';
 
 import HomePage from '../home-page/HomePageContent';
