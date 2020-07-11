@@ -6,9 +6,11 @@ import {deleteapikey} from '../../../../redux/actions/apiSecretand2faAction';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faInr, faHistory, faCopy} from '@fortawesome/free-solid-svg-icons';
-import {Alert} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
+// import {useAlert} from 'react-alert';
 import {confirmAlert} from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import ApiScretekeyModel from '../../Models/ApiScretekeyModel/ApiScretekeyModel';
 import Bitcoin from '../../../../../assets/img/bitcoin.png';
 import Tether from '../../../../../assets/img/tetherUs.png';
 
@@ -18,6 +20,7 @@ export class ApiSecret extends Component {
     this.state = {
       apiSecretkey: this.props.apisecretkeys.apisecretkeys,
       copied: false,
+      apiKeyModal: false,
     };
   }
 
@@ -38,6 +41,15 @@ export class ApiSecret extends Component {
     }
     this.setState({apiSecretkey: nextProps.apisecretkeys.apisecretkeys});
   }
+
+  showTransferBalanceModal = (e) => {
+    this.setState({openTransferBalModal: true});
+    this.setState({id: e.target.id});
+  };
+
+  hideTransferBalanceModal = () => {
+    this.setState({openTransferBalModal: false});
+  };
 
   copyToClipboard = () => {
     alert('Copied');
@@ -81,23 +93,10 @@ export class ApiSecret extends Component {
   render() {
     const Profile = this.props.heading;
     const {apiSecretkey} = this.state;
-    // console.log(apiSecretkey);
+    console.log(this.props.location.pathname);
+    const currentRout = this.props.location.pathname;
 
     const styles = {
-      newelementrow: {
-        marginTop: '15px',
-      },
-      select: {
-        marginTop: '20px',
-      },
-      linkbtn: {
-        fontSize: '14px',
-        border: '1px solid black',
-      },
-      img: {
-        height: '35px',
-        marginLeft: '-70px',
-      },
       fontbutton: {
         border: 'none',
         backgroundColor: 'white',
@@ -105,6 +104,14 @@ export class ApiSecret extends Component {
       fontclass: {
         fontSize: '18px',
         color: '#00afff',
+      },
+      apikeyaddbtn: {
+        fontSize: '14px',
+        border: '1px solid grey',
+        marginLeft: '12px',
+        height: '45px',
+        width: '170px',
+        boxShadow: '1 3px 7px -1px rgba(1,1,1,.4)',
       },
     };
 
@@ -116,12 +123,20 @@ export class ApiSecret extends Component {
             <p className="preferences_account">
               ACCOUNT &amp; PREFERENCES / <span> {Profile.toUpperCase()}</span>
             </p>
-            <div className="credentials">
+            {/* <div className="credentials">
               <p>
                 Please enable google two factor authentication to get api
                 secret!
               </p>
-            </div>
+            </div> */}
+            <Button
+              variant="primary"
+              style={styles.apikeyaddbtn}
+              id="1"
+              onClick={this.showTransferBalanceModal}
+            >
+              Genrate Api Key
+            </Button>
           </div>
         </div>
         <div className="row account_detail">
@@ -136,11 +151,15 @@ export class ApiSecret extends Component {
                   <tr>
                     <th>Api Key Name</th>
                     <th>Api key</th>
-                    <th>Secret key</th>
+                    <th>
+                      Secret key (NOTE: The Secret key will be hidden forever.
+                      if u change the page or you refresh the page. Kindly save
+                      it securely.)
+                    </th>
                     <th>Action</th>
                   </tr>
                   {Array.from(apiSecretkey).map((item, i) => (
-                    <tr key={item.id}>
+                    <tr key={i}>
                       <td>{item.name}</td>
                       <td>
                         {item.id}
@@ -201,6 +220,10 @@ export class ApiSecret extends Component {
             </div>
           </div>
         </div>
+        <ApiScretekeyModel
+          show={this.state.openTransferBalModal}
+          onHide={this.hideTransferBalanceModal}
+        />
       </div>
     );
   }

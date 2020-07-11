@@ -959,6 +959,20 @@ a.try-sestnet-btn:hover {
   font-size: 12px;
   width: 100%;
 }
+.api-key-error {
+  background: #c74a4a;
+  width: auto;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: 13px;
+  padding: 9px !important;
+  margin: 0 0 10px 0 !important;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  text-align: center;
+}
 .auth-error {
   background: #c74a4a;
   width: auto;
@@ -2101,20 +2115,19 @@ ul.sidebarlist.show.collapse {
   /* height: inherit !important; */
   z-index: -1;
 }
-.nopadd{
-  padding: 0!important;
+.nopadd {
+  padding: 0 !important;
 }
-.security_from{
+.security_from {
   width: 100%;
 }
-.google_authinput{
-  padding-left: 16px
-   !important;
+.google_authinput {
+  padding-left: 16px !important;
 }
-.scan_text{
+.scan_text {
   width: 100%;
 }
-.input_img{
+.input_img {
   position: absolute;
   left: 0;
   top: 14px;

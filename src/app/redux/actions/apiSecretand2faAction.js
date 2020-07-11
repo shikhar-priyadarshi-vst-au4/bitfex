@@ -36,3 +36,19 @@ export const deleteapikey = (apiKeyName) => (dispatch) => {
     })
     .catch((error) => console.log(error.response));
 };
+
+// Genrate a key
+
+export const addapisecretkey = (apiKeyName) => (dispatch) => {
+  axios
+    .post(`${BASE_URL}/users/generate_key_pair`, apiKeyName, {
+      headers: {
+        'Content-type': 'application/json; charset=utf-8',
+        Accept: 'application/json; charset=utf-8',
+      },
+    })
+    .then((res) => {
+      return dispatch(allapisecretkey());
+    })
+    .catch((error) => console.log(error.response));
+};
