@@ -4,6 +4,7 @@ import HomePage from '../home-page/HomePageContent';
 import RegisterContent from '../register/RegisterContent';
 import LoginContent from '../login/LoginContent';
 import Dashboard from '../../components/Dashboard/Dashboard';
+import ForgotPassword from '../ForgotPassContent/ForgotPasswordContent';
 import {Provider} from 'react-redux';
 import store from '../../redux/store';
 
@@ -16,6 +17,7 @@ export default class App extends React.Component {
             <Route exact path="/" component={HomePage} />
             <Route path="/register" component={RegisterContent} />
             <Route path="/login" component={LoginContent} />
+            <Route path="/reset-password" component={ForgotPassword} />
             <Route
               path="/dashboard"
               render={(props) => <Dashboard {...props} />}

@@ -42,12 +42,12 @@ class Dashboard extends Component {
   }
 
   componentDidMount = () => {
-    this.adjustSideBarHeight();
     this.checkLoginStatus();
     if (this.props.auth.isAuthenticated) {
       setAuthToken(localStorage.getItem('token'));
       this.props.getCurrentProfile();
     }
+    this.adjustSideBarHeight();
   };
 
   componentDidUpdate = () => {

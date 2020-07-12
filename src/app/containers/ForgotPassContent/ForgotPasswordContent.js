@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import ForgotHeader from '../../components/ForgotPassword/ForgotHeader';
 import Footer from '../../components/Footer';
-import ForgotPassword from '../../components/ForgotPassword/ForgotPassword';
+import ForgotPassword from '../../components/Reset-Password/ResetPassword';
+import Header from '../../components/login-header/login-header';
 export class ForgotPasswordContent extends Component {
   render() {
     return (
       <div>
-        <ForgotHeader />
+        <Header />
         <ForgotPassword />
         <Footer />
       </div>

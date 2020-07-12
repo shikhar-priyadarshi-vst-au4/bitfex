@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {BaseApiUrl} from '../config';
 import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE} from '../types';
 
-const BASE_URL = 'https://uat.alpha5.io/api/v1';
+const BASE_URL = BaseApiUrl;
 
 // Get current profile
 export const getCurrentProfile = () => (dispatch) => {

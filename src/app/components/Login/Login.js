@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {loginUser} from '../../redux/actions/authActions';
-import {clearErrors} from '../../redux/actions/errorActions';
 import './Login.css';
 import isEmpty from '../../validation/is-empty';
 import {connect} from 'react-redux';
+import {clearErrors} from '../../redux/actions/errorActions';
 import PropTypes from 'prop-types';
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
@@ -150,6 +150,12 @@ class Login extends Component {
                   <Link to="/register">REGISTER</Link>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="reset-password">
+            <div className="reset-password-description">
+              <span>Trouble signing in ? </span>
+              <Link to={'reset-password'}> Forgot Password</Link>
             </div>
           </div>
         </div>

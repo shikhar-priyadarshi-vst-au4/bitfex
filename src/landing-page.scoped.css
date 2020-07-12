@@ -782,6 +782,20 @@ footer.footer {
   min-height: 40px;
 }
 
+.form-instruction {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.form-instruction + .form-container .a5-login-field {
+  margin-top: 0.8rem;
+}
+
+.form-instruction p {
+  width: 80%;
+}
+
 .form-body .form-container {
   max-width: 25.625rem;
   margin: 0 auto;
@@ -898,6 +912,23 @@ footer.footer {
   display: flex;
   padding-bottom: 3rem;
   margin-top: 5rem;
+}
+
+.reset-password {
+  display: flex;
+  justify-content: center;
+}
+
+.reset-password-description {
+  text-align: right;
+}
+
+.reset-password-description a {
+  color: var(--gold-pop);
+}
+
+.reset-password-description span {
+  color: var(--back-ground-white);
 }
 
 .already {
@@ -1252,6 +1283,7 @@ footer.footer {
   .form-body {
     max-width: 95%;
   }
+
   .form-body .form-container {
     max-width: 90%;
   }

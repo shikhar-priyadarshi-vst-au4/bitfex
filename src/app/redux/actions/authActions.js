@@ -1,11 +1,17 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../../utils/setAuthToken';
+import {BaseApiUrl} from '../config';
 
-import {SET_ERRORS, SET_CURRENT_USER, LOGOUT} from '../types';
+import {
+  SET_ERRORS,
+  SET_CURRENT_USER,
+  LOGOUT,
+  USER_PASSWORD_CHANGE,
+  SET_MFA_STATUS,
+} from '../types';
 
-const {SERVER_URL} = process.env;
-const BASE_URL = 'https://uat.alpha5.io/api/v1';
+const BASE_URL = BaseApiUrl;
 
 // Register User
 
@@ -19,15 +25,11 @@ export const loginUser = (userData) => (dispatch) => {
       },
     })
     .then((res) => {
-      // Retrieve data
       const {jwt, email, first_name, last_name} = res.data;
-      // Set token to ls
       localStorage.setItem('token', jwt);
       // Set token to Auth header
       setAuthToken(jwt);
-      // Decode token to get user data
       const decoded = jwt_decode(jwt);
-      // Set current user
       dispatch(setCurrentUser(decoded, email, first_name, last_name));
     })
     .catch((error) =>
@@ -48,14 +50,39 @@ export const setCurrentUser = (decoded, email, first_name, last_name) => {
 
 // Log user out
 export const logoutUser = () => (dispatch) => {
-  // Remove token from localStorage
   localStorage.removeItem('token');
-  // Remove auth header for future requests
   setAuthToken(false);
-  // Set current user to {} which will set isAuthenticated to false
-  dispatch(setCurrentUser({}));
   dispatch({
     type: LOGOUT,
-    payload: {},
   });
+};
+
+export const changePassword = (UserPasswordDetails) => (dispatch) => {
+  // changing user password
+  axios
+    .post(`${BASE_URL}/users/change_password`, UserPasswordDetails)
+    .then((res) =>
+      dispatch({
+        type: USER_PASSWORD_CHANGE,
+        payload: true,
+      }),
+    )
+    .catch((error) =>
+      dispatch({
+        type: SET_ERRORS,
+        payload: error.response.data,
+      }),
+    );
+};
+
+export const resetChangePassword = () => {
+  return {type: USER_PASSWORD_CHANGE, payload: false};
+};
+
+export const setMFAAuthentication = (permittedAction) => {
+  return {type: SET_MFA_STATUS, payload: permittedAction};
+};
+
+export const resetMFAAuthentication = () => {
+  return {type: SET_MFA_STATUS, payload: null};
 };
