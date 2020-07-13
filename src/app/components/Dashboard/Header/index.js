@@ -63,7 +63,7 @@ class Header extends Component {
             </a>
             <ul className="nav navbar-nav dashboard_list">
               <li className="true">
-                <a role="button">Trade</a>
+                <a href="/trade/">Trade</a>
               </li>
               <li className="true">
                 <a role="button" className="account_header">

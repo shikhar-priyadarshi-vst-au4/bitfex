@@ -4,15 +4,13 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 // import PrivateRoute from '../../common/PrivateRoute';
 import {getCurrentProfile} from '../../redux/actions/profileActions';
-import {allapisecretkey} from '../../redux/actions/apiSecretand2faAction';
+import {googletwofakey} from '../../redux/actions/apiSecretand2faAction';
 import Sidebar from './Sidebar/Sidebar';
 import Header from './Header/index';
 import Footer from '../Footer/index';
 import routes from './routes';
 import setAuthToken from '../../utils/setAuthToken';
 import './Dashboard.css';
-
-const userInfo = {};
 
 const switchRoutes = (
   <Switch>
@@ -22,12 +20,7 @@ const switchRoutes = (
           <Route
             path={prop.layout + prop.path}
             render={(props) => (
-              <prop.component
-                {...props}
-                {...prop}
-                routes={routes}
-                {...userInfo}
-              />
+              <prop.component {...props} {...prop} routes={routes} />
             )}
             key={key}
           />
@@ -50,7 +43,7 @@ class Dashboard extends Component {
     if (this.props.auth.isAuthenticated) {
       setAuthToken(localStorage.getItem('token'));
       this.props.getCurrentProfile();
-      this.props.allapisecretkey();
+      this.props.googletwofakey();
     }
   }
 
@@ -92,7 +85,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  allapisecretkey: PropTypes.func.isRequired,
+  googletwofakey: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
@@ -100,9 +93,9 @@ Dashboard.propTypes = {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
-  apisecretkeys: state.apisecretkeys,
 });
 
-export default connect(mapStateToProps, {getCurrentProfile, allapisecretkey})(
-  Dashboard,
-);
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  googletwofakey,
+})(Dashboard);

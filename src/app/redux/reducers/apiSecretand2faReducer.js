@@ -1,8 +1,10 @@
-import {ALL_API_SECRET_KEY} from '../types';
+import {ALL_API_SECRET_KEY, GOOGLE_TWOFA_KEY, SET_2FA_STATUS} from '../types';
 
 const initialState = {
   apisecretkeys: '',
   loading: true,
+  twofakey: '',
+  twofastatus: '',
 };
 
 export default function (state = initialState, action) {
@@ -10,8 +12,18 @@ export default function (state = initialState, action) {
     case ALL_API_SECRET_KEY:
       return {
         ...state,
-        apisecretkeys: action.payload,
+        apiSecretKeysArray: action.payload,
         loading: false,
+      };
+    case GOOGLE_TWOFA_KEY:
+      return {
+        ...state,
+        twofakey: action.payload,
+        loading: false,
+      };
+    case SET_2FA_STATUS:
+      return {
+        twofastatus: action.payload,
       };
     default:
       return state;

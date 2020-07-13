@@ -1,6 +1,11 @@
 import isEmpty from '../../validation/is-empty';
 
-import {SET_CURRENT_USER, LOGOUT, USER_PASSWORD_CHANGE} from '../types';
+import {
+  SET_CURRENT_USER,
+  LOGOUT,
+  USER_PASSWORD_CHANGE,
+  SET_MFA_STATUS,
+} from '../types';
 
 const getFromLS = (key) => localStorage.getItem('token');
 
@@ -30,6 +35,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userNewpasswor: action.payload,
+      };
+    case SET_MFA_STATUS:
+      return {
+        ...state,
+        currentMFAaction: action.payload,
       };
     default:
       return state;

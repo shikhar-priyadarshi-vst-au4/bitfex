@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import QRCode from 'qrcode.react';
 import {clearErrors} from '../../../../redux/actions/errorActions';
 import {changePassword} from '../../../../redux/actions/authActions';
+import {setTwoFAKey} from '../../../../redux/actions/apiSecretand2faAction';
 import isEmpty from '../../../../validation/is-empty';
 import cromeimg from '../../../../../assets/img/cromeimg.png';
 import GoogleAuthSVG from '../../../../../assets/img/._google-authenticator.svg';
@@ -21,12 +23,17 @@ class Security extends Component {
       old_password: '',
       password: '',
       password_confirmation: '',
-      successmsg: '',
       oldPasswordError: '',
       newPasswordError: '',
       confirmNewPasswordError: '',
       formError: '',
       isDirty: false,
+      googletwofakey: this.props.apisecretkeys.twofakey.secret_key_2fa,
+      token_2fa: '',
+      enabled_2fa: '',
+      token_2faError: '',
+      successmsg: this.props.apisecretkeys.twofastatu,
+      errmsg: '',
     };
   }
 
@@ -48,12 +55,38 @@ class Security extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps, nextState) {
     if (!nextProps.auth.isAuthenticated) {
       this.props.history.push('/login');
       document.title = 'Bitfex';
     }
     this.setState({successmsg: nextProps.auth.userNewpasswor});
+    if (!isEmpty(nextProps.apisecretkeys.twofakey)) {
+      this.setState({enabled_2fa: true});
+      this.setState({
+        googletwofakey: nextProps.apisecretkeys.twofakey.secret_key_2fa,
+      });
+    }
+    if (nextProps.apisecretkeys.twofastatus === true) {
+      this.setState({
+        successmsg: 'You Google auth (2FA) has been enabled successfully!',
+      });
+    } else if (nextProps.apisecretkeys.twofastatus === false) {
+      this.setState({
+        successmsg: 'You Google auth (2FA) has been disabled successfully!',
+      });
+    }
+    if (!isEmpty(nextProps.errors.type)) {
+      this.setState({enabled_2fa: false});
+    }
+    if (nextProps.errors.type === 'invalid_data') {
+      // this.setState({
+      //   errmsg: 'The Google Authenticator code is incorrect or has expired!',
+      // });
+      window.alert(
+        'The Google Authenticator code is incorrect or has expired!',
+      );
+    }
   }
 
   componentDidUpdate = () => {
@@ -124,7 +157,7 @@ class Security extends Component {
     // else if (oldPassword.length < 8) {
     //   oldPasswordError = 'Password should be minimum of min 8 characters!';
     // }
-    this.props.clearErrors();
+    // this.props.clearErrors();
     this.setState({old_password, oldPasswordError, formError: ''});
   };
 
@@ -164,7 +197,7 @@ class Security extends Component {
     } else if (password_confirmation !== password) {
       confirmNewPasswordError = 'Password must match!';
     }
-    this.props.clearErrors();
+    // this.props.clearErrors();
     this.setState({
       password_confirmation,
       confirmNewPasswordError,
@@ -172,10 +205,52 @@ class Security extends Component {
     });
   };
 
+  tokenallowSubmission = () => {
+    const {token_2faError, isDirty} = this.state;
+    return !token_2faError && isDirty;
+  };
+
+  twofaclick = (e) => {
+    e.preventDefault();
+    const {token_2fa, enabled_2fa} = this.state;
+    if (this.tokenallowSubmission()) {
+      this.props.setTwoFAKey(token_2fa, enabled_2fa);
+      e.target.value = null;
+    } else {
+      let token_2faError = '';
+      if (!token_2fa) {
+        token_2faError = 'Please enter two factor code!';
+      }
+      this.setState({
+        token_2fa,
+        token_2faError,
+        formError: '',
+        isDirty: true,
+      });
+    }
+  };
+
+  twofatorcode = (e) => {
+    e.preventDefault();
+    let token_2fa = e.target.value;
+    let token_2faError = '';
+    // if (!token_2fa) {
+    //   token_2faError = 'Please enter two factor code!';
+    // } else if (token_2fa.length < 6) {
+    //   token_2faError = 'The length of the two factor code should be 6';
+    // }
+    this.props.clearErrors();
+    this.setState({token_2faError, token_2fa, formError: '', isDirty: true});
+  };
+
   render() {
     const Profile = this.props.heading;
-    console.log(this.props);
-    console.log(this.state.formError);
+    const {googletwofakey} = this.state;
+    const link = `otpauth://totp/Bitfex(${this.props.profile.profile.full_name})?secret=${googletwofakey}`;
+    console.log(this.props.apisecretkeys.twofastatus);
+    console.log(this.props.apisecretkeys.twofakey);
+    console.log(this.props.errors);
+    console.log(this.state.successmsg);
     return (
       <div className="row dashboard_container">
         <div className="col-md-12 contentcontainer">
@@ -262,35 +337,58 @@ class Security extends Component {
                     </div>
                   </div>
                   <div className="col-md-4 enable_button">
-                    <button>Enalbe</button>
+                    <button>
+                      {this.props.apisecretkeys.twofakey ? `Enalbe` : `Disable`}
+                    </button>
                   </div>
-                  <div className="security_from">
-                    <label>Select</label>
-                    <div className="inputWithIcon">
-                      <input
-                        type="text"
-                        placeholder="JDHFJSDHGKHVJKVHKD"
-                        className="google_authinput"
-                      />
-                      {/* <i className="fa fa-lock" /> */}
+                  {/* {this.state.errmsg && (
+                    <div className="auth-error">
+                      <p>{this.state.errmsg}</p>
                     </div>
-                  </div>
-                  <p className="scan_text">
-                    Scan this with the Google Authenticator
-                  </p>
-                  <div>
-                    <img src={scanimg} />
-                  </div>
+                  )} */}
+                  {this.state.successmsg && (
+                    <div className="msg-success">
+                      <p>{this.state.successmsg}</p>
+                    </div>
+                  )}
+                  {this.props.apisecretkeys.twofakey ? (
+                    <div>
+                      <div className="security_from">
+                        <label>Select</label>
+                        <div className="inputWithIcon">
+                          <input
+                            type="text"
+                            className="google_authinput"
+                            defaultValue={googletwofakey}
+                          />
+                          {/* <i className="fa fa-lock" /> */}
+                        </div>
+                      </div>
+                      <p className="scan_text">
+                        Scan this with the Google Authenticator
+                      </p>
+                      <div>
+                        <QRCode size={200} value={link} />
+                      </div>
+                    </div>
+                  ) : null}
                   <div className="security_from">
                     <label>Two-factor code</label>
                     <div className="inputWithIcon">
-                      <input type="text" placeholder="" />
+                      <input
+                        type="text"
+                        placeholder=""
+                        onInput={this.twofatorcode}
+                      />
                       {/* <i class="fa fa-codiepie" /> */}
+                      <span className="error-msg">
+                        {this.state.token_2faError}
+                      </span>
                       <img src={inputimg} className="input_img" />
                     </div>
                   </div>
                   <div className="enable_button">
-                    <button>Submit</button>
+                    <button onClick={this.twofaclick}>Submit</button>
                   </div>
                 </div>
               </div>
@@ -302,17 +400,22 @@ class Security extends Component {
   }
 }
 
-changePassword.propTypes = {
-  loginUser: PropTypes.func.isRequired,
+Security.propTypes = {
   auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  setTwoFAKey: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  apisecretkeys: state.apisecretkeys,
+  profile: state.profile,
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {clearErrors, changePassword})(
-  Security,
-);
+export default connect(mapStateToProps, {
+  clearErrors,
+  changePassword,
+  setTwoFAKey,
+})(Security);

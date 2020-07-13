@@ -1,56 +1,26 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Modal} from 'react-bootstrap';
+import {Modal, Button} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {addapisecretkey} from '../../../../redux/actions/apiSecretand2faAction';
 import {clearErrors} from '../../../../redux/actions/errorActions';
+import {setMFAAuthentication} from '../../../../redux/actions/authActions';
 
-class ApiScretekeyModel extends Component {
+class MFAModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: '',
-      nameError: '',
-      formError: '',
-      isDirty: false,
-    };
+    this.state = {code: ''};
   }
 
-  allowSubmission = () => {
-    const {nameError, isDirty} = this.state;
-    return !nameError && isDirty;
+  handleCode = (e) => {
+    let val = e.target.value;
+    this.setState({code: val});
   };
 
-  addapikey = (e) => {
-    e.preventDefault();
-    const {name} = this.state;
-    if (this.allowSubmission()) {
-      this.props.addapisecretkey(name);
-      this.props.onHide();
-      // this.props.hideKeyPairModal();
-    } else {
-      let nameError = '';
-      if (!name) {
-        nameError = 'Please enter your Api key!';
-      }
-      this.setState({
-        nameError,
-        formError: '',
-        isDirty: true,
-      });
-    }
-  };
-
-  apikeyname = (e) => {
-    e.preventDefault();
-    // alert('call');
-    let name = e.target.value;
-    let nameError = '';
-    if (!name) {
-      nameError = 'Please enter your Api key!';
-    }
-    this.props.clearErrors();
-    this.setState({name, nameError, formError: '', isDirty: true});
+  handleSubmit = (e) => {
+    let action = this.props.validateFor;
+    this.props.setMFAAuthentication(action);
+    this.props.onHide();
   };
 
   render() {
@@ -83,14 +53,13 @@ class ApiScretekeyModel extends Component {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         animation={false}
-        onClick={(e) => e.stopPropagation()}
       >
         <Modal.Header closeButton>
           <Modal.Title
             id="contained-modal-title-vcenter"
             style={styles.modelheader}
           >
-            CREATE AN API KEY
+            Enter 2FA code
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -99,9 +68,9 @@ class ApiScretekeyModel extends Component {
             <div className="col-md-6">
               <input
                 type="text"
-                placeholder="Enter a name for your Api Key"
                 style={styles.apikeyInput}
-                onInput={this.apikeyname}
+                onInput={this.handleCode}
+                placeholder={'Enter 2FA'}
               />
               {this.state.nameError && (
                 <div className="api-key-error">
@@ -117,9 +86,9 @@ class ApiScretekeyModel extends Component {
             variant="primary"
             className="btn btn-primary"
             style={styles.cnfrmbtn}
-            onClick={this.addapikey}
+            onClick={this.handleSubmit}
           >
-            Create Api Key
+            SEND
           </button>
         </Modal.Footer>
       </Modal>
@@ -127,12 +96,13 @@ class ApiScretekeyModel extends Component {
   }
 }
 
-ApiScretekeyModel.propTypes = {
-  addapisecretkey: PropTypes.func.isRequired,
+MFAModal.propTypes = {
+  hideMFAModal: PropTypes.func.isRequired,
+  validateFor: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default connect(mapStateToProps, {clearErrors, addapisecretkey})(
-  ApiScretekeyModel,
-);
+export default connect(mapStateToProps, {setMFAAuthentication})(MFAModal);

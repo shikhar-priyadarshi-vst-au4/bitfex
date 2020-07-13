@@ -8,6 +8,7 @@ import {
   LOGOUT,
   USER_PASSWORD_CHANGE,
   SET_ERRORS,
+  SET_MFA_STATUS,
 } from '../types';
 
 const {SERVER_URL} = process.env;
@@ -89,4 +90,12 @@ export const changePassword = (UserPasswordDetails) => (dispatch) => {
         payload: error.response.data,
       }),
     );
+};
+
+export const setMFAAuthentication = (permittedAction) => {
+  return {type: SET_MFA_STATUS, payload: permittedAction};
+};
+
+export const resetMFAAuthentication = () => {
+  return {type: SET_MFA_STATUS, payload: null};
 };
