@@ -23,14 +23,18 @@ export const registerUser = (UserForm, history) => (dispatch) => {
 };
 
 // Login - Get User Token
-export const loginUser = (userData) => (dispatch) => {
+export const loginUser = (email, password, token_2fa) => (dispatch) => {
   axios
-    .post(`${BASE_URL}/users/sign_in`, userData, {
-      headers: {
-        'Content-type': 'application/json; charset=utf-8',
-        Accept: 'application/json; charset=utf-8',
+    .post(
+      `${BASE_URL}/users/sign_in`,
+      {email, password, token_2fa},
+      {
+        headers: {
+          'Content-type': 'application/json; charset=utf-8',
+          Accept: 'application/json; charset=utf-8',
+        },
       },
-    })
+    )
     .then((res) => {
       // Save to localStorage
       const {jwt, email, first_name, last_name} = res.data;

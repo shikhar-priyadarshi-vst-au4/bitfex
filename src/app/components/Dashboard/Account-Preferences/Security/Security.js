@@ -34,6 +34,7 @@ class Security extends Component {
       token_2faError: '',
       successmsg: this.props.apisecretkeys.twofastatu,
       errmsg: '',
+      token_2fForm: false,
     };
   }
 
@@ -52,6 +53,10 @@ class Security extends Component {
     // }
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/login');
+    }
+    if (!isEmpty(this.props.errors)) {
+      this.setState({enabled_2fa: false});
+      console.log(this.state.enabled_2fa);
     }
   }
 
@@ -78,6 +83,7 @@ class Security extends Component {
     }
     if (!isEmpty(nextProps.errors.type)) {
       this.setState({enabled_2fa: false});
+      console.log(this.state.enabled_2fa);
     }
     if (nextProps.errors.type === 'invalid_data') {
       // this.setState({
@@ -215,7 +221,7 @@ class Security extends Component {
     const {token_2fa, enabled_2fa} = this.state;
     if (this.tokenallowSubmission()) {
       this.props.setTwoFAKey(token_2fa, enabled_2fa);
-      e.target.value = null;
+      e.target.reset();
     } else {
       let token_2faError = '';
       if (!token_2fa) {
@@ -234,22 +240,27 @@ class Security extends Component {
     e.preventDefault();
     let token_2fa = e.target.value;
     let token_2faError = '';
-    // if (!token_2fa) {
-    //   token_2faError = 'Please enter two factor code!';
-    // } else if (token_2fa.length < 6) {
-    //   token_2faError = 'The length of the two factor code should be 6';
-    // }
+    if (!token_2fa) {
+      token_2faError = 'Please enter two factor code!';
+    } else if (token_2fa.length < 6) {
+      token_2faError = 'The length of the two factor code should be 6';
+    }
     this.props.clearErrors();
     this.setState({token_2faError, token_2fa, formError: '', isDirty: true});
+  };
+
+  twofaForm = (e) => {
+    e.preventDefault();
+    this.setState({token_2fForm: true});
   };
 
   render() {
     const Profile = this.props.heading;
     const {googletwofakey} = this.state;
     const link = `otpauth://totp/Bitfex(${this.props.profile.profile.full_name})?secret=${googletwofakey}`;
-    console.log(this.props.apisecretkeys.twofastatus);
-    console.log(this.props.apisecretkeys.twofakey);
-    console.log(this.props.errors);
+    // console.log(this.props.apisecretkeys.twofastatus);
+    // console.log(this.props.apisecretkeys.twofakey);
+    // console.log(this.props.errors);
     console.log(this.state.successmsg);
     return (
       <div className="row dashboard_container">
@@ -337,59 +348,66 @@ class Security extends Component {
                     </div>
                   </div>
                   <div className="col-md-4 enable_button">
-                    <button>
+                    <button onClick={this.twofaForm}>
                       {this.props.apisecretkeys.twofakey ? `Enalbe` : `Disable`}
                     </button>
                   </div>
                   {/* {this.state.errmsg && (
-                    <div className="auth-error">
+                    <div className="securityauth-error">
                       <p>{this.state.errmsg}</p>
                     </div>
                   )} */}
                   {this.state.successmsg && (
-                    <div className="msg-success">
+                    <div className="securitymsg-success">
                       <p>{this.state.successmsg}</p>
                     </div>
                   )}
-                  {this.props.apisecretkeys.twofakey ? (
-                    <div>
-                      <div className="security_from">
-                        <label>Select</label>
-                        <div className="inputWithIcon">
-                          <input
-                            type="text"
-                            className="google_authinput"
-                            defaultValue={googletwofakey}
-                          />
-                          {/* <i className="fa fa-lock" /> */}
+                  <form
+                    style={{
+                      display: this.state.token_2fForm ? 'block' : 'none',
+                    }}
+                    onSubmit={this.twofaclick}
+                  >
+                    {this.props.apisecretkeys.twofakey ? (
+                      <div>
+                        <div className="security_from">
+                          <label>Select</label>
+                          <div className="inputWithIcon">
+                            <input
+                              type="text"
+                              className="google_authinput"
+                              defaultValue={googletwofakey}
+                            />
+                            {/* <i className="fa fa-lock" /> */}
+                          </div>
+                        </div>
+                        <p className="scan_text">
+                          Scan this with the Google Authenticator
+                        </p>
+                        <div>
+                          <QRCode size={200} value={link} />
                         </div>
                       </div>
-                      <p className="scan_text">
-                        Scan this with the Google Authenticator
-                      </p>
-                      <div>
-                        <QRCode size={200} value={link} />
+                    ) : null}
+                    <div className="security_from">
+                      <label>Two-factor code</label>
+                      <div className="inputWithIcon">
+                        <input
+                          type="password"
+                          placeholder=""
+                          onInput={this.twofatorcode}
+                        />
+                        {/* <i class="fa fa-codiepie" /> */}
+                        <span className="error-msg">
+                          {this.state.token_2faError}
+                        </span>
+                        <img src={inputimg} className="input_img" />
                       </div>
                     </div>
-                  ) : null}
-                  <div className="security_from">
-                    <label>Two-factor code</label>
-                    <div className="inputWithIcon">
-                      <input
-                        type="text"
-                        placeholder=""
-                        onInput={this.twofatorcode}
-                      />
-                      {/* <i class="fa fa-codiepie" /> */}
-                      <span className="error-msg">
-                        {this.state.token_2faError}
-                      </span>
-                      <img src={inputimg} className="input_img" />
+                    <div className="enable_button">
+                      <button>Submit</button>
                     </div>
-                  </div>
-                  <div className="enable_button">
-                    <button onClick={this.twofaclick}>Submit</button>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>

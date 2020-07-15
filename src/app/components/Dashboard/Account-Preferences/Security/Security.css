@@ -1029,7 +1029,7 @@ nav.navbar.navbar-default.main-navbar.dashboard_header {
   margin-top: 5px;
 }
 /* success msg*/
-.msg-success {
+/* .msg-success {
   background-color: rgba(50, 194, 77, 0.05);
   border: 1px solid #32c24d;
   font-size: 13px;
@@ -1039,7 +1039,7 @@ nav.navbar.navbar-default.main-navbar.dashboard_header {
   border-radius: 0;
   padding: 12px 40px !important;
   text-align: center;
-}
+} */
 
 .nopadd {
   padding: 0 !important;

@@ -991,6 +991,43 @@ a.try-sestnet-btn:hover {
   margin-top: none !important;
   margin-bottom: 0;
 }
+
+.securityauth-error {
+  background: #c74a4a;
+  width: auto;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: 13px;
+  padding: 12px 33px !important;
+  margin-bottom: 20px !important;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  text-align: center;
+  margin-top: 7px;
+}
+.securityauth-error p {
+  margin-bottom: 0;
+}
+
+.securitymsg-success {
+  background-color: rgba(50, 194, 77, 0.05);
+  border: 1px solid #32c24d;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 20px !important;
+  color: #289a3d;
+  border-radius: 0;
+  padding: 12px 33px !important;
+  text-align: center;
+  margin-top: 7px;
+}
+
+.securitymsg-success p {
+  margin-bottom: 0;
+}
+
 .msg-success {
   background-color: rgba(50, 194, 77, 0.05);
   border: 1px solid #32c24d;
