@@ -28,7 +28,7 @@ class Security extends Component {
       confirmNewPasswordError: '',
       formError: '',
       isDirty: false,
-      googletwofakey: this.props.apisecretkeys.twofakey.secret_key_2fa,
+      googletwofakey: '',
       token_2fa: '',
       enabled_2fa: '',
       token_2faError: '',
@@ -56,7 +56,12 @@ class Security extends Component {
     }
     if (!isEmpty(this.props.errors)) {
       this.setState({enabled_2fa: false});
-      console.log(this.state.enabled_2fa);
+    }
+    if (!isEmpty(this.props.apisecretkeys.twofakey)) {
+      this.setState({enabled_2fa: true});
+      this.setState({
+        googletwofakey: this.props.apisecretkeys.twofakey.secret_key_2fa,
+      });
     }
   }
 
@@ -83,7 +88,9 @@ class Security extends Component {
     }
     if (!isEmpty(nextProps.errors.type)) {
       this.setState({enabled_2fa: false});
-      console.log(this.state.enabled_2fa);
+      // this.setState({
+      //   googletwofakey: '0',
+      // });
     }
     if (nextProps.errors.type === 'invalid_data') {
       // this.setState({
@@ -222,6 +229,9 @@ class Security extends Component {
     if (this.tokenallowSubmission()) {
       this.props.setTwoFAKey(token_2fa, enabled_2fa);
       e.target.reset();
+      // this.setState({
+      //   googletwofakey: '',
+      // });
     } else {
       let token_2faError = '';
       if (!token_2fa) {
@@ -257,10 +267,11 @@ class Security extends Component {
   render() {
     const Profile = this.props.heading;
     const {googletwofakey} = this.state;
+    console.log(googletwofakey);
     const link = `otpauth://totp/Bitfex(${this.props.profile.profile.full_name})?secret=${googletwofakey}`;
     // console.log(this.props.apisecretkeys.twofastatus);
     // console.log(this.props.apisecretkeys.twofakey);
-    // console.log(this.props.errors);
+    console.log(this.props.errors);
     console.log(this.state.successmsg);
     return (
       <div className="row dashboard_container">
