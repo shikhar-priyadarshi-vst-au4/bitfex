@@ -2,22 +2,42 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {setMFAAuthentication} from '../../../redux/actions/authActions';
+import {BaseApiUrl} from '../../../redux/config';
+import axios from 'axios';
 
 class MFAModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {code: ''};
+    this.state = {code: '', error: ''};
   }
 
   handleCode = (e) => {
     let val = e.target.value;
-    this.setState({code: val});
+    this.setState({code: val, error: ''});
   };
 
   handleSubmit = (e) => {
-    let action = this.props.validateFor;
-    this.props.setMFAAuthentication(action);
-    this.props.hideMFAModal();
+    this.check2FA();
+  };
+
+  check2FA = () => {
+    let url = BaseApiUrl + '/users/verify_2fa_token';
+    axios
+      .get(url, {params: {token_2fa: this.state.code}})
+      .then((res) => {
+        console.log(res.data);
+        let action = this.props.validateFor;
+        let {token_2fa} = res.data;
+        if (token_2fa == 'token verified') {
+          this.props.setMFAAuthentication(action);
+          this.props.hideMFAModal();
+        }
+      })
+      .catch((e) => {
+        let data = e.response.data;
+        if (data.type == 'invalid_data')
+          this.setState({error: 'invalid Token !!'});
+      });
   };
 
   render() {
@@ -37,7 +57,11 @@ class MFAModal extends Component {
                     type="text"
                     onInput={this.handleCode}
                   />
+                  <span className="transfer-form-field-error">
+                    {this.state.error}
+                  </span>
                 </div>
+
                 <div className="transfer-center-button">
                   <button
                     onClick={this.handleSubmit}

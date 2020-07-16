@@ -5,7 +5,6 @@ import store from '../store';
 
 export const getAllApiKeys = () => (dispatch) => {
   let url = BaseApiUrl + '/users/get_all_key_pairs';
-
   axios.get(url).then((res) => {
     let apiSecretKeysArray = res.data.map((el) => {
       return {...el, secret: '*************'};

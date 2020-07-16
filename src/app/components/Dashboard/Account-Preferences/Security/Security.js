@@ -6,7 +6,11 @@ import {
   changePassword,
   resetChangePassword,
 } from '../../../../redux/actions/authActions';
+import {getCurrentProfile} from '../../../../redux/actions/profileActions';
 import ConfirmPasswordChangeModal from './passwordUpdateModal';
+import QRCode from 'qrcode.react';
+import axios from 'axios';
+import {BaseApiUrl} from '../../../../redux/config';
 
 const validPassword = RegExp(
   '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})',
@@ -27,6 +31,8 @@ export class Security extends Component {
       formError: '',
       isDirty: false,
       passwordChanged: false,
+      secret_key_2fa: '',
+      mfa_for_enabling: '',
     };
   }
 
@@ -39,6 +45,20 @@ export class Security extends Component {
     } else if (!nextProps.auth.passwordChanged && this.state.passwordChanged) {
       this.setState({passwordChanged: false});
     }
+  };
+
+  componentDidMount = () => {
+    setTimeout(() => {
+      if (!this.props.profile.profile.enabled_2fa) this.getSecretKeyFor2FA();
+    });
+  };
+
+  getSecretKeyFor2FA = () => {
+    let url = BaseApiUrl + '/users/secret_key_2fa';
+    axios.get(url).then((res) => {
+      let {secret_key_2fa} = res.data;
+      this.setState({secret_key_2fa});
+    });
   };
 
   allowSubmission = () => {
@@ -145,16 +165,53 @@ export class Security extends Component {
     }
   };
 
+  handleMFACode = (e) => {
+    let val = e.target.value;
+    this.setState({mfa_for_enabling: val});
+  };
+
+  copyText = () => {
+    this.copyRef.current.select();
+    document.execCommand('copy');
+    this.copyRef.current.focus();
+    this.setState({copied: true});
+    window.alert('Copied the Key');
+    setTimeout(() => {
+      this.setState({copied: false});
+    }, 3000);
+  };
+
+  enableMFAStatus = () => {
+    let url = BaseApiUrl + '/users/change_2fa_status';
+    let token_2fa = this.state.mfa_for_enabling;
+    axios.post(url, {token_2fa, enabled_2fa: true}).then((res) => {
+      this.props.getCurrentProfile();
+      this.getSecretKeyFor2FA();
+    });
+  };
+
+  disableMFAStatus = () => {
+    let url = BaseApiUrl + '/users/change_2fa_status';
+    let token_2fa = this.state.mfa_for_enabling;
+    axios.post(url, {token_2fa, enabled_2fa: false}).then((res) => {
+      this.props.getCurrentProfile();
+      this.getSecretKeyFor2FA();
+    });
+  };
+
+  copyRef = React.createRef();
+
   render() {
     const Profile = this.props.heading;
+    const {enabled_2fa, email} = this.props.profile.profile;
+    const link = `otpauth://totp/Alpha5(${email})/?secret=${this.state.secret_key_2fa}`;
     return (
       <>
         <div className="containment">
           <div className="balances">
             <h3>Change Login Password</h3>
-            <h3></h3>
             <hr />
-            <div className="left-sided">
+            <div className="centered">
               <div className="balances-form with-inline-info mt-2">
                 <div className="a5-form-field">
                   <label>Current Password</label>
@@ -208,48 +265,93 @@ export class Security extends Component {
               <p>
                 <span style={{color: ' var(--yellow-text)'}}>
                   Google Authenticator
-                </span>
+                </span>{' '}
                 to verify your account every time you sign in
               </p>
-              <button
-                onClick={() => this.setState(() => ({showQR: true}))}
-                className="a5-button-primary"
-              >
-                ENABLE
-              </button>
+              {/* ========================================================================= */}
+              {!enabled_2fa ? (
+                <button
+                  onClick={() => this.setState({showQR: true})}
+                  className="a5-button-primary"
+                >
+                  ENABLE
+                </button>
+              ) : (
+                <button
+                  onClick={() => this.setState({showQR: true})}
+                  className="a5-button-primary"
+                >
+                  DISABLE
+                </button>
+              )}
             </div>
             {this.state.showQR ? (
               <>
-                <div className="centered d-flex justify-content-center">
-                  <div className="qr-container d-flex">
-                    <img src="db-assets/qr_code.svg" />
-                    <div className="two-factor-code">
-                      <input
-                        value="237gj h64d1 5907 c694 02"
-                        type="text"
-                        readOnly
-                      />
-                      <img src="db-assets/copy-icon.svg" alt="" />
-                      <p>
-                        If you are unable to scan this QR Code, please insert
-                        this key into the app manually.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="centered">
-                  <div className="balances-form mt-2">
-                    <div className="a5-form-field">
-                      <label>Enter Code</label>
-                      <input type="text" />
-                    </div>
-                    <div className="a5-form-field">
-                      <div className="a5-form-btn-grp">
-                        <button className="form-btn-yellow">Update MFA</button>
+                {!enabled_2fa ? (
+                  <>
+                    <div className="centered d-flex justify-content-center">
+                      <div className="security qr-container d-flex">
+                        <QRCode includeMargin={true} size={137} value={link} />
+                        <div className="two-factor-code">
+                          <input
+                            value={this.state.secret_key_2fa}
+                            type="text"
+                            readOnly
+                            ref={this.copyRef}
+                          />
+                          <img
+                            onClick={this.copyText}
+                            src="db-assets/copy-icon.svg"
+                            alt=""
+                          />
+                          <p>
+                            If you are unable to scan this QR Code, please
+                            insert this key into the app manually.
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                    <div className="centered">
+                      <div className="balances-form mt-2">
+                        <div className="a5-form-field">
+                          <label>Enter Code</label>
+                          <input type="text" onInput={this.handleMFACode} />
+                        </div>
+                        <div className="a5-form-field">
+                          <div className="a5-form-btn-grp">
+                            <button
+                              onClick={this.enableMFAStatus}
+                              className="form-btn-yellow"
+                            >
+                              Enable MFA
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="centered">
+                      <div className="balances-form mt-2">
+                        <div className="a5-form-field">
+                          <label>Enter Code</label>
+                          <input type="text" onInput={this.handleMFACode} />
+                        </div>
+                        <div className="a5-form-field">
+                          <div className="a5-form-btn-grp">
+                            <button
+                              onClick={this.disableMFAStatus}
+                              className="form-btn-yellow"
+                            >
+                              Disable MFA
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </>
             ) : (
               <></>
@@ -266,10 +368,12 @@ export class Security extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   errors: state.errors,
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, {
   clearErrors,
   changePassword,
   resetChangePassword,
+  getCurrentProfile,
 })(Security);

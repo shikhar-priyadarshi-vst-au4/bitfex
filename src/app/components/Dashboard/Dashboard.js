@@ -38,6 +38,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       sidebarToggle: false,
+      hasError: null,
     };
   }
 
@@ -76,6 +77,11 @@ class Dashboard extends Component {
     }
   };
 
+  componentDidCatch = (er, errInfo) => {
+    console.log(errInfo, er);
+    this.setState({hasError: er, errInfo});
+  };
+
   adjustSideBarHeight = () => {
     // let sidebar = document.getElementById('main-sidebar');
     // sidebar.style.top = 85;
@@ -91,20 +97,24 @@ class Dashboard extends Component {
   };
 
   render() {
-    return (
-      <>
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="dashboard.scoped.css"
-        ></link>
-        <Header toggleSidebar={this.toggleSidebar} />
-        <div className="d-flex w-100 dashboard-container">
-          <Sidebar routes={routes} sidebarToggle={this.state.sidebarToggle} />
-          {switchRoutes}
-        </div>
-      </>
-    );
+    if (!this.state.hasError)
+      return (
+        <>
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="dashboard.scoped.css"
+          ></link>
+          <Header toggleSidebar={this.toggleSidebar} />
+          <div className="d-flex w-100 dashboard-container">
+            <Sidebar routes={routes} sidebarToggle={this.state.sidebarToggle} />
+            {switchRoutes}
+          </div>
+        </>
+      );
+    else {
+      return <>error caught</>;
+    }
   }
 }
 

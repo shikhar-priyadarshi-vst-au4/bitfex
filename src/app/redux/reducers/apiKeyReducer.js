@@ -1,7 +1,7 @@
 import {GET_ALL_API_SECRET_KEY} from '../types';
 
 const initialState = {
-  apisecretkeys: '',
+  apisecretkeys: [],
   loading: true,
 };
 

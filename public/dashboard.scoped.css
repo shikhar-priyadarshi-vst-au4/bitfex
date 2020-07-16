@@ -5,8 +5,6 @@
   --dark-tone-light: #212121;
   --dark-background: #151515;
   --light-dark-background: #1c1c1c;
-  --gold-button-light: #ffb74b;
-  --gold-button-dark: #df8f17;
   --table-line: #242424;
   --yellow-text: #ffb13c;
   --faded-text: #696969;
@@ -19,6 +17,8 @@
     var(--dark-tone-dark),
     var(--yellow-tone-light)
   );
+  --gold-button-dark: #df8f17;
+  --gold-button-light: #ffb74b;
   --gold-button-gradient: linear-gradient(
     to bottom,
     var(--gold-button-light),
@@ -31,7 +31,6 @@
     var(--dark-tone-dark)
   );
   --border-selected: #f39d1b;
-
   font-size: 13px !important;
   font-family: 'DM Sans', sans-serif;
 }
@@ -292,7 +291,7 @@ span.info img {
 /*form*/
 
 .balances-form {
-  max-width: 80%;
+  max-width: 95%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -645,7 +644,8 @@ span.diamond {
   min-width: unset;
 }
 
-.table-container.deposits td {
+/* .table-container.deposits td { */
+.table-container td {
   text-align: right;
   min-width: unset;
   border-right: 1px solid var(--faded-text);

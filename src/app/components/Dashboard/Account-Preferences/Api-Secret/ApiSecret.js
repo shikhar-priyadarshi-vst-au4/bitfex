@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import KeyPairModal from './api-secret-name-modal';
 import './ApiSecret.css';
+import {Link} from 'react-router-dom';
 import MFAModal from '../../enter-2fa-modal/2fa-modal';
 import {connect} from 'react-redux';
 import {resetMFAAuthentication} from '../../../../redux/actions/authActions';
@@ -16,15 +17,20 @@ export class ApiSecret extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show2fa: false,
+      show2faForGenerate: false,
+      show2faForDelete: false,
       openKeyPairModal: false,
-      apiSecretKeysArray: this.props.apikeys.apiSecretKeysArray || [],
+      apiSecretKeysArray: [],
+      idToDelete: null,
+      nameToDelete: null,
+      uiError: null,
     };
   }
 
   componentDidMount = () => {
     // asynchronous so that root can set auth token
     setTimeout(() => {
+      console.log(this.props);
       this.props.getAllApiKeys();
     });
   };
@@ -33,6 +39,17 @@ export class ApiSecret extends Component {
     if (newProps.auth.currentMFAaction == 'generateApiKeys') {
       this.props.resetMFAAuthentication();
       this.setState({openKeyPairModal: true});
+    }
+
+    let {idToDelete, nameToDelete} = this.state;
+    if (
+      idToDelete &&
+      nameToDelete &&
+      newProps.auth.currentMFAaction == 'deleteApiKeys'
+    ) {
+      this.props.deleteApiKey(idToDelete, nameToDelete);
+      this.props.resetMFAAuthentication();
+      this.setState({idToDelete: null, nameToDelete: null});
     }
     if (
       !_.isEqual(
@@ -49,11 +66,11 @@ export class ApiSecret extends Component {
   };
 
   showMFAModal = (e) => {
-    this.setState({show2fa: true});
+    this.setState({show2faForGenerate: true});
   };
 
   hideMFAModal = (e) => {
-    this.setState({show2fa: false});
+    this.setState({show2faForGenerate: false, show2faForDelete: false});
   };
 
   showKeyPairModal = (e) => {
@@ -65,32 +82,52 @@ export class ApiSecret extends Component {
   };
 
   deleteKey = (id, name) => {
-    this.props.deleteApiKey(id, name);
+    this.setState({show2faForDelete: true, idToDelete: id, nameToDelete: name});
+
+    // this.props.deleteApiKey(id, name);
   };
+
+  componentDidCatch = (error, errorInfo) => {};
 
   copyToClipboard = () => {
     window.alert('Copied !');
   };
 
   render() {
+    // const link = `otpauth://totp/Bitfex(${this.props.profile.profile.full_name})?secret=${googletwofakey}`;
+    const {enabled_2fa} = this.props.profile.profile;
     return (
       <>
         <div className="containment">
           <div className="balances pb-5">
             <h3>API Credentials</h3>
             <hr />
-            <div className="balance-notice">
-              <h3>Activate 2FA</h3>
-              <hr />
-              <p>
-                Please make sure that you have activated 2FA before proceeding.
-              </p>
-              <button onClick={this.showMFAModal} className="form-btn-yellow">
-                Generate New API Key Pair
-              </button>
-            </div>
+            {!enabled_2fa ? (
+              <div className="balance-notice">
+                <h3>Want to generate new API keys ?</h3>
+                <hr />
+                <p>You have to activate your 2FA first.</p>
+                <button className="form-btn-yellow">
+                  <Link to="/dashboard/security">Activate 2FA</Link>
+                </button>
+              </div>
+            ) : (
+              <div className="balance-notice">
+                <h3>2FA Active</h3>
+                <hr />
+                <p>Your account is protected by 2FA.</p>
+                <button onClick={this.showMFAModal} className="form-btn-yellow">
+                  Generate New API Key Pair
+                </button>
+              </div>
+            )}
           </div>
           <div className="balances pt-5">
+            <p className="table-note">
+              <span>Note: </span>
+              The secret key will be unobtainable the moment you leave or
+              refresh this page, kindly save this key securely before doing so.
+            </p>
             <div className="table-container api-key-table contained pb-3">
               <div className="table-header">
                 <h3>Existing Keys</h3>
@@ -105,55 +142,60 @@ export class ApiSecret extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.apiSecretKeysArray.map((el, i) => {
-                      let {id, key, name, secret} = el;
-                      return (
-                        <tr key={i}>
-                          <td>{name}</td>
-                          <td>
-                            <div className="d-flex flex-column align-items-start">
-                              <div className="key">
-                                <span className="heading">API Key :</span>
-                                <span>{key}</span>
-                                <CopyToClipboard
-                                  onCopy={this.copyToClipboard}
-                                  text={key}
-                                >
-                                  <span className="copy-text">Copy</span>
-                                </CopyToClipboard>
+                    {this.state.apiSecretKeysArray ? (
+                      this.state.apiSecretKeysArray.map((el, i) => {
+                        let {id, key, name, secret} = el;
+                        console.log(this.state.apiSecretKeysArray);
+                        return (
+                          <tr key={i}>
+                            <td>{name}</td>
+                            <td>
+                              <div className="d-flex flex-column align-items-start">
+                                <div className="key">
+                                  <span className="heading">API Key :</span>
+                                  <span>{key}</span>
+                                  <CopyToClipboard
+                                    onCopy={this.copyToClipboard}
+                                    text={key}
+                                  >
+                                    <span className="copy-text">Copy</span>
+                                  </CopyToClipboard>
+                                </div>
+                                <div className="key">
+                                  <span className="heading">Secret :</span>
+                                  <span>{secret}</span>
+                                  <CopyToClipboard
+                                    onCopy={this.copyToClipboard}
+                                    text={secret}
+                                  >
+                                    <span className="copy-text">Copy</span>
+                                  </CopyToClipboard>
+                                </div>
                               </div>
-                              <div className="key">
-                                <span className="heading">Secret :</span>
-                                <span>{secret}</span>
-                                <CopyToClipboard
-                                  onCopy={this.copyToClipboard}
-                                  text={secret}
-                                >
-                                  <span className="copy-text">Copy</span>
-                                </CopyToClipboard>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <button
-                              onClick={() => {
-                                this.deleteKey(el.id, el.name);
-                              }}
-                              className="form-btn-gray"
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                            </td>
+                            <td>
+                              <button
+                                onClick={() => {
+                                  this.deleteKey(el.id, el.name);
+                                }}
+                                className="form-btn-gray"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <></>
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
-        {this.state.show2fa ? (
+        {this.state.show2faForGenerate ? (
           <MFAModal
             hideMFAModal={this.hideMFAModal}
             validateFor={'generateApiKeys'}
@@ -166,6 +208,14 @@ export class ApiSecret extends Component {
         ) : (
           <></>
         )}
+        {this.state.show2faForDelete ? (
+          <MFAModal
+            hideMFAModal={this.hideMFAModal}
+            validateFor={'deleteApiKeys'}
+          />
+        ) : (
+          <></>
+        )}
       </>
     );
   }
@@ -174,6 +224,7 @@ export class ApiSecret extends Component {
 const mapStatesToProps = (state) => ({
   auth: state.auth,
   apikeys: state.apikeys,
+  profile: state.profile,
 });
 
 export default connect(mapStatesToProps, {
