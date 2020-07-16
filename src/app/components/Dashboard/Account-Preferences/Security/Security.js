@@ -373,7 +373,7 @@ class Security extends Component {
                       <p>{this.state.successmsg}</p>
                     </div>
                   )}
-                  <form
+                  <form className="googleauthfrom"
                     style={{
                       display: this.state.token_2fForm ? 'block' : 'none',
                     }}

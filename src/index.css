@@ -2180,6 +2180,14 @@ ul.sidebarlist.show.collapse {
 button:focus {
   outline: none;
 }
+.googleauthfrom{
+  width: 100%;
+}
+input.google_authinput:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #666!important;
+}
 /* Media Queries */
 
 @media (min-width: 1200px) {
