@@ -77,6 +77,7 @@ export class FuturesTransfer extends Component {
             <div className="col-md-8">
               <Button
                 variant="primary"
+                className="transform_button"
                 style={styles.transferbtn}
                 id="1"
                 onClick={this.showTransferBalanceModal}
@@ -85,6 +86,7 @@ export class FuturesTransfer extends Component {
               </Button>
               <Button
                 variant="primary"
+                className="transform_button"
                 style={styles.exchangebtn}
                 id="2"
                 onClick={this.showTransferBalanceModal}

@@ -144,6 +144,7 @@ export class ApiSecret extends Component {
             </div> */}
             <Button
               variant="primary"
+              className="genrate_button"
               style={styles.apikeyaddbtn}
               id="1"
               onClick={this.showMFAModal}

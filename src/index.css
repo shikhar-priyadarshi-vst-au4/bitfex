@@ -2357,7 +2357,7 @@ input.google_authinput:focus {
     top: 0;
   }
   body {
-    padding-top: 50px;
+    padding-top: 0;
     top: 0;
   }
   /* Widgets */
@@ -2389,6 +2389,50 @@ input.google_authinput:focus {
     margin-top: 15px;
     text-align: center;
   }
+  nav.navbar.navbar-default.main-navbar.dashboard_header{
+    border-bottom: 2px solid #fff;
+  }
+  .navbar-nav {
+    margin: 10px 0;
+}
+.sidebar_container {
+  padding-left: 12px !important;
+}
+.wallet_container {
+  padding: 10px 5px !important;
+}
+button.btn.btn-default.bitcion_button {
+  width: 180px !important;
+  height: 60px!important;
+}
+button.btn.btn-default.bitcion_button img{
+  margin-left: 0!important;
+}
+.transform_button{
+  width: initial!important;
+  height: initial !important;
+  padding: 10px 16px !important;
+  margin-left: 0!important;
+  margin-right: 10px !important;
+}
+.user_accountdetail {
+  padding: 16px 15px !important;
+}
+.mobpadd{
+  padding-left: 0!important;
+  margin-top: 14px;
+  padding-right: 0;
+}
+.googleauth_container {
+  padding: 15px 10px !important;
+}
+.my_profilediv, .google_container{
+  padding-right: 0!important;
+}
+.genrate_button{
+  margin-left: 0!important;
+  margin-top: 10px;
+}
 }
 @media (max-width: 767px) and (orientation: portrait) {
   .user-login .user-dropdown,
