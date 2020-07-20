@@ -2391,7 +2391,7 @@ input.google_authinput:focus {
     width: 175px !important;
     margin-left: 24px;
   }
-  ul.nav.navbar-nav.sidebar_nav {
+  /* ul.nav.navbar-nav.sidebar_nav {
     overflow: hidden;
     top: 70px;
     position: fixed;
@@ -2418,7 +2418,7 @@ input.google_authinput:focus {
     left: 0 !important;
     transition: all 0.5s ease-in-out;
     visibility: visible;
-  }
+  } */
   body {
     padding-top: 0;
     top: 0;
