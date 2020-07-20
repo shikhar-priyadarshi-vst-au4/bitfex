@@ -38,7 +38,7 @@ class Header extends Component {
       <nav className="navbar navbar-default main-navbar dashboard_header">
         <div className="container-fluid nopadd">
           <div className="navbar-header">
-            <button
+            {/* <button
               type="button"
               className="navbar-toggle collapsed"
               data-toggle="collapse"
@@ -49,13 +49,13 @@ class Header extends Component {
               <span className="icon-bar" />
               <span className="icon-bar" />
               <span className="icon-bar" />
-            </button>
+            </button> */}
             {/* <a className="navbar-brand" href="#">
               <img src={Bitfixlogo} className="logo_img" />
             </a> */}
           </div>
           <div
-            className="collapse navbar-collapse"
+            className="navbar-collapse"
             id="bs-example-navbar-collapse-1"
           >
             <a className="navbar-brand" href="#">
@@ -92,6 +92,10 @@ class Header extends Component {
                     </a>
                   </p>
                 </ul>
+              </li>
+              <li className="menubaricon">
+                  {/* <i className="fa fa-user-circle"></i> */}
+                  <i class="fa fa-bars" aria-hidden="true"></i>
               </li>
             </ul>
           </div>
