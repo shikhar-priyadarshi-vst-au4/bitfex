@@ -65,7 +65,7 @@ class Dashboard extends Component {
   render() {
     // console.log(this.props.profile.profile);
     // console.log(this.props);
-
+    console.log('3');
     return (
       <div className="dashboard_body">
         <Header />

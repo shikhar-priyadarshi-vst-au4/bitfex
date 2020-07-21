@@ -37,6 +37,7 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 
 class App extends Component {
   render() {
+    console.log('2');
     return (
       <Provider store={store}>
         <Router>

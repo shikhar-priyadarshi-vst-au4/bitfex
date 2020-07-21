@@ -153,7 +153,7 @@ class WithdrawCoins extends Component {
         border: 'none',
         borderRadius: '3px',
         outline: 'none',
-        backgroundColor: '#f44242',
+        backgroundColor: '#f18d05',
         color: 'white',
       },
       note: {
@@ -307,7 +307,10 @@ class WithdrawCoins extends Component {
           </div>
         </div>
 
-        <div className="row account_detail withdrawalcontainer">
+        <div
+          className="row account_detail withdrawalcontainer"
+          style={{marginLeft: '15px'}}
+        >
           <div className="col-md-12 balance_container">
             <div className="">
               <h4 className="account_tableheading">{name} Withdraw History</h4>

@@ -63,14 +63,16 @@ export class Withdraw extends Component {
       },
       select: {
         marginTop: '20px',
+        marginBottom: '18px',
       },
       btn: {
-        fontSize: '14px',
+        fontSize: '18px',
         border: '1px solid grey',
-        width: '230px',
+        width: '276px',
         height: '70px',
         backgroundColor: 'white',
         boxShadow: '1 3px 7px -1px rgba(1,1,1,.4)',
+        borderRadius: '6px',
       },
       img: {
         height: '35px',
@@ -112,56 +114,61 @@ export class Withdraw extends Component {
             </div>
             <div className="col-md-5" />
           </div>
-          <div className="row dropdown">
-            <div className="col-md-6" style={styles.select}>
+          <div className="row dropdown" style={styles.select}>
+            <div className="col-md-6">
               <Select options={options} onChange={this.setLoction} />
             </div>
             <div className="col-md-6" />
           </div>
-        </div>
-        <div className="row account_detail withdrawalcontainer">
-          <div className="col-md-12 balance_container">
-            <div className="">
-              <h4 className="account_tableheading">Withdrawal History</h4>
-            </div>
-            <div className="clear-fix" />
-            <div className="table-responsive">
-              <table
-                className="table balances_table table-striped dashboard_table table-sm"
-                id="dtHorizontalExample"
-                cellSpacing={0}
-                width="100%"
-              >
-                <tbody>
-                  <tr>
-                    <th className="created">Assets</th>
-                    <th className="created">Withdraw</th>
-                    <th className="modified">Withdrawl History</th>
-                  </tr>
-                  <tr>
-                    <td>
-                      {' '}
-                      <img
-                        src={Bitcoin}
-                        alt="Bitcoin"
-                        style={{height: '22px'}}
-                      />{' '}
-                      &nbsp; BTC{' '}
-                    </td>
-                    <td>0.000</td>
-                    <td>0.000</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {' '}
-                      <img src={Tether} alt="Tether" style={{height: '22px'}} />
-                      &nbsp; USDT
-                    </td>
-                    <td>0.000</td>
-                    <td>0.000</td>
-                  </tr>
-                </tbody>
-              </table>
+
+          <div className="row account_detail withdrawalcontainer">
+            <div className="col-md-12 balance_container">
+              <div className="">
+                <h4 className="account_tableheading">Withdrawal History</h4>
+              </div>
+              <div className="clear-fix" />
+              <div className="table-responsive">
+                <table
+                  className="table balances_table table-striped dashboard_table table-sm"
+                  id="dtHorizontalExample"
+                  cellSpacing={0}
+                  width="100%"
+                >
+                  <tbody>
+                    <tr>
+                      <th className="created">Assets</th>
+                      <th className="created">Withdraw</th>
+                      <th className="modified">Withdrawl History</th>
+                    </tr>
+                    <tr>
+                      <td>
+                        {' '}
+                        <img
+                          src={Bitcoin}
+                          alt="Bitcoin"
+                          style={{height: '22px'}}
+                        />{' '}
+                        &nbsp; BTC{' '}
+                      </td>
+                      <td>0.000</td>
+                      <td>0.000</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {' '}
+                        <img
+                          src={Tether}
+                          alt="Tether"
+                          style={{height: '22px'}}
+                        />
+                        &nbsp; USDT
+                      </td>
+                      <td>0.000</td>
+                      <td>0.000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

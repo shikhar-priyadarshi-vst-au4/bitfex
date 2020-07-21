@@ -119,147 +119,147 @@ export class ApiSecret extends Component {
         color: '#00afff',
       },
       apikeyaddbtn: {
-        fontSize: '14px',
-        border: '1px solid grey',
-        marginLeft: '12px',
-        height: '45px',
-        width: '170px',
+        fontSize: '16px',
+        color: 'white',
+        fontWeight: '500',
+        border: 'none',
+        height: '50px',
+        width: '272px',
+        backgroundColor: '#f18d05',
         boxShadow: '1 3px 7px -1px rgba(1,1,1,.4)',
       },
     };
 
     return (
-      <div className="row dashboard_container">
-        <div className="col-md-10 contentcontainer">
-          <div className="wallet_container">
-            <h4 className="content_heading">{Profile}</h4>
-            <p className="preferences_account">
-              ACCOUNT &amp; PREFERENCES / <span> {Profile.toUpperCase()}</span>
-            </p>
-            {/* <div className="credentials">
+      <div className="col-md-12 contentcontainer">
+        <div className="wallet_container">
+          <h4 className="content_heading">{Profile}</h4>
+          <p className="preferences_account">
+            ACCOUNT &amp; PREFERENCES / <span> {Profile.toUpperCase()}</span>
+          </p>
+          {/* <div className="credentials">
               <p>
                 Please enable google two factor authentication to get api
                 secret!
               </p>
             </div> */}
-            <Button
-              variant="primary"
-              style={styles.apikeyaddbtn}
-              id="1"
-              onClick={this.showMFAModal}
-            >
-              Genrate Api Key
-            </Button>
-          </div>
-        </div>
-        <div className="row account_detail">
-          <p style={{color: '#e43626', fontWeight: 'bold'}}>
-            NOTE: The Secret key will be hidden forever. if u change the page or
-            you refresh the page. Kindly save it securely.
-          </p>
-          <div className="col-md-12 balance_container">
-            <div className="">
-              <h4 className="account_tableheading">Your API keys</h4>
-            </div>
-            <div className="clear-fix" />
-            <div className="table-responsive api-key-table">
-              <table className="table balances_table table-striped dashboard_table">
-                <tbody>
-                  <tr>
-                    <th>Api Key Name</th>
-                    <th style={{textAlign: 'left'}}>keys</th>
-                    <th>Action</th>
-                  </tr>
-                  {this.state.apiSecretkey.map((item, i) => {
-                    let {id, key, name, secret} = item;
-                    return (
-                      <tr key={i}>
-                        <td>{name}</td>
-                        <td>
-                          <div className="d-flex flex-column align-items-start">
-                            <div className="key">
-                              <span className="heading">API Key :</span>
-                              <span>{key}</span>
-                              <CopyToClipboard
-                                onCopy={this.copyToClipboard}
-                                text={key}
-                              >
-                                <button
-                                  className="fontbutton"
-                                  style={styles.fontbutton}
+          <Button
+            style={styles.apikeyaddbtn}
+            id="1"
+            onClick={this.showMFAModal}
+          >
+            Genrate Api Key
+          </Button>
+
+          <div className="row account_detail">
+            <p style={{color: '#e43626', fontWeight: 'bold'}}>
+              NOTE: The Secret key will be hidden forever. if u change the page
+              or you refresh the page. Kindly save it securely.
+            </p>
+            <div className="col-md-12 balance_container">
+              <div className="">
+                <h4 className="account_tableheading">Your API keys</h4>
+              </div>
+              <div className="clear-fix" />
+              <div className="table-responsive api-key-table">
+                <table className="table balances_table table-striped dashboard_table">
+                  <tbody>
+                    <tr>
+                      <th>Api Key Name</th>
+                      <th style={{textAlign: 'left'}}>keys</th>
+                      <th>Action</th>
+                    </tr>
+                    {this.state.apiSecretkey.map((item, i) => {
+                      let {id, key, name, secret} = item;
+                      return (
+                        <tr key={i}>
+                          <td>{name}</td>
+                          <td>
+                            <div className="d-flex flex-column align-items-start">
+                              <div className="key">
+                                <span className="heading">API Key :</span>
+                                <span>{key}</span>
+                                <CopyToClipboard
+                                  onCopy={this.copyToClipboard}
+                                  text={key}
                                 >
-                                  <span>
-                                    <FontAwesomeIcon
-                                      className="copy-text"
-                                      icon={faCopy}
-                                      style={styles.fontclass}
-                                    />{' '}
-                                    Copy
-                                  </span>
-                                </button>
-                              </CopyToClipboard>
-                            </div>
-                            <div className="key">
-                              <span className="heading">Secret :</span>
-                              <span>{secret}</span>
-                              <CopyToClipboard
-                                onCopy={this.copyToClipboard}
-                                text={secret}
-                              >
-                                <button
-                                  className="fontbutton"
-                                  style={styles.fontbutton}
+                                  <button
+                                    className="fontbutton"
+                                    style={styles.fontbutton}
+                                  >
+                                    <span>
+                                      <FontAwesomeIcon
+                                        className="copy-text"
+                                        icon={faCopy}
+                                        style={styles.fontclass}
+                                      />{' '}
+                                      Copy
+                                    </span>
+                                  </button>
+                                </CopyToClipboard>
+                              </div>
+                              <div className="key">
+                                <span className="heading">Secret :</span>
+                                <span>{secret}</span>
+                                <CopyToClipboard
+                                  onCopy={this.copyToClipboard}
+                                  text={secret}
                                 >
-                                  <span>
-                                    <FontAwesomeIcon
-                                      className="copy-text"
-                                      icon={faCopy}
-                                      style={styles.fontclass}
-                                    />{' '}
-                                    Copy
-                                  </span>
-                                </button>
-                              </CopyToClipboard>
+                                  <button
+                                    className="fontbutton"
+                                    style={styles.fontbutton}
+                                  >
+                                    <span>
+                                      <FontAwesomeIcon
+                                        className="copy-text"
+                                        icon={faCopy}
+                                        style={styles.fontclass}
+                                      />{' '}
+                                      Copy
+                                    </span>
+                                  </button>
+                                </CopyToClipboard>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-danger"
-                            onClick={() => {
-                              this.deleteapikeys(item.name);
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => {
+                                this.deleteapikeys(item.name);
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
+          {this.state.show2fa ? (
+            <MFAModal
+              onHide={this.hideMFAModal}
+              hideMFAModal={this.hideMFAModal}
+              show={this.state.show2fa}
+              validateFor={'generateApiKeys'}
+            />
+          ) : (
+            <></>
+          )}
+          {this.state.openKeyPairModal ? (
+            <ApiScretekeyModel
+              show={this.state.openTransferBalModal}
+              onHide={this.hideTransferBalanceModal}
+              hideKeyPairModal={this.hideKeyPairModal}
+            />
+          ) : (
+            <></>
+          )}
         </div>
-        {this.state.show2fa ? (
-          <MFAModal
-            onHide={this.hideMFAModal}
-            hideMFAModal={this.hideMFAModal}
-            show={this.state.show2fa}
-            validateFor={'generateApiKeys'}
-          />
-        ) : (
-          <></>
-        )}
-        {this.state.openKeyPairModal ? (
-          <ApiScretekeyModel
-            show={this.state.openTransferBalModal}
-            onHide={this.hideTransferBalanceModal}
-            hideKeyPairModal={this.hideKeyPairModal}
-          />
-        ) : (
-          <></>
-        )}
       </div>
     );
   }

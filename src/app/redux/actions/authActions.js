@@ -9,6 +9,7 @@ import {
   USER_PASSWORD_CHANGE,
   SET_ERRORS,
   SET_MFA_STATUS,
+  REGISTER_DATA,
 } from '../types';
 
 const {SERVER_URL} = process.env;
@@ -18,8 +19,47 @@ const BASE_URL = 'https://dev.bitfex.com/api/v1';
 export const registerUser = (UserForm, history) => (dispatch) => {
   axios
     .post(`${BASE_URL}/users/sign_up`, UserForm)
-    .then((res) => console.log(res.data))
-    .catch((error) => console.log(error.response));
+    .then((res) => {
+      console.log(res.data);
+      dispatch({
+        type: REGISTER_DATA,
+        payload: res.data,
+      });
+    })
+    .catch((error) => {
+      console.log(error.response);
+      dispatch({
+        type: GET_ERRORS,
+        payload: ((error || {}).response || {}).data || 'Error unexpected',
+      });
+    });
+};
+
+// Confirm user email verifiction code
+export const confirmUserCode = (userEmail, code) => (dispatch) => {
+  console.log(userEmail, code);
+  axios
+    .get(`${BASE_URL}/users/confirm?email=${userEmail}&token=${code}`)
+    .then((res) => {
+      console.log(res.data);
+      // Save to localStorage
+      const {jwt, email, first_name, last_name} = res.data;
+      // Set token to ls
+      localStorage.setItem('token', jwt);
+      // Set token to Auth header
+      setAuthToken(jwt);
+      // Decode token to get user data
+      const decoded = jwt_decode(jwt);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })
+    .catch((error) => {
+      console.log(error.response);
+      dispatch({
+        type: GET_ERRORS,
+        payload: ((error || {}).response || {}).data || 'Error unexpected',
+      });
+    });
 };
 
 // Login - Get User Token
@@ -50,7 +90,7 @@ export const loginUser = (email, password, token_2fa) => (dispatch) => {
     .catch((error) =>
       dispatch({
         type: GET_ERRORS,
-        payload: error.response.data,
+        payload: ((error || {}).response || {}).data || 'Error unexpected',
       }),
     );
 };
@@ -77,7 +117,7 @@ export const logoutUser = () => (dispatch) => {
     payload: {},
   });
   // eslint-disable-next-line no-restricted-globals
-  location.reload();
+  window.location.reload();
 };
 
 export const changePassword = (UserPasswordDetails) => (dispatch) => {

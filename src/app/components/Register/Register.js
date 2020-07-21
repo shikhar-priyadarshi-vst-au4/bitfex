@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import {registerUser} from '../../redux/actions/authActions';
 import {clearErrors} from '../../redux/actions/errorActions';
 import isEmpty from '../../validation/is-empty';
+import EmailVerifiction from '../Model/EmailVerifiction';
 import './Register.css';
 
 const validEmailRegex = RegExp(
@@ -33,6 +34,9 @@ export class Register extends Component {
       countryError: '',
       firstNameError: '',
       lastnameError: '',
+      emailtakenerror: '',
+      registerData: this.props.auth.registerInfo || {},
+      openTransferBalModal: false,
     };
   }
 
@@ -48,93 +52,115 @@ export class Register extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     if (!isEmpty(nextProps.errors)) {
-      console.log(nextProps.errors);
+      this.setState({emailtakenerror: 'The email has already been taken!'});
     }
+    console.log(nextProps.auth);
+    if (!isEmpty(nextProps.auth.registerInfo)) {
+      this.setState({registerData: nextProps.auth.registerInfo});
+      this.showTransferBalanceModal();
+    }
+    if (nextProps.auth.isAuthenticated) {
+      // this.props.history.push('/dashboard/account');
+    }
+
     // } else if (nextProps.auth.isAuthenticated) {
     //   this.props.history.push('/dashboard/account');
     // }
   };
 
-  componentDidUpdate = () => {
-    if (!isEmpty(this.props.errors) && !this.state.formError) {
-      let formError = this.errorMap[this.props.errors.type];
-      this.setState({formError});
+  componentDidUpdate = () => {};
+
+  componentWillUpdate = (newProps, newState) => {
+    if (newState.emailtakenerror) {
+      setTimeout(() => {
+        this.setState({emailtakenerror: ''});
+      }, 3000);
     }
+  };
+
+  allowSubmission = () => {
+    const {
+      emailError,
+      passError,
+      cnfPassError,
+      countryError,
+      firstNameError,
+      lastnameError,
+      emailtakenerror,
+      isDirty,
+    } = this.state;
+    return (
+      !(
+        emailError ||
+        passError ||
+        cnfPassError ||
+        countryError ||
+        firstNameError ||
+        lastnameError ||
+        emailtakenerror
+      ) && isDirty
+    );
   };
 
   registerForm = (e) => {
     e.preventDefault();
-
-    const UserForm = {
-      email: this.state.email,
-      password: this.state.password,
-      password_confirmation: this.state.password_confirmation,
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      country: this.state.country,
-    };
-
-    if (!UserForm.email) {
-      this.setState({
-        emailError: 'Email is required!',
+    const {
+      email,
+      password,
+      password_confirmation,
+      first_name,
+      last_name,
+      country,
+    } = this.state;
+    if (this.allowSubmission()) {
+      this.props.registerUser({
+        email,
+        password,
+        password_confirmation,
+        first_name,
+        last_name,
+        country,
       });
     } else {
+      let emailError = '';
+      let passError = '';
+      let cnfPassError = '';
+      let countryError = '';
+      let firstNameError = '';
+      let lastnameError = '';
+
+      if (!email) {
+        emailError = 'Email is Required !';
+      } else if (!validEmailRegex.test(email)) {
+        emailError = 'Please enter a valid email!';
+      }
+      if (!password) {
+        passError = 'Password is required !';
+      }
+      if (!password_confirmation) {
+        cnfPassError = 'Please enter confirm password!';
+      }
+      if (!country) {
+        countryError = 'Please choose a country!';
+      }
+      if (!first_name) {
+        firstNameError = 'First Name is required!';
+      }
+      if (!last_name) {
+        lastnameError = 'last Name is required!';
+      }
       this.setState({
-        emailError: '',
+        emailError,
+        passError,
+        cnfPassError,
+        countryError,
+        firstNameError,
+        lastnameError,
+        email,
+        formError: '',
+        isDirty: true,
       });
     }
-
-    if (!UserForm.password) {
-      this.setState({
-        passError: 'Please enter your password!',
-      });
-    } else {
-      this.setState({
-        passError: '',
-      });
-    }
-
-    if (!UserForm.password_confirmation) {
-      this.setState({
-        cnfPassError: 'Please enter confirm password!',
-      });
-    } else {
-      this.setState({
-        cnfPassError: '',
-      });
-    }
-
-    if (!UserForm.country) {
-      this.setState({
-        countryError: 'Please choose a country!',
-      });
-    } else {
-      this.setState({
-        countryError: '',
-      });
-    }
-
-    if (!UserForm.first_name) {
-      this.setState({
-        firstNameError: 'First Name is required!',
-      });
-    } else {
-      this.setState({
-        firstNameError: '',
-      });
-    }
-
-    if (!UserForm.last_name) {
-      this.setState({
-        lastnameError: 'last Name is required!',
-      });
-    } else {
-      this.setState({
-        lastnameError: '',
-      });
-    }
-
-    this.props.registerUser(UserForm);
   };
 
   handleEmailInput = (e) => {
@@ -147,7 +173,7 @@ export class Register extends Component {
       emailError = 'Please enter a valid email!';
     }
     this.props.clearErrors();
-    this.setState({emailError, email, formError: ''});
+    this.setState({emailError, email, formError: '', isDirty: true});
   };
 
   handlePasswordInput = (e) => {
@@ -163,7 +189,7 @@ export class Register extends Component {
         'Your password must contain at least one lowercase letter, one capital letter, one special character and one number!';
     }
     this.props.clearErrors();
-    this.setState({password, passError, formError: ''});
+    this.setState({password, passError, formError: '', isDirty: true});
   };
 
   handleCnfrmPasswordInput = (e) => {
@@ -177,7 +203,12 @@ export class Register extends Component {
       cnfPassError = 'Password must match!';
     }
     this.props.clearErrors();
-    this.setState({password_confirmation, cnfPassError, formError: ''});
+    this.setState({
+      password_confirmation,
+      cnfPassError,
+      formError: '',
+      isDirty: true,
+    });
   };
 
   handleContryChange = (e) => {
@@ -188,7 +219,7 @@ export class Register extends Component {
       countryError = 'Please choose a country!';
     }
     this.props.clearErrors();
-    this.setState({country, countryError, formError: ''});
+    this.setState({country, countryError, formError: '', isDirty: true});
   };
 
   handleFirstNameInput = (e) => {
@@ -199,7 +230,7 @@ export class Register extends Component {
       firstNameError = 'First Name is required!';
     }
     this.props.clearErrors();
-    this.setState({firstNameError, first_name, formError: ''});
+    this.setState({firstNameError, first_name, formError: '', isDirty: true});
   };
 
   handleLastnameInput = (e) => {
@@ -210,11 +241,21 @@ export class Register extends Component {
       lastnameError = 'last Name is required!';
     }
     this.props.clearErrors();
-    this.setState({lastnameError, last_name, formError: ''});
+    this.setState({lastnameError, last_name, formError: '', isDirty: true});
+  };
+
+  showTransferBalanceModal = (e) => {
+    this.setState({openTransferBalModal: true});
+  };
+
+  hideTransferBalanceModal = () => {
+    this.setState({openTransferBalModal: false});
   };
 
   render() {
-    console.log(this.props.errors);
+    // console.log(this.props.errors.email);
+    console.log(this.state.registerData);
+
     return (
       <div>
         <div>
@@ -237,8 +278,10 @@ export class Register extends Component {
                         </ul>
                         <div className="frm-body signin-wd">
                           <form onSubmit={this.registerForm}>
-                            {this.state.formError ? (
-                              <h3 className="error">{this.state.formError}</h3>
+                            {this.state.emailtakenerror ? (
+                              <h3 className="auth-error">
+                                {this.state.emailtakenerror}
+                              </h3>
                             ) : null}
                             <div className="login-signup-heading">
                               Create Bitfex Account
@@ -441,6 +484,12 @@ export class Register extends Component {
             </div>
           </div>
         </div>
+        {this.state.registerData != '' ? (
+          <EmailVerifiction
+            show={this.state.openTransferBalModal}
+            onHide={this.hideTransferBalanceModal}
+          />
+        ) : null}
       </div>
     );
   }

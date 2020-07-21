@@ -13,3 +13,4 @@ export const ALL_API_SECRET_KEY = 'ALL_API_SECRET_KEY';
 export const GOOGLE_TWOFA_KEY = 'GOOGLE_TWOFA_KEY';
 export const SET_MFA_STATUS = 'SET_MFA_STATUS';
 export const SET_2FA_STATUS = 'SET_2FA_STATUS';
+export const REGISTER_DATA = 'REGISTER_DATA';

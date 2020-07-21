@@ -12,6 +12,7 @@ import './index.css';
 import App from './app/containers/app';
 import * as serviceWorker from './serviceWorker';
 
+console.log('1');
 // console.log(localStorage.token);
 // // Check for token
 // if (localStorage.token) {

@@ -58,17 +58,20 @@ class ApiScretekeyModel extends Component {
       modelheader: {
         marginLeft: '300px',
         fontSize: '19px',
-        color: 'black',
+        color: '#0278e1',
       },
       cnfrmbtn: {
-        height: '50px',
+        height: '43px',
         marginRight: '201px',
         width: '48%',
-        borderRadius: '4px',
-        fontSize: '14px',
+        borderRadius: '2px',
+        backgroundColor: '#f18d05',
+        border: 'none',
+        color: 'white',
+        fontSize: '18px',
       },
       apikeyInput: {
-        height: '50px',
+        height: '43px',
         width: '100%',
         borderRadius: '4px',
         fontSize: '14px',
@@ -113,12 +116,7 @@ class ApiScretekeyModel extends Component {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <button
-            variant="primary"
-            className="btn btn-primary"
-            style={styles.cnfrmbtn}
-            onClick={this.addapikey}
-          >
+          <button style={styles.cnfrmbtn} onClick={this.addapikey}>
             Create Api Key
           </button>
         </Modal.Footer>

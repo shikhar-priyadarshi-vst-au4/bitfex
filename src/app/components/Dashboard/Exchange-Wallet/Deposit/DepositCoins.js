@@ -7,7 +7,7 @@ import QRCode from 'qrcode.react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCopy} from '@fortawesome/free-solid-svg-icons';
-
+import './Deposit.css';
 import Bitcoin from '../../../../../assets/img/bitcoin.png';
 import Tether from '../../../../../assets/img/tetherUs.png';
 
@@ -270,7 +270,10 @@ class DepositCoins extends Component {
           </div>
         </div>
 
-        <div className="row account_detail withdrawalcontainer">
+        <div
+          className="row account_detail withdrawalcontainer"
+          style={{marginLeft: '15px'}}
+        >
           <div className="col-md-12 balance_container">
             <div className="">
               <h4 className="account_tableheading">{name} Deposit History</h4>

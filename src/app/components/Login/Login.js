@@ -34,7 +34,8 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/dashboard/account');
+      // this.props.history.push('/dashboard/account');
+      window.location.href = '/trade';
     }
 
     // if (nextProps.errors) {
@@ -109,7 +110,7 @@ class Login extends Component {
   render() {
     // const {email , password} = this.state;
     // console.log(this.props.errors.type);
-    console.log(this.props.errors);
+    console.log(this.props);
     // console.log(this.state.token_2fa);
     return (
       <div className="wrapper">

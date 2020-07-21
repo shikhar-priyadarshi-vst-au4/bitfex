@@ -34,6 +34,8 @@ class Security extends Component {
       token_2faError: '',
       successmsg: this.props.apisecretkeys.twofastatu,
       errmsg: '',
+      passwordchangesuccess: '',
+      passwordchangeerror: '',
       token_2fForm: false,
     };
   }
@@ -70,18 +72,38 @@ class Security extends Component {
       this.props.history.push('/login');
       document.title = 'Bitfex';
     }
-    this.setState({successmsg: nextProps.auth.userNewpasswor});
+    // this.setState({successmsg: nextProps.auth.userNewpasswor});
+    if (
+      !isEmpty(nextProps.auth.userNewpassword) &&
+      this.state.old_password &&
+      this.state.password &&
+      this.state.password_confirmation
+    ) {
+      console.log(nextProps.auth.userNewpassword);
+      this.setState({
+        passwordchangesuccess: 'Your password was successfully updated!',
+      });
+      this.setState({passwordchangeerror: ''});
+    }
     if (!isEmpty(nextProps.apisecretkeys.twofakey)) {
       this.setState({enabled_2fa: true});
       this.setState({
         googletwofakey: nextProps.apisecretkeys.twofakey.secret_key_2fa,
       });
     }
-    if (nextProps.apisecretkeys.twofastatus === true) {
+    if (
+      nextProps.apisecretkeys.twofastatus === true &&
+      this.state.token_2fa &&
+      this.state.enabled_2fa
+    ) {
       this.setState({
         successmsg: 'You Google auth (2FA) has been enabled successfully!',
       });
-    } else if (nextProps.apisecretkeys.twofastatus === false) {
+    } else if (
+      nextProps.apisecretkeys.twofastatus === false &&
+      this.state.token_2fa &&
+      !this.state.enabled_2fa
+    ) {
       this.setState({
         successmsg: 'You Google auth (2FA) has been disabled successfully!',
       });
@@ -92,13 +114,21 @@ class Security extends Component {
       //   googletwofakey: '0',
       // });
     }
-    if (nextProps.errors.type === 'invalid_data') {
+    if (nextProps.errors.type === 'invalid_data' && this.state.token_2fa) {
       // this.setState({
       //   errmsg: 'The Google Authenticator code is incorrect or has expired!',
       // });
       window.alert(
         'The Google Authenticator code is incorrect or has expired!',
       );
+    }
+    if (
+      !isEmpty(nextProps.errors.type) &&
+      nextProps.errors.type === 'password_or_email_invalid'
+    ) {
+      this.setState({passwordchangeerror: 'Current password does not match!'});
+      this.setState({passwordchangesuccess: ''});
+      // window.alert()
     }
   }
 
@@ -112,6 +142,20 @@ class Security extends Component {
     //   this.setState({successmsg});
     // }
   };
+
+  // componentWillUpdate = (newProps, newState) => {
+  //   if (newState.passwordchangeerror) {
+  //     setTimeout(() => {
+  //       this.setState({passwordchangeerror: ''});
+  //     });
+  //   }
+  //   if (newState.passwordchangesuccess) {
+  //     setTimeout(() => {
+  //       this.setState({passwordchangesuccess: ''});
+  //     });
+  //   }
+  //   console.log(newState);
+  // };
 
   allowSubmission = () => {
     const {
@@ -127,7 +171,6 @@ class Security extends Component {
   };
 
   upadtePassword = (e) => {
-    // alert('call');
     e.preventDefault();
     const {old_password, password, password_confirmation} = this.state;
     if (this.allowSubmission()) {
@@ -171,7 +214,12 @@ class Security extends Component {
     //   oldPasswordError = 'Password should be minimum of min 8 characters!';
     // }
     // this.props.clearErrors();
-    this.setState({old_password, oldPasswordError, formError: ''});
+    this.setState({
+      old_password,
+      oldPasswordError,
+      formError: '',
+      isDirty: true,
+    });
   };
 
   newPassword = (e) => {
@@ -197,6 +245,7 @@ class Security extends Component {
       password,
       newPasswordError,
       formError: '',
+      isDirty: true,
     });
   };
 
@@ -215,6 +264,7 @@ class Security extends Component {
       password_confirmation,
       confirmNewPasswordError,
       formError: '',
+      isDirty: true,
     });
   };
 
@@ -267,12 +317,12 @@ class Security extends Component {
   render() {
     const Profile = this.props.heading;
     const {googletwofakey} = this.state;
-    console.log(googletwofakey);
+    // console.log(googletwofakey);
     const link = `otpauth://totp/Bitfex(${this.props.profile.profile.full_name})?secret=${googletwofakey}`;
     // console.log(this.props.apisecretkeys.twofastatus);
     // console.log(this.props.apisecretkeys.twofakey);
-    console.log(this.props.errors);
-    console.log(this.state.successmsg);
+    // console.log(this.state.passwordchangeerror);
+    // console.log(this.state.passwordchangesuccess);
     return (
       <div className="row dashboard_container">
         <div className="col-md-12 contentcontainer">
@@ -287,16 +337,16 @@ class Security extends Component {
                   <h4 className="account_tableheading">
                     Change Login Password
                   </h4>
-                  {this.state.formError && (
+                  {this.state.passwordchangeerror && (
                     <div className="auth-error">
-                      <p>{this.state.formError}</p>
+                      <p>{this.state.passwordchangeerror}</p>
                     </div>
                   )}
-                  {/* {this.state.successmsg && (
+                  {this.state.passwordchangesuccess && (
                     <div className="msg-success">
-                      <p>Your password was successfully updated!</p>
+                      <p>{this.state.passwordchangesuccess}</p>
                     </div>
-                  )} */}
+                  )}
                   <div className="security_from">
                     <label>Current Password</label>
                     <div className="inputWithIcon">
@@ -373,7 +423,8 @@ class Security extends Component {
                       <p>{this.state.successmsg}</p>
                     </div>
                   )}
-                  <form className="googleauthfrom"
+                  <form
+                    className="googleauthfrom"
                     style={{
                       display: this.state.token_2fForm ? 'block' : 'none',
                     }}

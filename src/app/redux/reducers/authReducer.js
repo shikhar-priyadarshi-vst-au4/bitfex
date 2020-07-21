@@ -5,6 +5,7 @@ import {
   LOGOUT,
   USER_PASSWORD_CHANGE,
   SET_MFA_STATUS,
+  REGISTER_DATA,
 } from '../types';
 
 const getFromLS = (key) => localStorage.getItem('token');
@@ -13,11 +14,18 @@ const initialState = {
   isAuthenticated: !isEmpty(getFromLS('token')),
   loading: true,
   user: {},
-  userNewpasswor: '',
+  userNewpassword: '',
+  registerInfo: '',
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case REGISTER_DATA:
+      return {
+        ...state,
+        registerInfo: action.payload,
+        loading: false,
+      };
     case SET_CURRENT_USER:
       return {
         ...state,
@@ -34,7 +42,7 @@ export default function (state = initialState, action) {
     case USER_PASSWORD_CHANGE:
       return {
         ...state,
-        userNewpasswor: action.payload,
+        userNewpassword: action.payload,
       };
     case SET_MFA_STATUS:
       return {

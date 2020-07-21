@@ -5,6 +5,7 @@ import {Modal, Button} from 'react-bootstrap';
 import Select from 'react-select';
 import Bitcoin from '../../../../../assets/img/bitcoin.png';
 import Tether from '../../../../../assets/img/tetherUs.png';
+import './TransferModel.css';
 
 export class TransferModel extends Component {
   constructor(props) {
@@ -96,7 +97,8 @@ export class TransferModel extends Component {
     const styles = {
       modelheader: {
         marginLeft: '300px',
-        fontSize: '19px',
+        fontSize: '18px',
+        color: '#0278e1',
       },
       frombubblecontainer: {
         marginLeft: '10px',
@@ -112,7 +114,7 @@ export class TransferModel extends Component {
         width: '100%',
         outline: '0',
         borderWidth: '0 0 2px',
-        borderColor: '#5ea2b2',
+        borderColor: '#0278e1',
       },
       selectdiv: {},
       cnfrmbtn: {
@@ -120,8 +122,10 @@ export class TransferModel extends Component {
         marginRight: '69px',
         width: '100%',
         marginLeft: '69px',
-        borderRadius: '4px',
-        fontSize: '14px',
+        fontSize: '18px',
+        color: 'white',
+        backgroundColor: '#f18d05',
+        border: 'none',
       },
       avBlanceInput: {
         width: '100%',
@@ -143,6 +147,7 @@ export class TransferModel extends Component {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         animation={false}
+        className="box-modal"
       >
         <Modal.Header closeButton>
           <Modal.Title
@@ -155,16 +160,17 @@ export class TransferModel extends Component {
         <Modal.Body>
           <div className="row">
             <div className="col-md-2" />
-            <div className="col-md-3" style={styles.frombubblecontainer}>
+            <div
+              className="col-md-3 bubble-container "
+              style={styles.frombubblecontainer}
+            >
               {' '}
               <p style={{marginLeft: '20px'}}>From</p>
               <div
                 className="bubble"
                 style={{
-                  border: '1px solid black',
                   padding: '15px',
-                  borderRadius: '3px',
-                  backgroundColor: '#d5cfcf',
+                  backgroundColor: 'rgb(223 224 227 / 45%)',
                   height: '50px',
                   marginLeft: '20px',
                 }}
@@ -174,30 +180,46 @@ export class TransferModel extends Component {
                   : this.state.future_string}
               </div>
             </div>
-            <div className="col-md-1" style={{marginTop: '43px'}}>
-              <span
+            <div
+              className="col-md-1  transfer-bubble-holder"
+              style={{marginTop: '43px'}}
+            >
+              {/* <span
+                className="swipe-icon"
                 style={{
-                  border: '2px solid #4d763c',
+                  border: '2px solid rgb(196 199 202)',
                   borderRadius: '19px',
                   padding: '12px',
                 }}
               >
                 <i
                   onClick={this.toggleWallet}
-                  className="fa fa-exchange"
-                  style={{color: '#5ea2b2', fontSize: '19px'}}
+                  className="fa fa-exchange "
+                  style={{color: '#0278e1', fontSize: '19px'}}
                 ></i>
-              </span>
+              </span> */}
+              <img
+                // style={{
+                //   border: '2px solid rgb(196 199 202)',
+                //   borderRadius: '19px',
+                //   padding: '7px',
+                //   height: '50px',
+                //   width: '65px',
+                // }}
+                onClick={this.toggleWallet}
+                src="db-assets/transfer-icon.svg"
+              />
             </div>
-            <div className="col-md-3" style={styles.tobubblecontainer}>
+            <div
+              className="col-md-3 bubble-container"
+              style={styles.tobubblecontainer}
+            >
               <p style={{marginLeft: '20px'}}>To</p>
               <div
                 className="bubble"
                 style={{
-                  border: '1px solid black',
                   padding: '15px',
-                  borderRadius: '3px',
-                  backgroundColor: '#d5cfcf',
+                  backgroundColor: 'rgb(223 224 227 / 45%)',
                   height: '50px',
                   marginLeft: '20px',
                 }}
@@ -221,7 +243,7 @@ export class TransferModel extends Component {
             </div>
             <div className="col-md-1" />
           </div>
-          <div className="row" style={styles.amountdiv}>
+          <div className="row transfer-form-field" style={styles.amountdiv}>
             <div className="col-md-1" />
             <div className="col-md-6">
               <p>Amount</p>
@@ -250,13 +272,7 @@ export class TransferModel extends Component {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <button
-            variant="primary"
-            className="btn btn-primary"
-            style={styles.cnfrmbtn}
-          >
-            Confirm Transfer
-          </button>
+          <button style={styles.cnfrmbtn}>Confirm Transfer</button>
         </Modal.Footer>
       </Modal>
     );

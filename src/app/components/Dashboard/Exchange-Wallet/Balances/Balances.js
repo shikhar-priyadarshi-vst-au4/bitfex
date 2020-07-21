@@ -37,8 +37,11 @@ class Balances extends Component {
         marginTop: '20px',
       },
       linkbtn: {
+        color: 'white',
         fontSize: '14px',
-        border: '1px solid black',
+        backgroundColor: '#f18d05',
+        boxShadow: '1 3px 7px -1px rgba(1,1,1,.4)',
+        borderRadius: '6px',
       },
       img: {
         height: '35px',

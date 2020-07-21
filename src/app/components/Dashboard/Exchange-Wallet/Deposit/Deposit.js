@@ -69,14 +69,16 @@ export class Deposit extends Component {
       },
       select: {
         marginTop: '20px',
+        marginBottom: '18px',
       },
       btn: {
-        fontSize: '14px',
-        border: '1px solid grey',
-        width: '230px',
-        height: '70px',
-        backgroundColor: 'white',
+        fontSize: '18px',
+        color: 'white',
+        height: '59px',
+        width: '276px',
+        backgroundColor: '#f18d05',
         boxShadow: '1 3px 7px -1px rgba(1,1,1,.4)',
+        borderRadius: '6px',
       },
       img: {
         height: '35px',
@@ -112,7 +114,7 @@ export class Deposit extends Component {
                   >
                     <img src={Bitcoin} alt="Bitcoin" style={styles.img} />
                     &nbsp; Bitcoin &nbsp;
-                    <span>Avl: 0</span>
+                    <span>Avl: 1000</span>
                   </button>
                 </Link>
               ) : (
@@ -124,7 +126,7 @@ export class Deposit extends Component {
                 >
                   <img src={Bitcoin} alt="Bitcoin" style={styles.img} />
                   &nbsp; Bitcoin &nbsp;
-                  <span>Avl: 0</span>
+                  <span>Avl: 1000</span>
                 </button>
               )}
               &nbsp;&nbsp;&nbsp;&nbsp;
@@ -137,7 +139,7 @@ export class Deposit extends Component {
                   >
                     <img src={Tether} alt="Tether" style={styles.img} />
                     &nbsp; Tether &nbsp;
-                    <span>Avl: 0</span>
+                    <span>Avl: 1000</span>
                   </button>
                 </Link>
               ) : (
@@ -149,60 +151,65 @@ export class Deposit extends Component {
                 >
                   <img src={Tether} alt="Tether" style={styles.img} />
                   &nbsp; Tether &nbsp;
-                  <span>Avl: 0</span>
+                  <span>Avl: 1000</span>
                 </button>
               )}
             </div>
             <div className="col-md-5" />
           </div>
-          <div className="row dropdown">
-            <div className="col-md-6" style={styles.select}>
+          <div className="row dropdown" style={styles.select}>
+            <div className="col-md-6">
               <Select options={options} onChange={this.setLoction} />
             </div>
             <div className="col-md-6" />
           </div>
-        </div>
-        <div className="row account_detail withdrawalcontainer">
-          <div className="col-md-12 balance_container">
-            <div className="">
-              <h4 className="account_tableheading">Deposit History</h4>
-            </div>
-            <div className="clear-fix" />
-            <div className="table-responsive">
-              <table className="table balances_table table-striped dashboard_table">
-                <tbody>
-                  <tr>
-                    <th>Assets</th>
-                    <th>Deposit</th>
-                    <th>Deposit History</th>
-                    {/* <th>Amount</th>
+
+          <div className="row account_detail withdrawalcontainer">
+            <div className="col-md-12 balance_container">
+              <div className="">
+                <h4 className="account_tableheading">Deposit History</h4>
+              </div>
+              <div className="clear-fix" />
+              <div className="table-responsive">
+                <table className="table balances_table table-striped dashboard_table">
+                  <tbody>
+                    <tr>
+                      <th>Assets</th>
+                      <th>Deposit</th>
+                      <th>Deposit History</th>
+                      {/* <th>Amount</th>
                     <th>Status</th>
                     <th>Tx Info</th> */}
-                  </tr>
-                  <tr>
-                    <td>
-                      {' '}
-                      <img
-                        src={Bitcoin}
-                        alt="Bitcoin"
-                        style={{height: '22px'}}
-                      />{' '}
-                      &nbsp; BTC{' '}
-                    </td>
-                    <td>0.000</td>
-                    <td>0.000</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      {' '}
-                      <img src={Tether} alt="Tether" style={{height: '22px'}} />
-                      &nbsp; USDT
-                    </td>
-                    <td>0.000</td>
-                    <td>0.000</td>
-                  </tr>
-                </tbody>
-              </table>
+                    </tr>
+                    <tr>
+                      <td>
+                        {' '}
+                        <img
+                          src={Bitcoin}
+                          alt="Bitcoin"
+                          style={{height: '22px'}}
+                        />{' '}
+                        &nbsp; BTC{' '}
+                      </td>
+                      <td>0.000</td>
+                      <td>0.000</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {' '}
+                        <img
+                          src={Tether}
+                          alt="Tether"
+                          style={{height: '22px'}}
+                        />
+                        &nbsp; USDT
+                      </td>
+                      <td>0.000</td>
+                      <td>0.000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

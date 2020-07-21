@@ -45,13 +45,13 @@ class Account extends Component {
                     <strong>Name:</strong>
                     {profile.profile.full_name}
                   </p>
-                  <p>
+                  {/* <p>
                     <strong>Desktop User ID:</strong>ANIL_KUMAR_STIGASOFT_COM
                   </p>
                   <p>
                     <strong>Exchange Account ID:</strong>
                     1576480904_ANIL_KUMAR_STIGASOFT_COM
-                  </p>
+                  </p> */}
                 </div>
               </div>
               <div className="col-md-6">
