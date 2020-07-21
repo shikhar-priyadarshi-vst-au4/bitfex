@@ -54,7 +54,7 @@ class Account extends Component {
                   </p> */}
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-6 mobpadd">
                 <div className="accountdetail_table">
                   <h4 className="account_tableheading">Activity Log</h4>
                   <table className="table table-bordered table-striped">

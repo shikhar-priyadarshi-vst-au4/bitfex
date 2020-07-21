@@ -399,16 +399,16 @@ class Security extends Component {
                   </button>
                 </div>
               </div>
-              <div className="col-md-6 google_container">
+              <div className="col-md-6 google_container mobpadd">
                 <div className="row googleauth_container">
-                  <div className="col-md-8 google_auth">
+                  <div className="col-md-8 col-8 google_auth">
                     <div className="auth_text nopadd">
                       {/* <img src="images/cromeimg.png" className="crome_image" /> */}
                       <img src={cromeimg} className="crome_image" />
                       <h3>Google Auth (2FA)</h3>
                     </div>
                   </div>
-                  <div className="col-md-4 enable_button">
+                  <div className="col-md-4 col-4 enable_button">
                     <button onClick={this.twofaForm}>
                       {this.props.apisecretkeys.twofakey ? `Enalbe` : `Disable`}
                     </button>

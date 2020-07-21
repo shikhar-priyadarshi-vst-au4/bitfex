@@ -91,7 +91,7 @@ export class Withdraw extends Component {
               <Link to={BTC}>
                 <button
                   type="button"
-                  className="btn btn-default"
+                  className="btn btn-default bitcion_button"
                   style={styles.btn}
                 >
                   <img src={Bitcoin} alt="Bitcoin" style={styles.img} />
@@ -103,7 +103,7 @@ export class Withdraw extends Component {
               <Link to={USDT}>
                 <button
                   type="button"
-                  className="btn btn-default"
+                  className="btn btn-default bitcion_button"
                   style={styles.btn}
                 >
                   <img src={Tether} alt="Tether" style={styles.img} />
