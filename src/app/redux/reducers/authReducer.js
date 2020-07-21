@@ -6,6 +6,7 @@ import {
   USER_PASSWORD_CHANGE,
   SET_MFA_STATUS,
   REGISTER_DATA,
+  LOGIN_DATA,
 } from '../types';
 
 const getFromLS = (key) => localStorage.getItem('token');
@@ -16,6 +17,7 @@ const initialState = {
   user: {},
   userNewpassword: '',
   registerInfo: '',
+  logInInfo: '',
 };
 
 export default function (state = initialState, action) {
@@ -24,6 +26,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         registerInfo: action.payload,
+        loading: false,
+      };
+    case LOGIN_DATA:
+      return {
+        ...state,
+        logInInfo: action.payload,
         loading: false,
       };
     case SET_CURRENT_USER:

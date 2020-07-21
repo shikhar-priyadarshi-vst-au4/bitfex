@@ -390,7 +390,6 @@ export class Register extends Component {
                             <div className="form-group input-ico user">
                               <label htmlFor="username" className="form-label">
                                 First Name
-                                <span>(Optional)</span>
                               </label>
                               <input
                                 formcontrolname="firstName"
@@ -411,7 +410,6 @@ export class Register extends Component {
                             <div className="form-group input-ico user">
                               <label htmlFor="username" className="form-label">
                                 Last Name
-                                <span>(Optional)</span>
                               </label>
                               <input
                                 formcontrolname="lastName"

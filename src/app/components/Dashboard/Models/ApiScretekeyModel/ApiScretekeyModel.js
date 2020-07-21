@@ -56,13 +56,13 @@ class ApiScretekeyModel extends Component {
   render() {
     const styles = {
       modelheader: {
-        marginLeft: '300px',
-        fontSize: '19px',
+        marginLeft: '140px',
+        fontSize: '18px',
         color: '#0278e1',
       },
       cnfrmbtn: {
-        height: '43px',
-        marginRight: '201px',
+        height: '36px',
+        marginRight: '104px',
         width: '48%',
         borderRadius: '2px',
         backgroundColor: '#f18d05',
@@ -71,7 +71,7 @@ class ApiScretekeyModel extends Component {
         fontSize: '18px',
       },
       apikeyInput: {
-        height: '43px',
+        height: '38px',
         width: '100%',
         borderRadius: '4px',
         fontSize: '14px',
@@ -82,7 +82,7 @@ class ApiScretekeyModel extends Component {
       <Modal
         show={this.props.show}
         onHide={this.props.onHide}
-        size="lg"
+        size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         animation={false}
@@ -98,8 +98,8 @@ class ApiScretekeyModel extends Component {
         </Modal.Header>
         <Modal.Body>
           <div className="row">
-            <div className="col-md-3" />
-            <div className="col-md-6">
+            <div className="col-md-1" />
+            <div className="col-md-10">
               <input
                 type="text"
                 placeholder="Enter a name for your Api Key"
@@ -112,7 +112,7 @@ class ApiScretekeyModel extends Component {
                 </div>
               )}
             </div>
-            <div className="col-md-3" />
+            <div className="col-md-1" />
           </div>
         </Modal.Body>
         <Modal.Footer>

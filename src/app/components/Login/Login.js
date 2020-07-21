@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import classnames from 'classnames';
 import {loginUser} from '../../redux/actions/authActions';
 import {clearErrors} from '../../redux/actions/errorActions';
+import EmailVerifiction from '../Model/EmailVerifiction';
 import './Login.css';
 
 const validEmailRegex = RegExp(
@@ -23,6 +24,8 @@ class Login extends Component {
       passwordRequired: '',
       formError: '',
       isDirty: false,
+      openTransferBalModal: false,
+      emailConfirmation: this.props.auth.logInInfo.email_confirmed || '',
     };
   }
 
@@ -36,6 +39,10 @@ class Login extends Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/dashboard/account');
       // window.location.href = '/trade';
+    }
+    if (nextProps.auth.logInInfo.email_confirmed === false) {
+      this.setState({emailConfirmation: nextProps.auth.registerInfo});
+      this.showTransferBalanceModal();
     }
 
     // if (nextProps.errors) {
@@ -107,10 +114,19 @@ class Login extends Component {
     this.setState({token_2fa, formError: '', isDirty: true});
   };
 
+  showTransferBalanceModal = (e) => {
+    this.setState({openTransferBalModal: true});
+  };
+
+  hideTransferBalanceModal = () => {
+    this.setState({openTransferBalModal: false});
+  };
+
   render() {
     // const {email , password} = this.state;
     // console.log(this.props.errors.type);
     console.log(this.props);
+    console.log(this.props.auth.logInInfo.email_confirmed);
     // console.log(this.state.token_2fa);
     return (
       <div className="wrapper">
@@ -232,6 +248,12 @@ class Login extends Component {
             </div>
           </section>
         </div>
+        {this.state.registerData != '' ? (
+          <EmailVerifiction
+            show={this.state.openTransferBalModal}
+            onHide={this.hideTransferBalanceModal}
+          />
+        ) : null}
       </div>
     );
   }

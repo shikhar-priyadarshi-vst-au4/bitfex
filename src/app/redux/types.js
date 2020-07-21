@@ -14,3 +14,4 @@ export const GOOGLE_TWOFA_KEY = 'GOOGLE_TWOFA_KEY';
 export const SET_MFA_STATUS = 'SET_MFA_STATUS';
 export const SET_2FA_STATUS = 'SET_2FA_STATUS';
 export const REGISTER_DATA = 'REGISTER_DATA';
+export const LOGIN_DATA = 'LOGIN_DATA';

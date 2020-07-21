@@ -10,6 +10,7 @@ import {
   SET_ERRORS,
   SET_MFA_STATUS,
   REGISTER_DATA,
+  LOGIN_DATA,
 } from '../types';
 
 const {SERVER_URL} = process.env;
@@ -42,8 +43,10 @@ export const confirmUserCode = (userEmail, code) => (dispatch) => {
     .get(`${BASE_URL}/users/confirm?email=${userEmail}&token=${code}`)
     .then((res) => {
       console.log(res.data);
+
       // Save to localStorage
       const {jwt, email, first_name, last_name} = res.data;
+
       // Set token to ls
       localStorage.setItem('token', jwt);
       // Set token to Auth header
@@ -78,14 +81,21 @@ export const loginUser = (email, password, token_2fa) => (dispatch) => {
     .then((res) => {
       // Save to localStorage
       const {jwt, email, first_name, last_name} = res.data;
-      // Set token to ls
-      localStorage.setItem('token', jwt);
-      // Set token to Auth header
-      setAuthToken(jwt);
-      // Decode token to get user data
-      const decoded = jwt_decode(jwt);
-      // Set current user
-      dispatch(setCurrentUser(decoded, email, first_name, last_name));
+      dispatch({
+        type: LOGIN_DATA,
+        payload: res.data,
+      });
+      if (jwt != undefined) {
+        console.log(jwt);
+        // Set token to ls
+        localStorage.setItem('token', jwt);
+        // Set token to Auth header
+        setAuthToken(jwt);
+        // Decode token to get user data
+        const decoded = jwt_decode(jwt);
+        // Set current user
+        dispatch(setCurrentUser(decoded, email, first_name, last_name));
+      }
     })
     .catch((error) =>
       dispatch({

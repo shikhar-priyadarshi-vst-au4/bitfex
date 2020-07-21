@@ -54,10 +54,7 @@ class Header extends Component {
               <img src={Bitfixlogo} className="logo_img" />
             </a> */}
           </div>
-          <div
-            className="navbar-collapse"
-            id="bs-example-navbar-collapse-1"
-          >
+          <div className="navbar-collapse" id="bs-example-navbar-collapse-1">
             <a className="navbar-brand" href="#">
               <img src={Bitfixlogo} className="logo_img" />
             </a>
@@ -94,8 +91,8 @@ class Header extends Component {
                 </ul>
               </li>
               <li className="menubaricon">
-                  {/* <i className="fa fa-user-circle"></i> */}
-                  <i class="fa fa-bars" aria-hidden="true"></i>
+                {/* <i className="fa fa-user-circle"></i> */}
+                <i className="fa fa-bars" aria-hidden="true"></i>
               </li>
             </ul>
           </div>

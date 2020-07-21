@@ -5,12 +5,14 @@ import {Link, withRouter} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import isEmpty from '../../validation/is-empty';
 import {confirmUserCode} from '../../redux/actions/authActions';
+import './EmailVerifiction.css';
 
 class EmailVerifiction extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userEmail: this.props.auth.registerInfo.email || '',
+      userEmail:
+        this.props.auth.registerInfo.email || this.props.auth.logInInfo.email,
       code: '',
       codeError: '',
     };
@@ -21,8 +23,10 @@ class EmailVerifiction extends Component {
     if (!isEmpty(nextProps.auth.registerInfo)) {
       this.setState({userEmail: nextProps.auth.registerInfo.email});
     }
+    if (!isEmpty(nextProps.auth.logInInfo)) {
+      this.setState({userEmail: nextProps.auth.logInInfo.email});
+    }
     if (nextProps.auth.isAuthenticated) {
-      console.log('in');
       // eslint-disable-next-line no-unused-expressions
       // window.location.href = '/trade';
       this.props.history.push('/dashboard/account');
@@ -57,20 +61,19 @@ class EmailVerifiction extends Component {
 
   handleSubmit = (e) => {
     const {userEmail, code} = this.state;
-    // let action = this.props.validateFor;
     this.props.confirmUserCode(userEmail, code);
   };
 
   render() {
     const styles = {
       modelheader: {
-        marginLeft: '265px',
+        marginLeft: '140px',
         fontSize: '18px',
         color: '#0278e1',
       },
       cnfrmbtn: {
-        height: '43px',
-        marginRight: '201px',
+        height: '36px',
+        marginRight: '104px',
         width: '48%',
         borderRadius: '2px',
         backgroundColor: '#f18d05',
@@ -79,7 +82,7 @@ class EmailVerifiction extends Component {
         fontSize: '18px',
       },
       apikeyInput: {
-        height: '43px',
+        height: '30px',
         width: '100%',
         borderRadius: '4px',
         fontSize: '14px',
@@ -92,7 +95,7 @@ class EmailVerifiction extends Component {
       <Modal
         show={this.props.show}
         onHide={this.props.onHide}
-        size="lg"
+        size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         animation={false}
@@ -104,31 +107,42 @@ class EmailVerifiction extends Component {
           >
             {this.state.codeError
               ? this.state.codeError
-              : 'Enter Email Verfivation code'}
+              : 'Security verifiction'}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="row">
-            <div className="col-md-3" />
-            <div className="col-md-6">
+          <div className="row" style={{padding: '8px', marginBottom: '5px'}}>
+            <div className="col-md-12">
+              <p>
+                To active your account, please complete the following
+                verifiction
+              </p>
+            </div>
+          </div>
+          <div className="row" style={{padding: '8px', marginBottom: '5px'}}>
+            <div className="col-md-12">
+              <span style={{fontSize: '14px'}}>E-mail verifiction code</span>
               <input
                 type="text"
                 style={styles.apikeyInput}
                 onInput={this.handleCode}
-                placeholder={'Enter Email Verfiction code'}
+                // placeholder={'Enter Email Verfiction code'}
               />
+              <span style={{fontWeight: '100', fontSize: '14px'}}>
+                Enter the 6 digit code received by{' '}
+                <b style={{fontWeight: '500'}}>{this.state.userEmail}</b>
+              </span>
               {this.state.nameError && (
                 <div className="api-key-error">
                   <p>{this.state.nameError}</p>
                 </div>
               )}
             </div>
-            <div className="col-md-3" />
           </div>
         </Modal.Body>
         <Modal.Footer>
           <button style={styles.cnfrmbtn} onClick={this.handleSubmit}>
-            SEND
+            SUBMIT
           </button>
         </Modal.Footer>
       </Modal>

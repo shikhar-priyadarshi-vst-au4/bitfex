@@ -167,6 +167,10 @@
   font-size: 1.5rem;
 }
 
+.modal-content {
+  width: 90%;
+}
+
 @media (max-width: 440px) {
   .transfer-bubble-holder {
     flex-direction: column;
