@@ -34,8 +34,8 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      // this.props.history.push('/dashboard/account');
-      window.location.href = '/trade';
+      this.props.history.push('/dashboard/account');
+      // window.location.href = '/trade';
     }
 
     // if (nextProps.errors) {

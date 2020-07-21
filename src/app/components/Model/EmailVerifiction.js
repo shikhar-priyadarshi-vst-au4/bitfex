@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {Link, withRouter} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
 import isEmpty from '../../validation/is-empty';
 import {confirmUserCode} from '../../redux/actions/authActions';
@@ -23,8 +24,10 @@ class EmailVerifiction extends Component {
     if (nextProps.auth.isAuthenticated) {
       console.log('in');
       // eslint-disable-next-line no-unused-expressions
-      window.location.href = '/trade';
+      // window.location.href = '/trade';
+      this.props.history.push('/dashboard/account');
     }
+
     if (
       !isEmpty(nextProps.errors) &&
       nextProps.errors.type === 'already_confirmed'
@@ -149,4 +152,6 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {confirmUserCode})(EmailVerifiction);
+export default connect(mapStateToProps, {confirmUserCode})(
+  withRouter(EmailVerifiction),
+);
