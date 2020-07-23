@@ -19,7 +19,7 @@ class EmailVerifiction extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    console.log(nextProps.auth);
+    // console.log(nextProps.auth);
     if (!isEmpty(nextProps.auth.registerInfo)) {
       this.setState({userEmail: nextProps.auth.registerInfo.email});
     }
@@ -89,8 +89,8 @@ class EmailVerifiction extends Component {
       },
     };
     // console.log(this.state.code);
-    console.log(this.props);
-    console.log(this.state.codeError);
+    // console.log(this.props);
+    // console.log(this.state.codeError);
     return (
       <Modal
         show={this.props.show}

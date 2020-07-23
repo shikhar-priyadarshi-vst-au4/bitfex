@@ -45,10 +45,26 @@ class Login extends Component {
       this.showTransferBalanceModal();
     }
 
-    // if (nextProps.errors) {
-    //   this.setState({errors: nextProps.errors});
-    // }
+    if (
+      nextProps.errors.type === 'not_found' ||
+      nextProps.errors.type === 'forbidden'
+    ) {
+      this.setState({formError: 'Invalid username or password!'});
+    }
+    if (nextProps.errors.type === 'invalid_data') {
+      this.setState({
+        formError: 'The Google Authenticator code is incorrect or has expired!',
+      });
+    }
   }
+
+  componentWillUpdate = (newProps, newState) => {
+    if (newState.formError) {
+      setTimeout(() => {
+        this.setState({formError: ''});
+      }, 4000);
+    }
+  };
 
   allowSubmission = () => {
     const {emailRequired, passwordRequired, isDirty} = this.state;
@@ -58,8 +74,7 @@ class Login extends Component {
   LoginForm = (e) => {
     e.preventDefault();
     const {email, password, token_2fa} = this.state;
-    console.log(token_2fa);
-    if (this.allowSubmission()) {
+    if (this.allowSubmission() && email != '' && password != '') {
       this.props.loginUser(email, password, token_2fa);
     } else {
       let emailRequired = '';
@@ -104,13 +119,12 @@ class Login extends Component {
       passwordRequired = 'Password is required !';
     }
     this.props.clearErrors();
-    this.setState({password, passwordRequired, formError: '', isDirty: true});
+    this.setState({passwordRequired, password, formError: '', isDirty: true});
   };
 
   twoFectorcode = (e) => {
     e.preventDefault();
     let token_2fa = e.target.value;
-    console.log(token_2fa);
     this.setState({token_2fa, formError: '', isDirty: true});
   };
 
@@ -123,11 +137,7 @@ class Login extends Component {
   };
 
   render() {
-    // const {email , password} = this.state;
-    // console.log(this.props.errors.type);
     console.log(this.props);
-    console.log(this.props.auth.logInInfo.email_confirmed);
-    // console.log(this.state.token_2fa);
     return (
       <div className="wrapper">
         <div className="frm-wrapper">
@@ -147,18 +157,9 @@ class Login extends Component {
                       </li>
                     </ul>
                     <div className="frm-body">
-                      {this.props.errors.type ===
-                        'password_or_email_invalid' && (
+                      {this.state.formError && (
                         <div className="auth-error">
-                          <p>Invalid username or password!</p>
-                        </div>
-                      )}{' '}
-                      {this.props.errors.type === 'invalid_data' && (
-                        <div className="auth-error">
-                          <p>
-                            The Google Authenticator code is incorrect or has
-                            expired!!
-                          </p>
+                          <p>{this.state.formError}</p>
                         </div>
                       )}
                       <div className="form-group input-ico email">

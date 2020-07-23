@@ -7,6 +7,8 @@ import {
   SET_MFA_STATUS,
   REGISTER_DATA,
   LOGIN_DATA,
+  FORGOT_PASSWORD,
+  RESET_PASSWORD,
 } from '../types';
 
 const getFromLS = (key) => localStorage.getItem('token');
@@ -18,6 +20,8 @@ const initialState = {
   userNewpassword: '',
   registerInfo: '',
   logInInfo: '',
+  forgotPasswordEmail: '',
+  resetPasswordValue: '',
 };
 
 export default function (state = initialState, action) {
@@ -51,6 +55,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userNewpassword: action.payload,
+      };
+    case FORGOT_PASSWORD:
+      return {
+        ...state,
+        forgotPasswordEmail: action.payload,
+      };
+    case RESET_PASSWORD:
+      return {
+        ...state,
+        resetPasswordValue: action.payload,
       };
     case SET_MFA_STATUS:
       return {

@@ -51,8 +51,11 @@ export class Register extends Component {
   };
 
   componentWillReceiveProps = (nextProps) => {
-    if (!isEmpty(nextProps.errors)) {
-      this.setState({emailtakenerror: 'The email has already been taken!'});
+    if (nextProps.errors.type === 'validation') {
+      this.setState({formError: 'The email has already been taken!'});
+    }
+    if (nextProps.errors.type === 'forbidden') {
+      this.setState({formError: 'Server err please try again later!'});
     }
     console.log(nextProps.auth);
     if (!isEmpty(nextProps.auth.registerInfo)) {
@@ -71,9 +74,9 @@ export class Register extends Component {
   componentDidUpdate = () => {};
 
   componentWillUpdate = (newProps, newState) => {
-    if (newState.emailtakenerror) {
+    if (newState.formError) {
       setTimeout(() => {
-        this.setState({emailtakenerror: ''});
+        this.setState({formError: ''});
       }, 3000);
     }
   };
@@ -86,7 +89,7 @@ export class Register extends Component {
       countryError,
       firstNameError,
       lastnameError,
-      emailtakenerror,
+      formError,
       isDirty,
     } = this.state;
     return (
@@ -97,7 +100,7 @@ export class Register extends Component {
         countryError ||
         firstNameError ||
         lastnameError ||
-        emailtakenerror
+        formError
       ) && isDirty
     );
   };
@@ -112,7 +115,15 @@ export class Register extends Component {
       last_name,
       country,
     } = this.state;
-    if (this.allowSubmission()) {
+    if (
+      this.allowSubmission() &&
+      email != '' &&
+      password != '' &&
+      password_confirmation != '' &&
+      first_name != '' &&
+      last_name != '' &&
+      country != ''
+    ) {
       this.props.registerUser({
         email,
         password,
@@ -278,9 +289,9 @@ export class Register extends Component {
                         </ul>
                         <div className="frm-body signin-wd">
                           <form onSubmit={this.registerForm}>
-                            {this.state.emailtakenerror ? (
+                            {this.state.formError ? (
                               <h3 className="auth-error">
-                                {this.state.emailtakenerror}
+                                {this.state.formError}
                               </h3>
                             ) : null}
                             <div className="login-signup-heading">

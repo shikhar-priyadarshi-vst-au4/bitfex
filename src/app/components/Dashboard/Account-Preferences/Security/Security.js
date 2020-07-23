@@ -173,7 +173,12 @@ class Security extends Component {
   upadtePassword = (e) => {
     e.preventDefault();
     const {old_password, password, password_confirmation} = this.state;
-    if (this.allowSubmission()) {
+    if (
+      this.allowSubmission() &&
+      old_password != '' &&
+      password != '' &&
+      password_confirmation != ''
+    ) {
       this.props.changePassword({
         old_password,
         password,

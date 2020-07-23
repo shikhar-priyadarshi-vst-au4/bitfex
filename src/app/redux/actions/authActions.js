@@ -11,6 +11,8 @@ import {
   SET_MFA_STATUS,
   REGISTER_DATA,
   LOGIN_DATA,
+  FORGOT_PASSWORD,
+  RESET_PASSWORD,
 } from '../types';
 
 const {SERVER_URL} = process.env;
@@ -21,7 +23,6 @@ export const registerUser = (UserForm, history) => (dispatch) => {
   axios
     .post(`${BASE_URL}/users/sign_up`, UserForm)
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: REGISTER_DATA,
         payload: res.data,
@@ -38,12 +39,9 @@ export const registerUser = (UserForm, history) => (dispatch) => {
 
 // Confirm user email verifiction code
 export const confirmUserCode = (userEmail, code) => (dispatch) => {
-  console.log(userEmail, code);
   axios
     .get(`${BASE_URL}/users/confirm?email=${userEmail}&token=${code}`)
     .then((res) => {
-      console.log(res.data);
-
       // Save to localStorage
       const {jwt, email, first_name, last_name} = res.data;
 
@@ -86,7 +84,6 @@ export const loginUser = (email, password, token_2fa) => (dispatch) => {
         payload: res.data,
       });
       if (jwt != undefined) {
-        console.log(jwt);
         // Set token to ls
         localStorage.setItem('token', jwt);
         // Set token to Auth header
@@ -144,6 +141,43 @@ export const changePassword = (UserPasswordDetails) => (dispatch) => {
       dispatch({
         type: GET_ERRORS,
         payload: error.response.data,
+      }),
+    );
+};
+
+export const forgotPassword = (email) => (dispatch) => {
+  // sending forgot password code
+  axios
+    .get(`${BASE_URL}/users/forgot_password?email=${email}`)
+    .then((res) =>
+      dispatch({
+        type: FORGOT_PASSWORD,
+        payload: res.data,
+      }),
+    )
+    .catch((error) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: ((error || {}).response || {}).data || 'Error unexpected',
+      }),
+    );
+};
+
+export const resetPassword = (passowrdInfo) => (dispatch) => {
+  // sending forgot password code
+  console.log(passowrdInfo);
+  axios
+    .post(`${BASE_URL}/users/reset_password`, passowrdInfo)
+    .then((res) =>
+      dispatch({
+        type: RESET_PASSWORD,
+        payload: res.data,
+      }),
+    )
+    .catch((error) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: ((error || {}).response || {}).data || 'Error unexpected',
       }),
     );
 };

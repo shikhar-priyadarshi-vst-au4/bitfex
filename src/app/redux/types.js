@@ -15,3 +15,5 @@ export const SET_MFA_STATUS = 'SET_MFA_STATUS';
 export const SET_2FA_STATUS = 'SET_2FA_STATUS';
 export const REGISTER_DATA = 'REGISTER_DATA';
 export const LOGIN_DATA = 'LOGIN_DATA';
+export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
+export const RESET_PASSWORD = 'RESET_PASSWORD';

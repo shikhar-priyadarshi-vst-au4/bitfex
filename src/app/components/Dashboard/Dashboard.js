@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 // import PrivateRoute from '../../common/PrivateRoute';
 import {getCurrentProfile} from '../../redux/actions/profileActions';
 import {googletwofakey} from '../../redux/actions/apiSecretand2faAction';
+import {setCurrentUser, logoutUser} from '../../redux/actions/authActions';
 import Sidebar from './Sidebar/Sidebar';
 import Header from './Header/index';
 import Footer from '../Footer/index';
 import routes from './routes';
 import setAuthToken from '../../utils/setAuthToken';
+import store from '../../redux/store';
 import './Dashboard.css';
 
 const switchRoutes = (
@@ -29,6 +32,25 @@ const switchRoutes = (
     })}
   </Switch>
 );
+
+// Check for token
+if (localStorage.token) {
+  // Set auth token header auth
+  setAuthToken(localStorage.token);
+  // Decode token and get user info and expo
+  const decoded = jwt_decode(localStorage.token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+  // Check for expired token
+  const Cureenttime = Date.now() / 1000;
+  if (decoded.exp < Cureenttime) {
+    console.log('expiry');
+    // Logout user
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = '/login';
+  }
+}
 
 class Dashboard extends Component {
   constructor(props) {

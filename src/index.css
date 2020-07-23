@@ -1028,6 +1028,23 @@ a.try-sestnet-btn:hover {
   margin-bottom: 0;
 }
 
+.resetsuccessmsg-success {
+  background-color: rgba(50, 194, 77, 0.05);
+  border: 1px solid #32c24d;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 20px !important;
+  color: #289a3d;
+  border-radius: 0;
+  padding: 12px 33px !important;
+  text-align: center;
+  margin-top: 7px;
+}
+
+.resetsuccessmsg-success p {
+  margin-bottom: 0;
+}
+
 .msg-success {
   background-color: rgba(50, 194, 77, 0.05);
   border: 1px solid #32c24d;
@@ -2180,20 +2197,20 @@ ul.sidebarlist.show.collapse {
 button:focus {
   outline: none;
 }
-.googleauthfrom{
+.googleauthfrom {
   width: 100%;
 }
 input.google_authinput:focus {
   outline: none !important;
   box-shadow: none !important;
-  border-color: #666!important;
+  border-color: #666 !important;
 }
-.menubaricon{
+.menubaricon {
   margin: auto;
   margin-right: 15px;
-  display: none!important;
+  display: none !important;
 }
-.menubaricon .fa{
+.menubaricon .fa {
   color: #fff;
 }
 /* Media Queries */
@@ -2364,27 +2381,27 @@ input.google_authinput:focus {
     padding-top: 50px;
     top: 0;
   }
-  ul.nav.navbar-nav.navbar-right.right_list .dropdown{
+  ul.nav.navbar-nav.navbar-right.right_list .dropdown {
     display: none;
   }
-  .row.dashboard_container.dashboard_maincontainer{
+  .row.dashboard_container.dashboard_maincontainer {
     overflow: hidden !important;
   }
   .menubaricon {
-    display: block!important;
-      position: absolute !important;
-      right: 0;
-      top: 38%;
-      bottom: 0;
+    display: block !important;
+    position: absolute !important;
+    right: 0;
+    top: 38%;
+    bottom: 0;
   }
-  nav.navbar.navbar-default.main-navbar.dashboard_header{
-    padding: 0!important;
+  nav.navbar.navbar-default.main-navbar.dashboard_header {
+    padding: 0 !important;
   }
-  .navbar-collapse{
-    border-top:0;
+  .navbar-collapse {
+    border-top: 0;
     margin-top: 10px;
   }
-  .dashboard_list li a{
+  .dashboard_list li a {
     padding: 0 !important;
   }
   .logo_img {
@@ -2452,50 +2469,51 @@ input.google_authinput:focus {
     margin-top: 15px;
     text-align: center;
   }
-  nav.navbar.navbar-default.main-navbar.dashboard_header{
+  nav.navbar.navbar-default.main-navbar.dashboard_header {
     border-bottom: 2px solid #fff;
   }
   .navbar-nav {
     margin: 10px 0;
-}
-.sidebar_container {
-  padding-left: 12px !important;
-}
-.wallet_container {
-  padding: 10px 5px !important;
-}
-button.btn.btn-default.bitcion_button {
-  width: 180px !important;
-  height: 60px!important;
-}
-button.btn.btn-default.bitcion_button img{
-  margin-left: 0!important;
-}
-.transform_button{
-  width: initial!important;
-  height: initial !important;
-  padding: 10px 16px !important;
-  margin-left: 0!important;
-  margin-right: 10px !important;
-}
-.user_accountdetail {
-  padding: 16px 15px !important;
-}
-.mobpadd{
-  padding-left: 0!important;
-  margin-top: 14px;
-  padding-right: 0;
-}
-.googleauth_container {
-  padding: 15px 10px !important;
-}
-.my_profilediv, .google_container{
-  padding-right: 0!important;
-}
-.genrate_button{
-  margin-left: 0!important;
-  margin-top: 10px;
-}
+  }
+  .sidebar_container {
+    padding-left: 12px !important;
+  }
+  .wallet_container {
+    padding: 10px 5px !important;
+  }
+  button.btn.btn-default.bitcion_button {
+    width: 180px !important;
+    height: 60px !important;
+  }
+  button.btn.btn-default.bitcion_button img {
+    margin-left: 0 !important;
+  }
+  .transform_button {
+    width: initial !important;
+    height: initial !important;
+    padding: 10px 16px !important;
+    margin-left: 0 !important;
+    margin-right: 10px !important;
+  }
+  .user_accountdetail {
+    padding: 16px 15px !important;
+  }
+  .mobpadd {
+    padding-left: 0 !important;
+    margin-top: 14px;
+    padding-right: 0;
+  }
+  .googleauth_container {
+    padding: 15px 10px !important;
+  }
+  .my_profilediv,
+  .google_container {
+    padding-right: 0 !important;
+  }
+  .genrate_button {
+    margin-left: 0 !important;
+    margin-top: 10px;
+  }
 }
 @media (max-width: 767px) and (orientation: portrait) {
   .user-login .user-dropdown,

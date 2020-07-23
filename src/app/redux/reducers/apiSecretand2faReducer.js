@@ -16,7 +16,6 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case GOOGLE_TWOFA_KEY:
-      console.log(action.payload);
       return {
         ...state,
         twofakey: action.payload,

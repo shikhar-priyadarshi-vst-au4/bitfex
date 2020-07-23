@@ -43,7 +43,6 @@ export const addapisecretkey = (name) => (dispatch) => {
   axios
     .post(url, {name})
     .then((res) => {
-      console.log(res.data);
       let {secret_key} = res.data;
       let ar = store.getState().apisecretkeys.apiSecretKeysArray;
       if (Array.isArray(ar)) ar.unshift({...res.data, secret: secret_key});
