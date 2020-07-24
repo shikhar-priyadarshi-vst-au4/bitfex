@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './a5-themed-select.css';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 const upKey = 38;
@@ -139,6 +140,7 @@ class A5DBSelect extends Component {
               ref={this.inputRef}
               defaultValue={this.state.selectedValue}
               onKeyDown={this.handleNavKeys}
+              autoComplete="no"
             />
           </div>
 
@@ -157,5 +159,10 @@ class A5DBSelect extends Component {
     );
   }
 }
+
+A5DBSelect.propTypes = {
+  itemList: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default A5DBSelect;

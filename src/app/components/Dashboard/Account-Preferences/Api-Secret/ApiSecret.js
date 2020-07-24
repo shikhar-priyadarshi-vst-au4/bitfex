@@ -98,7 +98,149 @@ export class ApiSecret extends Component {
     const {enabled_2fa} = this.props.profile.profile;
     return (
       <>
-        <div className="containment">
+        <div className="main">
+          <div className="main-header">
+            <h3>Account & Preferences</h3>
+            <div className="main-sub-header">
+              API Credentials
+              <hr />
+            </div>
+          </div>
+          <div className="main-body">
+            <div className="notice mw-50">
+              {!enabled_2fa ? (
+                <>
+                  <h2>Want to generate new API keys ?</h2>
+                  <p>You have to activate your 2FA first.</p>
+                  <div className="d-flex justify-content-center">
+                    <Link
+                      to="/dashboard/configure-2fa"
+                      className="form-btn yellow"
+                    >
+                      Activate 2FA
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h2>2FA active</h2>
+                  <p>Your account is protected by 2FA.</p>
+                  <div className="d-flex justify-content-center">
+                    <a
+                      style={{cursor: 'pointer'}}
+                      onClick={this.showMFAModal}
+                      className="form-btn yellow"
+                    >
+                      Generate New API Key Pair
+                    </a>
+                  </div>
+                </>
+              )}
+            </div>
+            <p className="table-note">
+              <span>Note: </span>
+              The secret key will be unobtainable the moment you leave or
+              refresh this page, kindly save this key securely before doing so.
+            </p>
+            <div className="table-container api-key-table contained mt-5 pb-3">
+              <div className="table-header">
+                <h3>Existing Keys</h3>
+              </div>
+              <div className="a5-table d-flex-justify-content-center">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th style={{textAlign: 'left'}}>Keys</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.apiSecretKeysArray ? (
+                      this.state.apiSecretKeysArray.map((el, i) => {
+                        let {id, key, name, secret} = el;
+                        console.log(this.state.apiSecretKeysArray);
+                        return (
+                          <tr key={i}>
+                            <td>{name}</td>
+                            <td>
+                              <div className="d-flex flex-column align-items-start">
+                                <div className="key">
+                                  <span className="heading">API Key :</span>
+                                  <input
+                                    type="text"
+                                    value={key}
+                                    readOnly="readOnly"
+                                  />
+                                  <CopyToClipboard
+                                    onCopy={this.copyToClipboard}
+                                    text={key}
+                                  >
+                                    <img src={'db-assets/copy-icon.svg'} />
+                                  </CopyToClipboard>
+                                </div>
+                                <div className="key">
+                                  <span className="heading">Secret :</span>
+                                  <input
+                                    type="text"
+                                    value={secret}
+                                    readOnly="readOnly"
+                                  />
+                                  <CopyToClipboard
+                                    onCopy={this.copyToClipboard}
+                                    text={secret}
+                                  >
+                                    <img src={'db-assets/copy-icon.svg'} />
+                                  </CopyToClipboard>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <button
+                                onClick={() => {
+                                  this.deleteKey(el.id, el.name);
+                                }}
+                                className="form-btn gray"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <></>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {this.state.show2faForGenerate ? (
+          <MFAModal
+            hideMFAModal={this.hideMFAModal}
+            validateFor={'generateApiKeys'}
+          />
+        ) : (
+          <></>
+        )}
+        {this.state.openKeyPairModal ? (
+          <KeyPairModal hideKeyPairModal={this.hideKeyPairModal} />
+        ) : (
+          <></>
+        )}
+        {this.state.show2faForDelete ? (
+          <MFAModal
+            hideMFAModal={this.hideMFAModal}
+            validateFor={'deleteApiKeys'}
+          />
+        ) : (
+          <></>
+        )}
+
+        {/* <div className="containment">
           <div className="balances pb-5">
             <h3>API Credentials</h3>
             <hr />
@@ -215,7 +357,7 @@ export class ApiSecret extends Component {
           />
         ) : (
           <></>
-        )}
+        )} */}
       </>
     );
   }

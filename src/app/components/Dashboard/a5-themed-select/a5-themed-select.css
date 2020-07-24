@@ -7,8 +7,9 @@ ul {
 
 .a5-select-input {
   display: flex;
-  background-color: var(--base9);
-  /* border-bottom: 1px solid var(--gold-button-dark); */
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 0.2rem;
+  padding-left: 1rem;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
@@ -21,8 +22,8 @@ ul {
   position: absolute;
   margin: 1rem;
   transform: rotate(45deg);
-  border-right: 2px solid var(--yellow-text);
-  border-bottom: 2px solid var(--yellow-text);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
   cursor: pointer;
   right: 5px;
   padding: 0.1rem;
@@ -35,13 +36,13 @@ ul {
   height: 0.5rem;
   margin: 1rem;
   transform: rotate(225deg);
-  border-right: 2px solid var(--yellow-text);
-  border-bottom: 2px solid var(--yellow-text);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
   cursor: pointer;
 }
 
 .a5-select-input input {
-  color: var(--yellow-text);
+  color: black;
   outline: none;
   border: none;
   width: 100%;
@@ -49,15 +50,15 @@ ul {
 }
 
 .a5-select-input input::-webkit-input-placeholder {
-  color: var(--yellow-text);
+  color: var(--gold-pop);
 }
 
 .a5-select-list {
   width: 100%;
   position: absolute;
   width: 100%;
-  border: 1px solid var(--yellow-tone-light);
-  background-color: var(--dark-background);
+  border: 1px solid black;
+  background-color: white;
   z-index: 100;
   transition: all 0.1s ease-in;
   overflow: auto;
@@ -68,7 +69,7 @@ ul {
 }
 
 .a5-select-list li {
-  background-color: var(--dark-background);
+  /* background-color: var(--dark-background); */
   padding: 0.5rem;
   position: relative;
   font-size: 1.2rem;
@@ -78,7 +79,7 @@ ul {
 }
 
 .a5-select-list li:hover {
-  background: var(--yellow-gradient);
+  background: gray;
 }
 
 #transfer-modal-balance {

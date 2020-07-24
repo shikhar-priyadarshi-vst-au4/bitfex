@@ -5,7 +5,14 @@ const sidebarStructureObj = {
   exchangeWallet: ['Balances', 'Deposit', 'Withdraw'],
   optionsWallet: ['Options Wallet'],
   futuresWallet: ['Futures Wallet'],
-  accountAndPrefs: ['My Profile', 'Security', 'Affiliate', 'Get Api Secret'],
+  accountAndPrefs: [
+    'My Profile',
+    'Security',
+    'Affiliate',
+    'Get Api Secret',
+    'Change Password',
+    '2FA Configuration',
+  ],
   history: ['Trade History', 'Order History'],
 };
 
@@ -31,7 +38,6 @@ class Sidebar extends Component {
       (el) => el.layout + el.path == this.props.location.pathname,
     )[0];
     if (
-      activeRoute &&
       activeRoute &&
       this.state.activeDashboard != activeRoute.activeDashboard
     ) {
@@ -97,7 +103,7 @@ class Sidebar extends Component {
   render() {
     return (
       <>
-        <aside
+        {/* <aside
           id="main-sidebar"
           style={this.props.sidebarToggle ? {left: '0'} : {}}
           className="aside"
@@ -181,9 +187,9 @@ class Sidebar extends Component {
                       Withdraw
                     </a>
                   </li>
-                </ul>
+                </ul> 
               </li>
-              {/* <li>
+              <li>
                 <a
                   className={`has-arrow ${
                     this.state.optionsWalletExpanded ? 'arrow-up' : 'arrow-down'
@@ -199,7 +205,7 @@ class Sidebar extends Component {
                 >
                   Options Wallet
                 </a>
-                 <ul
+                <ul
                   style={
                     this.state.optionsWalletExpanded
                       ? {height: '3rem'}
@@ -223,9 +229,9 @@ class Sidebar extends Component {
                     >
                       Options Wallet
                     </a>
-                  </li> 
-                </ul> 
-              </li> */}
+                  </li>
+                </ul>
+              </li>
               <li>
                 <a
                   className={`has-arrow ${
@@ -329,7 +335,7 @@ class Sidebar extends Component {
                       Security
                     </a>
                   </li>
-                  {/* <li>
+                  <li>
                     <a
                       onClick={(e) => {
                         this.handleRouteChanged(
@@ -345,7 +351,7 @@ class Sidebar extends Component {
                     >
                       Affiliate
                     </a>
-                  </li> */}
+                  </li>
                   <li>
                     <a
                       onClick={(e) => {
@@ -365,7 +371,7 @@ class Sidebar extends Component {
                   </li>
                 </ul>
               </li>
-              {/* <li>
+              <li>
                 <a
                   className={`has-arrow ${
                     this.state.historyExpanded ? 'arrow-up' : 'arrow-down'
@@ -391,12 +397,12 @@ class Sidebar extends Component {
                 >
                   <li>
                     <a
-                      // onClick={(e) => {
-                      //   this.handleRouteChanged(
-                      //     'Trade History',
-                      //     '/dashboard/tradeHistory',
-                      //   );
-                      // }}
+                      onClick={(e) => {
+                        this.handleRouteChanged(
+                          'Trade History',
+                          '/dashboard/tradeHistory',
+                        );
+                      }}
                       className={
                         this.state.activeDashboard == 'Trade History'
                           ? 'selected'
@@ -408,12 +414,12 @@ class Sidebar extends Component {
                   </li>
                   <li>
                     <a
-                      // onClick={(e) => {
-                      //   this.handleRouteChanged(
-                      //     'Order History',
-                      //     '/dashboard/orderHistory',
-                      //   );
-                      // }}
+                      onClick={(e) => {
+                        this.handleRouteChanged(
+                          'Order History',
+                          '/dashboard/orderHistory',
+                        );
+                      }}
                       className={
                         this.state.activeDashboard == 'Order History'
                           ? 'selected'
@@ -424,9 +430,200 @@ class Sidebar extends Component {
                     </a>
                   </li>
                 </ul>
-              </li> */}
+              </li>
             </ul>
           </nav>
+        </aside> */}
+        <aside
+          className="sidebar"
+          style={this.props.sidebarToggle ? {left: '0'} : {}}
+        >
+          <a
+            onClick={this.ExchangewalletClick}
+            className={`has-arrow ${
+              this.state.exchangeWalletExpanded ? 'arrow-up' : 'arrow-down'
+            } 
+                     ${
+                       sidebarStructureObj.exchangeWallet.indexOf(
+                         this.state.activeDashboard,
+                       ) != -1
+                         ? 'selected'
+                         : ''
+                     }`}
+          >
+            <i className="fas fa-wallet"></i> Exchage Wallet
+          </a>
+          <ul
+            style={
+              this.state.exchangeWalletExpanded
+                ? {height: 56 * 3 + 'px'}
+                : {height: '0px'}
+            }
+          >
+            <li>
+              <a
+                className={
+                  this.state.activeDashboard == 'Balances' ? 'selected' : ''
+                }
+                onClick={(e) => {
+                  this.handleRouteChanged('Balances', '/dashboard/balances');
+                }}
+              >
+                Balances
+              </a>
+            </li>
+            <li>
+              <a
+                className={
+                  this.state.activeDashboard == 'Deposit' ? 'selected' : ''
+                }
+                onClick={(e) => {
+                  this.handleRouteChanged('Deposit', '/dashboard/deposits');
+                }}
+              >
+                Deposits
+              </a>
+            </li>
+            <li>
+              <a
+                className={
+                  this.state.activeDashboard == 'Withdraw' ? 'selected' : ''
+                }
+                onClick={(e) => {
+                  this.handleRouteChanged('Withdraw', '/dashboard/withdraw');
+                }}
+              >
+                Withdraw
+              </a>
+            </li>
+          </ul>
+          <a
+            onClick={this.FuturesWalletClick}
+            className={`has-arrow ${
+              this.state.futuresWalletExpanded ? 'arrow-up' : 'arrow-down'
+            } 
+                     ${
+                       sidebarStructureObj.futuresWallet.indexOf(
+                         this.state.activeDashboard,
+                       ) != -1
+                         ? 'selected'
+                         : ''
+                     }`}
+          >
+            <i className="fas fa-wallet"></i> Futures Wallet
+          </a>
+          <ul
+            style={
+              this.state.futuresWalletExpanded
+                ? {height: 56 * 1 + 'px'}
+                : {height: '0px'}
+            }
+          >
+            <li>
+              <a
+                className={
+                  this.state.activeDashboard == 'Futures Wallet'
+                    ? 'selected'
+                    : ''
+                }
+                onClick={(e) => {
+                  this.handleRouteChanged(
+                    'Futures Wallet',
+                    '/dashboard/futures',
+                  );
+                }}
+              >
+                Futures Wallet
+              </a>
+            </li>
+          </ul>
+          <a
+            onClick={this.accPrefencesClick}
+            className={`has-arrow ${
+              this.state.accountAndPrefsExpanded ? 'arrow-up' : 'arrow-down'
+            } 
+                     ${
+                       sidebarStructureObj.accountAndPrefs.indexOf(
+                         this.state.activeDashboard,
+                       ) != -1
+                         ? 'selected'
+                         : ''
+                     }`}
+          >
+            <i className="fas fa-user-alt"></i> Account & Preferences
+          </a>
+          <ul
+            style={
+              this.state.accountAndPrefsExpanded
+                ? {height: 56 * 4 + 'px'}
+                : {height: '0px'}
+            }
+          >
+            <li>
+              <a
+                className={
+                  this.state.activeDashboard == 'My Profile' ? 'selected' : ''
+                }
+                onClick={(e) => {
+                  this.handleRouteChanged('My Profile', '/dashboard/account');
+                }}
+              >
+                My Profile
+              </a>
+            </li>
+            <li>
+              <a
+                className={
+                  this.state.activeDashboard == '2FA Configuration'
+                    ? 'selected'
+                    : ''
+                }
+                onClick={(e) => {
+                  this.handleRouteChanged(
+                    '2FA Configuration',
+                    '/dashboard/configure-2fa',
+                  );
+                }}
+              >
+                Change 2FA
+              </a>
+            </li>
+            <li>
+              <a
+                className={
+                  this.state.activeDashboard == 'Change Password'
+                    ? 'selected'
+                    : ''
+                }
+                onClick={(e) => {
+                  this.handleRouteChanged(
+                    'Change Password',
+                    '/dashboard/change-password',
+                  );
+                }}
+              >
+                Change Password
+              </a>
+            </li>
+
+            <li>
+              <a
+                className={
+                  this.state.activeDashboard == 'Get Api Secret'
+                    ? 'selected'
+                    : ''
+                }
+                onClick={(e) => {
+                  this.handleRouteChanged(
+                    'Get Api Secret',
+                    '/dashboard/apiSecret',
+                  );
+                }}
+              >
+                Get Api Secret
+              </a>
+            </li>
+          </ul>
         </aside>
       </>
     );

@@ -49,9 +49,9 @@ class WithdrawCoins extends Component {
 
   getAmountError = () => {
     return this.state.amountRequired ? (
-      <span className="form-field-error">Amount Required !</span>
+      <span className="a5-login-error">Amount Required !</span>
     ) : this.state.insufficientFundsError ? (
-      <span className="form-field-error">Insufficient Funds !</span>
+      <span className="a5-login-error">Insufficient Funds !</span>
     ) : (
       <></>
     );
@@ -59,7 +59,7 @@ class WithdrawCoins extends Component {
 
   getAddressError = () => {
     return this.state.addressRequired ? (
-      <span className="form-field-error">Address Required !</span>
+      <span className="a5-login-error">Address Required !</span>
     ) : (
       <></>
     );
@@ -102,14 +102,14 @@ class WithdrawCoins extends Component {
   };
 
   render() {
-    const {heading, routes} = this.props;
+    const {heading, routes, location} = this.props;
     const BTC = routes[4].layout + routes[4].path;
     const USDT = routes[5].layout + routes[5].path;
     const slctdCurr = this.state.selectedCurrency;
 
     return (
       <>
-        <div className="containment">
+        {/* <div className="containment">
           <div className="balances">
             <h3>Withdrawal</h3>
             <hr />
@@ -207,6 +207,164 @@ class WithdrawCoins extends Component {
                     </table>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div> */}
+        <div className="main">
+          <div className="main-header">
+            <h3>Account & Preferences</h3>
+            <div className="main-sub-header">
+              <h3>Withdraw Coin</h3>
+              <hr />
+            </div>
+          </div>
+          <div className="main-body">
+            <div className="withdrwal-form-holder">
+              <div className="form-body white-bg">
+                <h3>Withdrawal Details</h3>
+                <div className="form-container">
+                  <div className="a5-login-field">
+                    <A5DBSelect
+                      itemList={this.state.currencyArrayForSelect}
+                      placeholder={'Select Currency'}
+                      defaultValue={slctdCurr}
+                      onChange={(item) => {
+                        this.handleSelect(item);
+                      }}
+                    />
+                  </div>
+                  <div className="a5-login-field">
+                    <input
+                      placeholder="Address"
+                      onInput={this.addressInputHandler}
+                      type="text"
+                    />
+                    {this.getAddressError()}
+                  </div>
+                  <div className="a5-login-field">
+                    <input
+                      onInput={this.amountInputHandler}
+                      min={0}
+                      step={10 ** (-1 * slctdCurr.toFixed)}
+                      type="number"
+                      placeholder="Amount"
+                      ref={this.amountRef}
+                    />
+                    <span className="form-field-info">
+                      Avl Bal :{' '}
+                      {slctdCurr
+                        ? slctdCurr.availableBalanceExchange.toFixed(
+                            slctdCurr.toFixed,
+                          )
+                        : ''}{' '}
+                      {slctdCurr.symbol}
+                    </span>
+                    {this.getAmountError()}
+                  </div>
+                  <div class="form-btn-holder align-items-center send-button-withdraw">
+                    <a class="form-register align-items-center" href="#">
+                      Send
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="diamond-list">
+                <div className="currency-balance-details withdraw-coins-details">
+                  <h3>
+                    {location.pathname == BTC
+                      ? 'BTC'
+                      : location.pathname == USDT
+                      ? 'USDT'
+                      : ''}{' '}
+                    Balance Details
+                  </h3>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>Total</td>
+                        <td>
+                          {slctdCurr
+                            ? (
+                                slctdCurr.availableBalanceExchange +
+                                slctdCurr.availableBalanceOptions +
+                                slctdCurr.availableBalanceFutures
+                              ).toFixed(slctdCurr.toFixed)
+                            : 'N/A'}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>In Order</td>
+                        <td>
+                          {slctdCurr
+                            ? (
+                                slctdCurr.availableBalanceOptions +
+                                slctdCurr.availableBalanceFutures
+                              ).toFixed(slctdCurr.toFixed)
+                            : 'N/A'}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Available</td>
+                        <td>
+                          {slctdCurr
+                            ? slctdCurr.availableBalanceExchange.toFixed(
+                                slctdCurr.toFixed,
+                              )
+                            : ''}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div className="diamond-list">
+              <h2>Note :</h2>
+              <ul>
+                <li>
+                  <span className="diamond"></span>
+                  Please verify your email after succesfully submitting the
+                  withdrawal request
+                </li>
+                <li>
+                  <span className="diamond"></span>
+                  You can track the withdrawal progress in the transaction
+                  history section
+                </li>
+                <li>
+                  <span className="diamond"></span>
+                  Please do not withdraw this token to any ICO address directly
+                </li>
+              </ul>
+            </div>
+            <div className="table-container contained deposits mt-5 w-80 pb-3">
+              <div className="table-header">
+                <h3>Withdrawal History</h3>
+              </div>
+              <div className="a5-table d-flex-justify-content-center">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Quantity</th>
+                      <th>Date</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>4</td>
+                      <td>0.000</td>
+                      <td>0.000</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>0.000</td>
+                      <td>0.000</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

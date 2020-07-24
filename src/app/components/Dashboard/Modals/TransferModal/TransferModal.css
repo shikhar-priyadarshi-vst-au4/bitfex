@@ -7,13 +7,13 @@
 
 .bubble-container h3 {
   font-size: 1rem;
-  color: var(--faded-white);
+  color: black;
 }
 
 .bubble {
   background-color: black;
   padding: 1rem;
-  border: 1px solid var(--yellow-text);
+  border: 1px solid var(--gold-pop);
   border-radius: 3rem;
   min-width: 12rem;
   text-align: center;
@@ -45,7 +45,7 @@
 .box-modal {
   min-width: 40rem;
   min-height: 40rem;
-  background-color: var(--dark-background);
+  background-color: white;
   max-width: 0;
   margin: 10rem auto auto;
   color: var(--default-color);
@@ -53,8 +53,8 @@
 
 .box-modal-header {
   padding: 2rem;
-  border-bottom: 1px solid var(--yellow-text);
-  box-shadow: 0px 5px 5px -5px var(--yellow-text);
+  border-bottom: 1px solid var(--gold-pop);
+  box-shadow: 0px 5px 5px -5px var(--gold-pop);
 }
 
 .box-modal-header h3 {
@@ -82,8 +82,8 @@
 }
 
 .transfer-form-field input:focus {
-  border-bottom: 1px solid var(--yellow-text);
-  color: var(--yellow-text);
+  border-bottom: 1px solid var(--gold-pop);
+  color: var(--gold-pop);
 }
 
 .transfer-form-field label {
@@ -102,7 +102,7 @@
 }
 
 .transfer-form-field input:focus::-webkit-input-placeholder {
-  color: var(--yellow-text);
+  color: var(--gold-pop);
 }
 
 .transfer-form-field input::-webkit-input-placeholder {
@@ -118,7 +118,7 @@
 }
 
 .transfer-form-field input.value:focus + input.info {
-  border-bottom: 1px solid var(--yellow-text);
+  border-bottom: 1px solid var(--gold-pop);
   color: var(--white-text);
 }
 
@@ -160,7 +160,7 @@
 }
 
 .close-modal {
-  color: var(--yellow-text);
+  color: var(--gold-pop);
   float: right;
   cursor: pointer;
   transform: scaleX(1.5);

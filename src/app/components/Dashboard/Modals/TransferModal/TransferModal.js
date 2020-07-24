@@ -183,7 +183,7 @@ export class TransferModel extends Component {
                   {this.getErrorMsg()}
                 </div>
                 <div className="transfer-center-button">
-                  <button className="form-btn-yellow send-button-modal">
+                  <button className="form-btn yellow send-button-modal">
                     Send
                   </button>
                 </div>

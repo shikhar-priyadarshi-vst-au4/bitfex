@@ -45,7 +45,7 @@ class ApiNameConfirmation extends Component {
                 <div className="transfer-center-button">
                   <button
                     onClick={this.onSubmit}
-                    className="form-btn-yellow send-button-modal"
+                    className="form-btn yellow send-button-modal"
                   >
                     Create API keys
                   </button>

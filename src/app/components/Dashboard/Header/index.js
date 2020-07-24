@@ -15,6 +15,7 @@ class Header extends Component {
 
   componentDidMount = () => {
     console.log(this.props);
+    // this.bodyClickListener();
   };
 
   componentWillReceiveProps = (nextProps) => {
@@ -41,7 +42,7 @@ class Header extends Component {
   render() {
     return (
       <>
-        <header className="a5-header d-flex p-4 align-items-center">
+        {/* <header className="a5-header d-flex p-4 align-items-center">
           <div
             onClick={() => {
               this.props.toggleSidebar();
@@ -63,22 +64,7 @@ class Header extends Component {
             <a href="/site/API">Resources</a>
           </div>
           <div className="header-rt d-none d-md-flex ml-auto">
-            {/* <ul className="header-margins">
-              <li>
-                <span className="head">IM</span>
-                <span className="bar">
-                  <span className="bar-value"></span>
-                </span>
-                <span className="value">25%</span>
-              </li>
-              <li>
-                <span className="head">MM</span>
-                <span className="bar">
-                  <span className="bar-value"></span>
-                </span>
-                <span className="value">25%</span>
-              </li>
-            </ul> */}
+           
             <div className="equity d-flex flex-column align-items-center">
               <span className="head">Equity</span>
               <span className="value">5.0467</span>
@@ -115,6 +101,111 @@ class Header extends Component {
                   <i className="fa fa-sign-out"></i>
                 </span>
               </div>
+            </div>
+          </div>
+        </header> */}
+        <header className="header d-flex align-items-center w-100">
+          <div
+            onClick={() => {
+              this.props.toggleSidebar();
+            }}
+            className="menu-btn left flex-column"
+          >
+            <span className="menu-btn-bar"></span>
+            <span className="menu-btn-bar"></span>
+            <span className="menu-btn-bar"></span>
+          </div>
+          <div
+            onClick={() => {
+              this.props.history.push('/');
+            }}
+            className="logo ml-5"
+          >
+            <img src={'db-assets/a5-black-header-logo.svg'} alt="Alpha5" />
+          </div>
+
+          <div className="header-left hide-670 d-flex align-items-center">
+            <a className="trade-btn-header ml-auto mr-5" href="/trade/">
+              <img
+                className="trade-btn-logo"
+                src={'db-assets/android-icon-192x192.png'}
+              />
+              <span>Trade</span>
+              <span className="arrow">{'>>'}</span>
+            </a>
+            <a href="/site/API" className="header-resources">
+              Resources
+            </a>
+          </div>
+
+          <div className="header-right d-flex ml-auto mr-4">
+            <ul className="header-margins hide-670">
+              <li>
+                <span className="head">IM</span>
+                <span className="bar">
+                  <span className="bar-value"></span>
+                </span>
+                <span className="value">25%</span>
+              </li>
+              <li>
+                <span className="head">MM</span>
+                <span className="bar">
+                  <span className="bar-value"></span>
+                </span>
+                <span className="value">25%</span>
+              </li>
+            </ul>
+
+            <div className="equity d-flex flex-column align-items-center">
+              <span className="head">Equity</span>
+              <span className="value">5.0467</span>
+            </div>
+
+            <div className="equity d-flex flex-column align-items-center">
+              <span className="head">Available</span>
+              <span className="value">5.0467</span>
+            </div>
+
+            <div onClick={this.toggleLogoutMenu} className="header-profile">
+              <img src="./db-assets/user-icon.svg" />
+              {this.state.logoutMenuOpen ? (
+                <div className="header-profile-menu  d-flex flex-column">
+                  <a className="email">{this.props.profile.profile.email}</a>
+
+                  <div className="equity d-flex from-ipad-flex justify-content-between">
+                    <span className="head">Equity</span>
+                    <span className="value">5.0467</span>
+                  </div>
+
+                  <div className="equity d-flex from-ipad-flex justify-content-between">
+                    <span className="head">Available</span>
+                    <span className="value">5.0467</span>
+                  </div>
+
+                  <a
+                    style={{color: 'var(--gold-pop)'}}
+                    className="from-phone"
+                    href="/trade/"
+                  >
+                    Trade
+                  </a>
+
+                  <a
+                    style={{color: 'var(--gold-pop)'}}
+                    className="from-phone"
+                    href="/site/API"
+                  >
+                    Resources
+                  </a>
+
+                  <a onClick={this.props.logoutUser} className="logout-btn">
+                    <i className="fas fa-sign-out-alt"></i>
+                    Logout
+                  </a>
+                </div>
+              ) : (
+                <></>
+              )}{' '}
             </div>
           </div>
         </header>

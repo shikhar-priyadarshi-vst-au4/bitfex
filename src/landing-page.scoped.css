@@ -62,6 +62,17 @@ a:hover {
   margin-top: 50vh;
 }
 
+.curtain {
+  min-height: 120vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10100;
+}
+
 header.header {
   min-height: 4.17375rem;
   background-color: #ffffff;
@@ -833,6 +844,9 @@ footer.footer {
 .a5-login-error {
   color: red;
   font-size: 0.8rem;
+  /*  */
+  width: 100%;
+  display: block;
 }
 
 .agreement {
@@ -961,6 +975,45 @@ footer.footer {
   color: var(--black-text) !important;
   font-weight: bolder;
   text-decoration: underline;
+}
+
+.i-agree-text a:hover {
+  color: var(--gold-pop) !important;
+}
+
+#registerForm .a5-login-field {
+  margin: 0;
+  padding: 0;
+  height: 52px;
+}
+
+#registerForm .a5-login-field input {
+  padding: 0.2rem 0;
+}
+
+.a5-login-field.form-style .a5-select-input {
+  padding-left: 0;
+  background-color: unset;
+}
+
+.a5-login-field.form-style .a5-select-input::after {
+  margin: 0.5rem;
+}
+
+.a5-login-field.form-style .a5-select-list li:hover {
+  background-color: #eaeaea;
+}
+
+#registerForm .agreement {
+  margin-top: 0.6rem;
+}
+
+#registerForm .form-btn-holder {
+  margin-top: 2.5rem;
+}
+
+#registerForm .a5-login-error {
+  font-size: 0.75rem;
 }
 
 .footer-list.resources {

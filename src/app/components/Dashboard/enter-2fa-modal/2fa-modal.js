@@ -65,7 +65,7 @@ class MFAModal extends Component {
                 <div className="transfer-center-button">
                   <button
                     onClick={this.handleSubmit}
-                    className="form-btn-yellow send-button-modal"
+                    className="form-btn yellow send-button-modal"
                   >
                     Send
                   </button>

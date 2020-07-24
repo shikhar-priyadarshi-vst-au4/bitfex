@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TransferModel from '../../Modals/TransferModal/TransferModal';
+import './futures-wallet.css';
 
 export class FuturesTransfer extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export class FuturesTransfer extends Component {
   render() {
     return (
       <>
-        <div className="containment">
+        {/* <div className="containment">
           <div className="balances pb-5">
             <h3>Futures Wallet</h3>
             <hr />
@@ -61,7 +62,7 @@ export class FuturesTransfer extends Component {
                     <tr>
                       <th>Asset</th>
                       <th>NAV</th>
-                      {/* <th>UPL</th> */}
+                      <th>UPL</th>
                       <th>Available Balance</th>
                     </tr>
                   </thead>
@@ -69,15 +70,65 @@ export class FuturesTransfer extends Component {
                     <tr>
                       <td>BTC</td>
                       <td>0.000</td>
-                      {/* <td>0.000</td> */}
+                      <td>0.000</td>
                       <td>0.000</td>
                     </tr>
-                    {/* <tr>
+                    <tr>
                       <td>USDT</td>
                       <td>0.000</td>
                       <td>0.000</td>
                       <td>0.000</td>
-                    </tr> */}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div> */}
+
+        <div className="main">
+          <div className="main-header">
+            <h3>Futures Wallet</h3>
+            <div className="main-sub-header">
+              <h3>Futures Wallet</h3>
+              <hr />
+            </div>
+          </div>
+          <div className="main-body">
+            <div className="form-btn-holder align-items-center mt-5">
+              <a
+                onClick={() => {
+                  this.showTransferBalanceModal('exchange', 'futures');
+                }}
+                className="form-register align-items-center"
+              >
+                Transfer Amount
+              </a>
+            </div>
+            <div className="table-container w-80 pb-3">
+              <div className="table-header">
+                <h3>Balances</h3>
+              </div>
+              <div className="a5-table d-flex justify-content-center">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Asset Type</th>
+                      <th>NAV</th>
+                      <th>Available Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>BTC</td>
+                      <td>-0.05166684</td>
+                      <td>0.00020265</td>
+                    </tr>
+                    <tr>
+                      <td>BTC</td>
+                      <td>-0.05166684</td>
+                      <td>0.00020265</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>

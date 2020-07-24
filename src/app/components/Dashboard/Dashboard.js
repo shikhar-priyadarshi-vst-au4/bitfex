@@ -4,6 +4,7 @@ import {Switch, Route} from 'react-router-dom';
 import Sidebar from './Sidebar/Sidebar';
 import {connect} from 'react-redux';
 import {getCurrentProfile} from '../../redux/actions/profileActions';
+import {hideEmailVerification} from '../../redux/actions/authActions';
 import Header from './Header/index';
 import routes from './routes';
 import setAuthToken from '../../utils/setAuthToken';
@@ -47,6 +48,7 @@ class Dashboard extends Component {
     if (this.props.auth.isAuthenticated) {
       setAuthToken(localStorage.getItem('token'));
       this.props.getCurrentProfile();
+      this.props.hideEmailVerification();
     }
     this.adjustSideBarHeight();
   };
@@ -77,10 +79,10 @@ class Dashboard extends Component {
     }
   };
 
-  componentDidCatch = (er, errInfo) => {
-    console.log(errInfo, er);
-    this.setState({hasError: er, errInfo});
-  };
+  // componentDidCatch = (er, errInfo) => {
+  //   console.log(errInfo, er);
+  //   this.setState({hasError: er, errInfo});
+  // };
 
   adjustSideBarHeight = () => {
     // let sidebar = document.getElementById('main-sidebar');
@@ -97,24 +99,21 @@ class Dashboard extends Component {
   };
 
   render() {
-    if (!this.state.hasError)
-      return (
-        <>
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="dashboard.scoped.css"
-          ></link>
-          <Header toggleSidebar={this.toggleSidebar} />
-          <div className="d-flex w-100 dashboard-container">
+    // if (!this.state.hasError)
+    return (
+      <>
+        <link rel="stylesheet" type="text/css" href="dashboard.css"></link>
+        <Header toggleSidebar={this.toggleSidebar} />
+        {/* <div className="d-flex w-100 dashboard-container">
             <Sidebar routes={routes} sidebarToggle={this.state.sidebarToggle} />
             {switchRoutes}
-          </div>
-        </>
-      );
-    else {
-      return <>error caught</>;
-    }
+          </div> */}
+        <div class="d-flex dashboard-holder">
+          <Sidebar routes={routes} sidebarToggle={this.state.sidebarToggle} />
+          {switchRoutes}
+        </div>
+      </>
+    );
   }
 }
 
@@ -129,4 +128,7 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, {getCurrentProfile})(Dashboard);
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  hideEmailVerification,
+})(Dashboard);

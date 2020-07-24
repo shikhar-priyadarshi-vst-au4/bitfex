@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import {loginUser} from '../../redux/actions/authActions';
+import {
+  loginUser,
+  verifyEmail,
+  hideEmailVerification,
+} from '../../redux/actions/authActions';
 import './Login.css';
 import isEmpty from '../../validation/is-empty';
 import {connect} from 'react-redux';
 import {clearErrors} from '../../redux/actions/errorActions';
 import PropTypes from 'prop-types';
+import ConfirmEmailModal from '../confirm-email-code/confirm-email';
+
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
 );
@@ -23,18 +29,21 @@ class Login extends Component {
       isDirty: false,
       twoFactorCode: '',
       twoFactorCodeError: '',
+      showEmailVerificationModal: false,
     };
   }
 
   errorMap = {
-    password_or_email_invalid: 'Incorrect Email or Password!',
-    invalid_data: 'A valid 2FA Code is required',
+    password_or_email_invalid: 'Invalid Credentials',
+    invalid_data: 'Invalid Credentials',
+    not_found: 'Invalid Credentials',
   };
 
   componentDidMount = () => {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard/account');
     }
+    this.props.hideEmailVerification();
   };
 
   componentWillReceiveProps = (nextProps) => {
@@ -42,12 +51,20 @@ class Login extends Component {
       console.log(nextProps.errors);
     } else if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/dashboard/account');
+    } else if (
+      nextProps.auth.showEmailVerificationModal !=
+      this.state.showEmailVerificationModal
+    ) {
+      this.setState({
+        showEmailVerificationModal: nextProps.auth.showEmailVerificationModal,
+      });
     }
   };
 
   componentDidUpdate = () => {
     if (!isEmpty(this.props.errors) && !this.state.formError) {
-      let formError = this.errorMap[this.props.errors.type];
+      // let formError = this.errorMap[this.props.errors.type];
+      let formError = 'Invalid Credentials !!';
       this.setState({formError});
     }
   };
@@ -118,6 +135,14 @@ class Login extends Component {
     this.setState({twoFactorCode, twoFactorCodeError, formError: ''});
   };
 
+  hideEmailModal = () => {
+    this.setState({showEmailVerificationModal: false});
+  };
+
+  submitEmailVerificationCode = (token) => {
+    this.props.verifyEmail(token, this.state.email);
+  };
+
   render() {
     return (
       <>
@@ -184,6 +209,14 @@ class Login extends Component {
             </div>
           </div>
         </div>
+        {this.state.showEmailVerificationModal ? (
+          <ConfirmEmailModal
+            hideEmailModal={this.hideEmailModal}
+            onSubmit={this.submitEmailVerificationCode}
+          />
+        ) : (
+          <></>
+        )}
       </>
     );
   }
@@ -200,6 +233,9 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {loginUser, clearErrors})(
-  withRouter(Login),
-);
+export default connect(mapStateToProps, {
+  loginUser,
+  verifyEmail,
+  hideEmailVerification,
+  clearErrors,
+})(withRouter(Login));

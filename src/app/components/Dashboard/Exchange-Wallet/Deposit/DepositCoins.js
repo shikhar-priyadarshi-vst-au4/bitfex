@@ -19,7 +19,7 @@ class DepositCoins extends Component {
   }
 
   componentDidMount = () => {
-    const {heading, name, routes, location} = this.props;
+    const {routes, location} = this.props;
     const BTC = routes[1].layout + routes[1].path;
     const USDT = routes[2].layout + routes[2].path;
 
@@ -65,28 +65,17 @@ class DepositCoins extends Component {
   };
 
   showCpyText = () =>
-    this.state.copied ? (
-      <span
-        style={{
-          marginLeft: '1rem',
-          color: 'var(--green)',
-        }}
-      >
-        copied !!
-      </span>
-    ) : (
-      <></>
-    );
+    this.state.copied ? <span className="text-success">Copied !!</span> : <></>;
 
   render() {
-    const {heading, name, routes, location} = this.props;
+    const {routes, location} = this.props;
     const BTC = routes[1].layout + routes[1].path;
     const USDT = routes[2].layout + routes[2].path;
     const defaultCurrency = this.state.defaultCurrency;
 
     return (
       <>
-        <div className="containment">
+        {/* <div className="containment">
           <div className="balances">
             <h3> Deposit </h3>
             <hr />
@@ -111,9 +100,9 @@ class DepositCoins extends Component {
                 />
                 <div className="two-factor-code">
                   <input
-                    ref={this.copyRef}
-                    type="text"
-                    readOnly
+                  type="text"
+                  readOnly
+                  ref={this.copyRef}
                     value={this.state.activeQrCode}
                   />
                   <img onClick={this.copyText} src="db-assets/copy-icon.svg" />
@@ -211,6 +200,151 @@ class DepositCoins extends Component {
                       <td>3</td>
                       <td>0.000</td>
                       <td>0.000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div> */}
+        <div className="main">
+          <div className="main-header">
+            <h3>Exchange Wallet</h3>
+            <div className="main-sub-header">
+              <h3>Deposit</h3>
+              <hr />
+            </div>
+          </div>
+          <div className="main-body">
+            <div className="a5-login-field standalone-select">
+              <A5DBSelect
+                itemList={this.currencyArrayForSelect}
+                placeholder={'Select...'}
+                defaultValue={this.state.defaultCurrency}
+                onChange={(item) => {
+                  this.handleSelect(item);
+                }}
+              />
+            </div>
+            <div className="qr-with-balance">
+              <div className="qr-container for-deposit width-75 d-flex">
+                <QRCode
+                  includeMargin={true}
+                  size={200}
+                  value={this.state.activeQrCode}
+                />
+                <div className="qr-result">
+                  <p>YOUR WALLET ADDRESS TO RECEIVE {defaultCurrency.symbol}</p>
+                  <div className="input-with-copy">
+                    <input
+                      value="237gj h64d1 5907 c694 02"
+                      type="text"
+                      readOnly
+                      ref={this.copyRef}
+                      value={this.state.activeQrCode}
+                    />
+                    <img
+                      onClick={this.copyText}
+                      src={'db-assets/copy-icon.svg'}
+                      alt=""
+                    />
+                    {this.showCpyText()}
+                  </div>
+                  <h3>Note :</h3>
+                  <ul>
+                    <li>
+                      <span className="diamond"></span>
+                      Only 2 blockchain confirmations are required for a
+                      successful deposit
+                    </li>
+                    <li>
+                      <span className="diamond"></span>
+                      You can track the deposit progress in the wallet history
+                      section.
+                    </li>
+                    <li>
+                      <span className="diamond"></span>
+                      Do not deposit any other token to this address.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="currency-balance-details">
+                <h3>
+                  {location.pathname == BTC
+                    ? 'BTC'
+                    : location.pathname == USDT
+                    ? 'USDT'
+                    : ''}{' '}
+                  Balance Details
+                </h3>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Total</td>
+                      <td>
+                        {defaultCurrency
+                          ? (
+                              defaultCurrency.availableBalanceExchange +
+                              defaultCurrency.availableBalanceOptions +
+                              defaultCurrency.availableBalanceFutures
+                            ).toFixed(defaultCurrency.toFixed)
+                          : 'N/A'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>In Order</td>
+                      <td>
+                        {defaultCurrency
+                          ? (
+                              defaultCurrency.availableBalanceOptions +
+                              defaultCurrency.availableBalanceFutures
+                            ).toFixed(defaultCurrency.toFixed)
+                          : 'N/A'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Available</td>
+                      <td>
+                        {defaultCurrency
+                          ? defaultCurrency.availableBalanceExchange.toFixed(
+                              defaultCurrency.toFixed,
+                            )
+                          : ''}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="table-container deposit-history w-80 mt-5">
+              <div className="table-header">
+                <h3>Deposit History</h3>
+              </div>
+              <div className="a5-table d-flex justify-content-center">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Quantity</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1000</td>
+                      <td>24th july 2020</td>
+                      <td>16:00:00</td>
+                    </tr>
+                    <tr>
+                      <td>1000</td>
+                      <td>24th july 2020</td>
+                      <td>16:00:00</td>
+                    </tr>
+                    <tr>
+                      <td>1000</td>
+                      <td>24th july 2020</td>
+                      <td>16:00:00</td>
                     </tr>
                   </tbody>
                 </table>

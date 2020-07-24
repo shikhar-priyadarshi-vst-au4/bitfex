@@ -5,6 +5,8 @@ import {
   LOGOUT,
   USER_PASSWORD_CHANGE,
   SET_MFA_STATUS,
+  SHOW_EMAIL_VERIFICATION,
+  SET_RESET_PASSWORD_EMAIL,
 } from '../types';
 
 const getFromLS = (key) => localStorage.getItem('token');
@@ -13,6 +15,7 @@ const initialState = {
   isAuthenticated: !isEmpty(getFromLS('token')),
   loading: true,
   user: {},
+  showEmailVerificationModal: false,
 };
 
 export default function (state = initialState, action) {
@@ -45,6 +48,15 @@ export default function (state = initialState, action) {
         ...state,
         currentMFAaction: action.payload,
       };
+
+    case SHOW_EMAIL_VERIFICATION:
+      return {
+        ...state,
+        showEmailVerificationModal: action.payload,
+      };
+
+    case SET_RESET_PASSWORD_EMAIL:
+      return {...state, resetPasswordEmail: action.payload};
 
     default:
       return state;
