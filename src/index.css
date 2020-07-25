@@ -1045,6 +1045,23 @@ a.try-sestnet-btn:hover {
   margin-bottom: 0;
 }
 
+.forgoysuccessmsg-success {
+  background-color: rgba(50, 194, 77, 0.05);
+  border: 1px solid #32c24d;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 20px !important;
+  color: #289a3d;
+  border-radius: 0;
+  padding: 12px 33px !important;
+  text-align: center;
+  margin-top: 7px;
+}
+
+.forgoysuccessmsg-success p {
+  margin-bottom: 0;
+}
+
 .msg-success {
   background-color: rgba(50, 194, 77, 0.05);
   border: 1px solid #32c24d;

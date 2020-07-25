@@ -3,9 +3,11 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
 import {clearErrors} from '../../../../redux/actions/errorActions';
-import {changePassword} from '../../../../redux/actions/authActions';
+import {changePassword, sendEmail} from '../../../../redux/actions/authActions';
 import {setTwoFAKey} from '../../../../redux/actions/apiSecretand2faAction';
 import isEmpty from '../../../../validation/is-empty';
+import {CHANGE_PASSWORD} from '../../../../constant';
+import TwoWaySecurity from '../../Models/TwoWaySecurity/TwoWaySecurity';
 import cromeimg from '../../../../../assets/img/cromeimg.png';
 import GoogleAuthSVG from '../../../../../assets/img/._google-authenticator.svg';
 import scanimg from '../../../../../assets/img/scanimg.png';
@@ -37,6 +39,8 @@ class Security extends Component {
       passwordchangesuccess: '',
       passwordchangeerror: '',
       token_2fForm: false,
+      twoWaySecurityModal: false,
+      sendEmailPopup: this.props.auth.sendEmail || '',
     };
   }
 
@@ -73,18 +77,18 @@ class Security extends Component {
       document.title = 'Bitfex';
     }
     // this.setState({successmsg: nextProps.auth.userNewpasswor});
-    if (
-      !isEmpty(nextProps.auth.userNewpassword) &&
-      this.state.old_password &&
-      this.state.password &&
-      this.state.password_confirmation
-    ) {
-      console.log(nextProps.auth.userNewpassword);
-      this.setState({
-        passwordchangesuccess: 'Your password was successfully updated!',
-      });
-      this.setState({passwordchangeerror: ''});
-    }
+    // if (
+    //   !isEmpty(nextProps.auth.userNewpassword) &&
+    //   this.state.old_password &&
+    //   this.state.password &&
+    //   this.state.password_confirmation
+    // ) {
+    //   this.hideTwowaySecurityModal();
+    //   this.setState({
+    //     passwordchangesuccess: 'Your password was successfully updated!',
+    //   });
+    //   this.setState({passwordchangeerror: ''});
+    // }
     if (!isEmpty(nextProps.apisecretkeys.twofakey)) {
       this.setState({enabled_2fa: true});
       this.setState({
@@ -122,40 +126,50 @@ class Security extends Component {
         'The Google Authenticator code is incorrect or has expired!',
       );
     }
-    if (
-      !isEmpty(nextProps.errors.type) &&
-      nextProps.errors.type === 'password_or_email_invalid'
-    ) {
-      this.setState({passwordchangeerror: 'Current password does not match!'});
-      this.setState({passwordchangesuccess: ''});
-      // window.alert()
+    // if (
+    //   !isEmpty(nextProps.errors.type) &&
+    //   nextProps.errors.type === 'password_or_email_invalid'
+    // ) {
+    //   this.setState({passwordchangeerror: 'Current password does not match!'});
+    //   this.setState({passwordchangesuccess: ''});
+    //   // window.alert()
+    // }
+    if (!isEmpty(nextProps.auth.sendEmail)) {
+      this.showTwowaySecurityModal();
+
+      this.setState({sendEmailPopup: nextProps.auth.sendEmail});
     }
   }
 
-  componentDidUpdate = () => {
-    // if (!isEmpty(this.props.errors) && !this.state.formError) {
-    //   let formError = this.errorMap[this.props.errors.type];
-    //   this.setState({formError});
+  componentDidUpdate = () => {};
+
+  componentWillUpdate = (newProps, newState) => {
+    // if (newState.password) {
+    //   setTimeout(() => {
+    //     this.setState({password: ''});
+    //   });
     // }
-    // if (!isEmpty(this.props.auth.userNewpasswor)) {
-    //   let successmsg = this.successmap[this.props.auth.userNewpasswor];
-    //   this.setState({successmsg});
+    // if (newState.old_password) {
+    //   setTimeout(() => {
+    //     this.setState({old_password: ''});
+    //   });
+    // }
+    // if (newState.password_confirmation) {
+    //   setTimeout(() => {
+    //     this.setState({password_confirmation: ''});
+    //   });
     // }
   };
 
-  // componentWillUpdate = (newProps, newState) => {
-  //   if (newState.passwordchangeerror) {
-  //     setTimeout(() => {
-  //       this.setState({passwordchangeerror: ''});
-  //     });
-  //   }
-  //   if (newState.passwordchangesuccess) {
-  //     setTimeout(() => {
-  //       this.setState({passwordchangesuccess: ''});
-  //     });
-  //   }
-  //   console.log(newState);
-  // };
+  showTwowaySecurityModal = (e) => {
+    this.setState({twoWaySecurityModal: true});
+  };
+
+  hideTwowaySecurityModal = (e) => {
+    this.setState({twoWaySecurityModal: false});
+    // this.props.clerEmail();
+    console.log(this.state.twoWaySecurityModal);
+  };
 
   allowSubmission = () => {
     const {
@@ -179,11 +193,17 @@ class Security extends Component {
       password != '' &&
       password_confirmation != ''
     ) {
-      this.props.changePassword({
-        old_password,
-        password,
-        password_confirmation,
-      });
+      // this.props.changePassword({
+      //   old_password,
+      //   password,
+      //   password_confirmation,
+      // });
+      this.props.sendEmail(this.props.profile.profile.email, CHANGE_PASSWORD);
+      e.target.reset();
+      console.log(this.props.auth.sendEmail.email);
+      if (this.state.sendEmailPopup != '') {
+        this.showTwowaySecurityModal();
+      }
     } else {
       let oldPasswordError = '';
       let newPasswordError = '';
@@ -209,6 +229,9 @@ class Security extends Component {
 
   oldPassword = (e) => {
     e.preventDefault();
+    if (this.props.auth.sendEmail.email) {
+      this.hideTwowaySecurityModal();
+    }
     // alert('call');
     let old_password = e.target.value;
     let oldPasswordError = '';
@@ -218,7 +241,7 @@ class Security extends Component {
     // else if (oldPassword.length < 8) {
     //   oldPasswordError = 'Password should be minimum of min 8 characters!';
     // }
-    // this.props.clearErrors();
+    this.props.clearErrors();
     this.setState({
       old_password,
       oldPasswordError,
@@ -229,6 +252,9 @@ class Security extends Component {
 
   newPassword = (e) => {
     e.preventDefault();
+    if (this.props.auth.sendEmail.email) {
+      this.hideTwowaySecurityModal();
+    }
     let password = e.target.value;
     const {password_confirmation} = this.state;
     let newPasswordError = '';
@@ -255,6 +281,9 @@ class Security extends Component {
   };
 
   confirmpassword = (e) => {
+    if (this.props.auth.sendEmail.email) {
+      this.hideTwowaySecurityModal();
+    }
     e.preventDefault();
     let password_confirmation = e.target.value;
     const {password} = this.state;
@@ -264,7 +293,7 @@ class Security extends Component {
     } else if (password_confirmation !== password) {
       confirmNewPasswordError = 'Password must match!';
     }
-    // this.props.clearErrors();
+    this.props.clearErrors();
     this.setState({
       password_confirmation,
       confirmNewPasswordError,
@@ -322,12 +351,12 @@ class Security extends Component {
   render() {
     const Profile = this.props.heading;
     const {googletwofakey} = this.state;
-    // console.log(googletwofakey);
     const link = `otpauth://totp/Bitfex(${this.props.profile.profile.full_name})?secret=${googletwofakey}`;
     // console.log(this.props.apisecretkeys.twofastatus);
     // console.log(this.props.apisecretkeys.twofakey);
     // console.log(this.state.passwordchangeerror);
     // console.log(this.state.passwordchangesuccess);
+    console.log(this.props);
     return (
       <div className="row dashboard_container">
         <div className="col-md-12 contentcontainer">
@@ -352,56 +381,58 @@ class Security extends Component {
                       <p>{this.state.passwordchangesuccess}</p>
                     </div>
                   )}
-                  <div className="security_from">
-                    <label>Current Password</label>
-                    <div className="inputWithIcon">
-                      <input
-                        type="password"
-                        onInput={this.oldPassword}
-                        name="old_password"
-                      />
-                      <i className="fa fa-lock" />
+                  <form onSubmit={this.upadtePassword}>
+                    <div className="security_from">
+                      <label>Current Password</label>
+                      <div className="inputWithIcon">
+                        <input
+                          type="password"
+                          onInput={this.oldPassword}
+                          name="old_password"
+                        />
+                        <i className="fa fa-lock" />
+                      </div>
+                      <span className="error-msg">
+                        {this.state.oldPasswordError}
+                      </span>
                     </div>
-                    <span className="error-msg">
-                      {this.state.oldPasswordError}
-                    </span>
-                  </div>
-                  <div className="security_from">
-                    <label>Password</label>
-                    <div className="inputWithIcon">
-                      <input
-                        type="password"
-                        placeholder="8-20 alpha numeric characters"
-                        onInput={this.newPassword}
-                        name="password"
-                      />
-                      <i className="fa fa-lock" />
+                    <div className="security_from">
+                      <label>Password</label>
+                      <div className="inputWithIcon">
+                        <input
+                          type="password"
+                          placeholder="8-20 alpha numeric characters"
+                          onInput={this.newPassword}
+                          name="password"
+                        />
+                        <i className="fa fa-lock" />
+                      </div>
+                      <span className="error-msg">
+                        {this.state.newPasswordError}
+                      </span>
                     </div>
-                    <span className="error-msg">
-                      {this.state.newPasswordError}
-                    </span>
-                  </div>
-                  <div className="security_from">
-                    <label>Confirm Password</label>
-                    <div className="inputWithIcon">
-                      <input
-                        type="password"
-                        placeholder="8-20 alpha numeric characters"
-                        onInput={this.confirmpassword}
-                        name="password_confirmation"
-                      />
-                      <i className="fa fa-lock" />
+                    <div className="security_from">
+                      <label>Confirm Password</label>
+                      <div className="inputWithIcon">
+                        <input
+                          type="password"
+                          placeholder="8-20 alpha numeric characters"
+                          onInput={this.confirmpassword}
+                          name="password_confirmation"
+                        />
+                        <i className="fa fa-lock" />
+                      </div>
+                      <span className="error-msg">
+                        {this.state.confirmNewPasswordError}
+                      </span>
                     </div>
-                    <span className="error-msg">
-                      {this.state.confirmNewPasswordError}
-                    </span>
-                  </div>
-                  <button
-                    className="update_button"
-                    onClick={this.upadtePassword}
-                  >
-                    Update Password
-                  </button>
+                    <button
+                      className="update_button"
+                      // onClick={this.upadtePassword}
+                    >
+                      Update Password
+                    </button>
+                  </form>
                 </div>
               </div>
               <div className="col-md-6 google_container mobpadd">
@@ -480,6 +511,13 @@ class Security extends Component {
             </div>
           </div>
         </div>
+        {this.state.twoWaySecurityModal != '' ? (
+          <TwoWaySecurity
+            onHide={this.hideTwowaySecurityModal}
+            show={this.state.twoWaySecurityModal}
+            passwordInfo={this.state}
+          />
+        ) : null}
       </div>
     );
   }
@@ -488,8 +526,9 @@ class Security extends Component {
 Security.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  setTwoFAKey: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
+  setTwoFAKey: PropTypes.func.isRequired,
+  sendEmail: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -503,4 +542,5 @@ export default connect(mapStateToProps, {
   clearErrors,
   changePassword,
   setTwoFAKey,
+  sendEmail,
 })(Security);

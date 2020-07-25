@@ -4,8 +4,9 @@ import {Link, withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import classnames from 'classnames';
 import isEmpty from '../../validation/is-empty';
-import {resetPassword} from '../../redux/actions/authActions';
+import {resetPassword, sendEmail} from '../../redux/actions/authActions';
 import {clearErrors} from '../../redux/actions/errorActions';
+import {FORGOT_PASSWORD} from '../../constant';
 import Bitfex_log from '../../../assets/img/bitfex-logo-dark.svg';
 
 const validPassword = RegExp(
@@ -162,7 +163,17 @@ class ResetPassword extends Component {
     });
   };
 
+  handleEmail = (e) => {
+    e.preventDefault();
+    this.props.sendEmail(this.state.email, FORGOT_PASSWORD);
+    if (!isEmpty(this.props.auth.sendEmail)) {
+      this.setState({successmsg: 'Email Verification code sent successfully'});
+    }
+  };
+
   render() {
+    console.log(this.props.auth);
+    console.log(this.state);
     return (
       <div className="wrapper">
         <div className="frm-wrapper">
@@ -280,10 +291,21 @@ class ResetPassword extends Component {
                                 {this.state.tokenError}
                               </div>
                             )}
-                            {/* <div className="form-valid-error">
-                              <div>Confirm password is required!</div>
-                              <div>Passwords must match!</div>
-                            </div> */}
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="password" className="form-label">
+                              <button
+                                style={{
+                                  fontSize: '14px',
+                                  color: 'rgb(2, 120, 225)',
+                                  border: 'none',
+                                  background: 'none',
+                                }}
+                                onClick={this.handleEmail}
+                              >
+                                Resend Email{' '}
+                              </button>
+                            </label>
                           </div>
                           <div className="text-center">
                             <button
@@ -320,6 +342,7 @@ class ResetPassword extends Component {
 
 ResetPassword.propTypes = {
   resetPassword: PropTypes.func.isRequired,
+  sendEmail: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };
@@ -329,6 +352,8 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {resetPassword, clearErrors})(
-  withRouter(ResetPassword),
-);
+export default connect(mapStateToProps, {
+  resetPassword,
+  clearErrors,
+  sendEmail,
+})(withRouter(ResetPassword));

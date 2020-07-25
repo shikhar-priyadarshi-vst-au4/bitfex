@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link, withRouter} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
+import {clearErrors} from '../../redux/actions/errorActions';
 import isEmpty from '../../validation/is-empty';
-import {confirmUserCode} from '../../redux/actions/authActions';
+import {confirmUserCode, sendEmail} from '../../redux/actions/authActions';
 import './EmailVerifiction.css';
 
 class EmailVerifiction extends Component {
@@ -14,9 +15,22 @@ class EmailVerifiction extends Component {
       userEmail:
         this.props.auth.registerInfo.email || this.props.auth.logInInfo.email,
       code: '',
+      senEmail: this.props.auth.sendEmail.email || '',
       codeError: '',
+      successmsg: '',
+      seconds: 60,
     };
   }
+
+  componentDidMount = () => {
+    if (this.state.seconds > 0) {
+      setTimeout(() =>
+        this.setState({seconds: (this.state.seconds - 1, 1000)}),
+      );
+    } else {
+      this.setState({seconds: ''});
+    }
+  };
 
   componentWillReceiveProps = (nextProps) => {
     // console.log(nextProps.auth);
@@ -44,13 +58,21 @@ class EmailVerifiction extends Component {
     ) {
       this.setState({codeError: 'Please Enter Correct Verification Code !'});
     }
+    if (!isEmpty(nextProps.auth.sendEmail.email)) {
+      this.setState({senEmail: nextProps.auth.sendEmail.email});
+    }
   };
 
   componentWillUpdate = (newProps, newState) => {
     if (newState.codeError) {
       setTimeout(() => {
         this.setState({codeError: ''});
-      }, 2000);
+      }, 4000);
+    }
+    if (newState.successmsg) {
+      setTimeout(() => {
+        this.setState({successmsg: ''});
+      }, 4000);
     }
   };
 
@@ -62,6 +84,15 @@ class EmailVerifiction extends Component {
   handleSubmit = (e) => {
     const {userEmail, code} = this.state;
     this.props.confirmUserCode(userEmail, code);
+  };
+
+  handleEmail = (e) => {
+    e.preventDefault();
+    this.props.sendEmail(this.state.userEmail, this.props.resendCategory);
+    if (this.state.sendEmail != '') {
+      this.setState({successmsg: 'Email Verification code sent successfully'});
+      this.props.clearErrors();
+    }
   };
 
   render() {
@@ -89,8 +120,9 @@ class EmailVerifiction extends Component {
       },
     };
     // console.log(this.state.code);
-    // console.log(this.props);
-    // console.log(this.state.codeError);
+    console.log(this.props);
+    console.log(this.state.senEmail);
+
     return (
       <Modal
         show={this.props.show}
@@ -107,6 +139,8 @@ class EmailVerifiction extends Component {
           >
             {this.state.codeError
               ? this.state.codeError
+              : this.state.successmsg
+              ? this.state.successmsg
               : 'Security verifiction'}
           </Modal.Title>
         </Modal.Header>
@@ -132,11 +166,21 @@ class EmailVerifiction extends Component {
                 Enter the 6 digit code received by{' '}
                 <b style={{fontWeight: '500'}}>{this.state.userEmail}</b>
               </span>
-              {this.state.nameError && (
-                <div className="api-key-error">
-                  <p>{this.state.nameError}</p>
-                </div>
-              )}
+            </div>
+          </div>
+          <div className="row" style={{padding: '8px', marginBottom: '5px'}}>
+            <div className="col-md-12">
+              <button
+                style={{
+                  fontSize: '14px',
+                  color: 'rgb(2, 120, 225)',
+                  border: 'none',
+                  background: 'none',
+                }}
+                onClick={this.handleEmail}
+              >
+                Resend Email{' '}
+              </button>
             </div>
           </div>
         </Modal.Body>
@@ -157,6 +201,8 @@ class EmailVerifiction extends Component {
 
 EmailVerifiction.propTypes = {
   confirmUserCode: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+  sendEmail: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };
@@ -166,6 +212,8 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {confirmUserCode})(
-  withRouter(EmailVerifiction),
-);
+export default connect(mapStateToProps, {
+  confirmUserCode,
+  sendEmail,
+  clearErrors,
+})(withRouter(EmailVerifiction));

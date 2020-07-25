@@ -16,7 +16,13 @@ const validEmailRegex = RegExp(
 class ForgotPassword extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: '', emailError: '', formError: '', isDirty: false};
+    this.state = {
+      email: '',
+      emailError: '',
+      successmsg: '',
+      formError: '',
+      isDirty: false,
+    };
   }
 
   componentDidMount() {
@@ -33,7 +39,13 @@ class ForgotPassword extends Component {
       });
     }
     if (!isEmpty(nextProps.auth.forgotPasswordEmail)) {
-      this.props.history.push('/resetPassword');
+      this.setState({
+        successmsg: 'Verification code sent to your register email address',
+      });
+      setTimeout(() => {
+        // return <Redirect to="/login" />;
+        this.props.history.push('/resetPassword');
+      }, 3000);
     }
   };
 
@@ -41,6 +53,11 @@ class ForgotPassword extends Component {
     if (newState.formError) {
       setTimeout(() => {
         this.setState({formError: ''});
+      }, 6000);
+    }
+    if (newState.successmsg) {
+      setTimeout(() => {
+        this.setState({successmsg: ''});
       }, 3000);
     }
   };
@@ -106,6 +123,11 @@ class ForgotPassword extends Component {
                       {this.state.formError && (
                         <div className="auth-error">
                           <p>{this.state.formError}</p>
+                        </div>
+                      )}
+                      {this.state.successmsg && (
+                        <div className="forgoysuccessmsg-success">
+                          <p>{this.state.successmsg}</p>
                         </div>
                       )}
                       <h4>Reset Password</h4>

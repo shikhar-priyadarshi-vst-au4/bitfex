@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import classnames from 'classnames';
 import {loginUser} from '../../redux/actions/authActions';
 import {clearErrors} from '../../redux/actions/errorActions';
+import {SIGN_IN} from '../../constant';
 import EmailVerifiction from '../Model/EmailVerifiction';
 import './Login.css';
 
@@ -62,7 +63,7 @@ class Login extends Component {
     if (newState.formError) {
       setTimeout(() => {
         this.setState({formError: ''});
-      }, 4000);
+      }, 7000);
     }
   };
 
@@ -137,7 +138,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className="wrapper">
         <div className="frm-wrapper">
@@ -253,6 +253,7 @@ class Login extends Component {
           <EmailVerifiction
             show={this.state.openTransferBalModal}
             onHide={this.hideTransferBalanceModal}
+            resendCategory={SIGN_IN}
           />
         ) : null}
       </div>

@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import {registerUser} from '../../redux/actions/authActions';
 import {clearErrors} from '../../redux/actions/errorActions';
 import isEmpty from '../../validation/is-empty';
+import {SIGN_UP} from '../../constant';
 import EmailVerifiction from '../Model/EmailVerifiction';
 import './Register.css';
 
@@ -61,6 +62,9 @@ export class Register extends Component {
     if (!isEmpty(nextProps.auth.registerInfo)) {
       this.setState({registerData: nextProps.auth.registerInfo});
       this.showTransferBalanceModal();
+    }
+    if (!isEmpty(nextProps.auth.sendEmail)) {
+      this.setState({successmsg: 'Email Verification code sent successfully'});
     }
     if (nextProps.auth.isAuthenticated) {
       // this.props.history.push('/dashboard/account');
@@ -265,7 +269,7 @@ export class Register extends Component {
 
   render() {
     // console.log(this.props.errors.email);
-    console.log(this.state.registerData);
+    console.log(SIGN_UP);
 
     return (
       <div>
@@ -497,6 +501,7 @@ export class Register extends Component {
           <EmailVerifiction
             show={this.state.openTransferBalModal}
             onHide={this.hideTransferBalanceModal}
+            resendCategory={SIGN_UP}
           />
         ) : null}
       </div>

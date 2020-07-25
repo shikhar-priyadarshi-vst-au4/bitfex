@@ -9,6 +9,8 @@ import {
   LOGIN_DATA,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
+  SEND_EMAIL,
+  CLEAR_EMAIL,
 } from '../types';
 
 const getFromLS = (key) => localStorage.getItem('token');
@@ -22,6 +24,7 @@ const initialState = {
   logInInfo: '',
   forgotPasswordEmail: '',
   resetPasswordValue: '',
+  sendEmail: '',
 };
 
 export default function (state = initialState, action) {
@@ -65,6 +68,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         resetPasswordValue: action.payload,
+      };
+    case SEND_EMAIL:
+      return {
+        ...state,
+        sendEmail: action.payload,
       };
     case SET_MFA_STATUS:
       return {

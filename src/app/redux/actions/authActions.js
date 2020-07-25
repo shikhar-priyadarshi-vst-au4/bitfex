@@ -13,6 +13,8 @@ import {
   LOGIN_DATA,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
+  SEND_EMAIL,
+  CLEAR_EMAIL,
 } from '../types';
 
 const {SERVER_URL} = process.env;
@@ -129,6 +131,7 @@ export const logoutUser = () => (dispatch) => {
 
 export const changePassword = (UserPasswordDetails) => (dispatch) => {
   // changing user password
+  console.log(UserPasswordDetails);
   axios
     .post(`${BASE_URL}/users/change_password`, UserPasswordDetails)
     .then((res) =>
@@ -140,7 +143,7 @@ export const changePassword = (UserPasswordDetails) => (dispatch) => {
     .catch((error) =>
       dispatch({
         type: GET_ERRORS,
-        payload: error.response.data,
+        payload: ((error || {}).response || {}).data || 'Error unexpected',
       }),
     );
 };
@@ -171,6 +174,25 @@ export const resetPassword = (passowrdInfo) => (dispatch) => {
     .then((res) =>
       dispatch({
         type: RESET_PASSWORD,
+        payload: res.data,
+      }),
+    )
+    .catch((error) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: ((error || {}).response || {}).data || 'Error unexpected',
+      }),
+    );
+};
+
+export const sendEmail = (email, category) => (dispatch) => {
+  // resend email
+
+  axios
+    .get(`${BASE_URL}/users/send_email?email=${email}&category=${category}`)
+    .then((res) =>
+      dispatch({
+        type: SEND_EMAIL,
         payload: res.data,
       }),
     )
