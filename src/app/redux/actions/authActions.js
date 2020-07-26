@@ -55,6 +55,7 @@ export const confirmUserCode = (userEmail, code) => (dispatch) => {
       const decoded = jwt_decode(jwt);
       // Set current user
       dispatch(setCurrentUser(decoded));
+      window.location.reload();
     })
     .catch((error) => {
       console.log(error.response);
@@ -94,6 +95,7 @@ export const loginUser = (email, password, token_2fa) => (dispatch) => {
         const decoded = jwt_decode(jwt);
         // Set current user
         dispatch(setCurrentUser(decoded, email, first_name, last_name));
+        window.location.reload();
       }
     })
     .catch((error) =>
