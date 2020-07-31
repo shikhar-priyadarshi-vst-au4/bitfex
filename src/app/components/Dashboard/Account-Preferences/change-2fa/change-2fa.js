@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getCurrentProfile} from '../../../../redux/actions/profileActions';
 import QRCode from 'qrcode.react';
 import {compose} from 'redux';
-import {responseMsg} from './chnage-2fa_Dispatcher';
+import API from '../../../../Redux_Store/newConfig';
 import store from '../../../../Redux_Store/store';
 import {change2faApi} from './change_2fa_API';
 import {withAlert} from 'react-alert';
@@ -18,7 +18,11 @@ class Change2FA extends Component {
     error: '',
   };
 
-  componentDidMount = () => {};
+  componentDidMount = () => {
+    setTimeout(() => {
+      if (!this.props.profile.profile.enabled_2fa) this.getSecretKeyFor2FA();
+    });
+  };
 
   componentWillReceiveProps = (nextProps) => {
     console.log('nextProps', nextProps);
@@ -33,8 +37,14 @@ class Change2FA extends Component {
       this.props.alert.show(nextProps.faState.secret_key_response_msg);*/
   };
 
-  getSecretKeyFor2FA = () => {
-    change2faApi.getSecretKeyFor2FA();
+  getSecretKeyFor2FA = async () => {
+    try {
+      const value = await API.get('/users/secret_key_2fa');
+      const {secret_key_2fa} = value.data;
+      this.setState({secret_key_2fa});
+    } catch (er) {
+      console.log(er);
+    }
   };
 
   handleMFACode = (e) => {
@@ -51,10 +61,7 @@ class Change2FA extends Component {
       this.setState({copied: false});
     }, 3000);
   };
-  hanldleEnable = () => {
-    this.setState({showQR: true});
-    change2faApi.getSecretKeyFor2FA();
-  };
+
   changeMFAStatus = (bool) => {
     let token_2fa = this.state.mfa_for_enabling;
     if (token_2fa.length < 6)
@@ -71,8 +78,8 @@ class Change2FA extends Component {
     const Profile = this.props.heading;
     let link = '';
     const {enabled_2fa, email} = this.props.profile.profile;
-    if (this.props.faState.secret_key_2fa) {
-      link = `otpauth://totp/Alpha5(${email})/?secret=${this.props.faState.secret_key_2fa}`;
+    if (this.state.secret_key_2fa) {
+      link = `otpauth://totp/Alpha5(${email})/?secret=${this.state.secret_key_2fa}`;
     }
 
     return (
@@ -105,7 +112,7 @@ class Change2FA extends Component {
               </p>
               {!enabled_2fa ? (
                 <button
-                  onClick={this.hanldleEnable}
+                  onClick={() => this.setState({showQR: true})}
                   className="form-btn yellow"
                 >
                   ENABLE
@@ -119,15 +126,13 @@ class Change2FA extends Component {
                 </button>
               )}
             </div>
-            {this.state.showQR &&
-            this.props.faState.secret_key_2fa &&
-            !enabled_2fa ? (
+            {this.state.showQR && this.state.secret_key_2fa && !enabled_2fa ? (
               <div className="qr-container ga-secure-code ml-auto mr-auto d-flex">
                 <QRCode includeMargin={true} size={200} value={link} />
                 <div className="qr-result">
                   <div className="input-with-copy">
                     <input
-                      value={this.props.faState.secret_key_2fa}
+                      value={this.state.secret_key_2fa}
                       type="text"
                       readOnly
                       ref={this.copyRef}
