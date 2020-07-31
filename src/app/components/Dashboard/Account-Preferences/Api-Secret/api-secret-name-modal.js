@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {apiSecretKeyAPI} from './Api_SecretApi';
 import {getNewKeyAndSecret} from '../../../../redux/actions/apiSecretand2faAction';
 
 class ApiNameConfirmation extends Component {
@@ -20,7 +21,7 @@ class ApiNameConfirmation extends Component {
   };
 
   onSubmit = () => {
-    this.props.getNewKeyAndSecret(this.state.name);
+    apiSecretKeyAPI.getNewKeyAndSecret(this.state.name);
     this.hideModal();
   };
 

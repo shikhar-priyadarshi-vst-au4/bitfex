@@ -11,6 +11,7 @@ import {
   deleteApiKey,
 } from '../../../../redux/actions/apiSecretand2faAction';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {apiSecretKeyAPI} from './Api_SecretApi';
 import _ from 'lodash';
 
 export class ApiSecret extends Component {
@@ -31,7 +32,7 @@ export class ApiSecret extends Component {
     // asynchronous so that root can set auth token
     setTimeout(() => {
       console.log(this.props);
-      this.props.getAllApiKeys();
+      apiSecretKeyAPI.getAllApiKeys();
     });
   };
 
@@ -62,11 +63,12 @@ export class ApiSecret extends Component {
   };
 
   componentWillUnmount = () => {
-    this.props.clearKeys();
+    apiSecretKeyAPI.clearKeys();
   };
 
   showMFAModal = (e) => {
     this.setState({show2faForGenerate: true});
+    apiSecretKeyAPI.getEmailVerificationCode(this.props.profile.profile.email);
   };
 
   hideMFAModal = (e) => {
@@ -80,11 +82,19 @@ export class ApiSecret extends Component {
   hideKeyPairModal = (e) => {
     this.setState({openKeyPairModal: false});
   };
+  handleAddAPIKey = (value) => {
+    apiSecretKeyAPI.getNewKeyAndSecret(value);
+  };
 
   deleteKey = (id, name) => {
+    apiSecretKeyAPI.getEmailVerificationCodeForDeletion(
+      this.props.profile.profile.email,
+    );
     this.setState({show2faForDelete: true, idToDelete: id, nameToDelete: name});
-
-    // this.props.deleteApiKey(id, name);
+    //apiSecretKeyAPI.deleteApiKey(id, name);
+  };
+  handleDeleteAPIKey = (value) => {
+    apiSecretKeyAPI.deleteApiKey(value);
   };
 
   componentDidCatch = (error, errorInfo) => {};
@@ -161,51 +171,53 @@ export class ApiSecret extends Component {
                         let {id, key, name, secret} = el;
                         console.log(this.state.apiSecretKeysArray);
                         return (
-                          <tr key={i}>
-                            <td>{name}</td>
-                            <td>
-                              <div className="d-flex flex-column align-items-start">
-                                <div className="key">
-                                  <span className="heading">API Key :</span>
-                                  <input
-                                    type="text"
-                                    value={key}
-                                    readOnly="readOnly"
-                                  />
-                                  <CopyToClipboard
-                                    onCopy={this.copyToClipboard}
-                                    text={key}
-                                  >
-                                    <img src={'db-assets/copy-icon.svg'} />
-                                  </CopyToClipboard>
+                          <>
+                            <tr key={i} className="border_bottom">
+                              <td style={{width: '110px'}}>{name}</td>
+                              <td>
+                                <div className="d-flex flex-column align-items-start">
+                                  <div className="key">
+                                    <span className="heading">API Key :</span>
+                                    <input
+                                      type="text"
+                                      value={key}
+                                      readOnly="readOnly"
+                                    />
+                                    <CopyToClipboard
+                                      onCopy={this.copyToClipboard}
+                                      text={key}
+                                    >
+                                      <img src={'db-assets/copy-icon.svg'} />
+                                    </CopyToClipboard>
+                                  </div>
+                                  <div className="key">
+                                    <span className="heading">Secret :</span>
+                                    <input
+                                      type="text"
+                                      value={secret}
+                                      readOnly="readOnly"
+                                    />
+                                    <CopyToClipboard
+                                      onCopy={this.copyToClipboard}
+                                      text={secret}
+                                    >
+                                      <img src={'db-assets/copy-icon.svg'} />
+                                    </CopyToClipboard>
+                                  </div>
                                 </div>
-                                <div className="key">
-                                  <span className="heading">Secret :</span>
-                                  <input
-                                    type="text"
-                                    value={secret}
-                                    readOnly="readOnly"
-                                  />
-                                  <CopyToClipboard
-                                    onCopy={this.copyToClipboard}
-                                    text={secret}
-                                  >
-                                    <img src={'db-assets/copy-icon.svg'} />
-                                  </CopyToClipboard>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <button
-                                onClick={() => {
-                                  this.deleteKey(el.id, el.name);
-                                }}
-                                className="form-btn gray"
-                              >
-                                Delete
-                              </button>
-                            </td>
-                          </tr>
+                              </td>
+                              <td style={{width: '110px'}}>
+                                <button
+                                  onClick={() => {
+                                    this.deleteKey(el.id, el.name);
+                                  }}
+                                  className="form-btn gray"
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          </>
                         );
                       })
                     ) : (
@@ -222,6 +234,7 @@ export class ApiSecret extends Component {
           <MFAModal
             hideMFAModal={this.hideMFAModal}
             validateFor={'generateApiKeys'}
+            valueFromComponent={(value) => this.handleAddAPIKey(value)}
           />
         ) : (
           <></>
@@ -235,6 +248,8 @@ export class ApiSecret extends Component {
           <MFAModal
             hideMFAModal={this.hideMFAModal}
             validateFor={'deleteApiKeys'}
+            tokenToDelete={this.state.nameToDelete}
+            valueFromComponent={(value) => this.handleDeleteAPIKey(value)}
           />
         ) : (
           <></>

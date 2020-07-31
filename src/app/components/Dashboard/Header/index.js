@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {logoutUser} from '../../../redux/actions/authActions';
+import { logoutUser } from '../../../redux/actions/authActions';
+import { loginAPI } from '../../Login/Login_Api';
 import _ from 'lodash';
 
 class Header extends Component {
@@ -30,13 +31,13 @@ class Header extends Component {
 
   bodyClickListener = () => {
     document.body.addEventListener('click', () => {
-      this.setState({logoutMenuOpen: false});
+      this.setState({ logoutMenuOpen: false });
     });
   };
 
   toggleLogoutMenu = (e) => {
     e.stopPropagation();
-    this.setState((p) => ({logoutMenuOpen: !p.logoutMenuOpen}));
+    this.setState((p) => ({ logoutMenuOpen: !p.logoutMenuOpen }));
   };
 
   render() {
@@ -183,7 +184,7 @@ class Header extends Component {
                   </div>
 
                   <a
-                    style={{color: 'var(--gold-pop)'}}
+                    style={{ color: 'var(--gold-pop)' }}
                     className="from-phone"
                     href="/trade/"
                   >
@@ -191,21 +192,21 @@ class Header extends Component {
                   </a>
 
                   <a
-                    style={{color: 'var(--gold-pop)'}}
+                    style={{ color: 'var(--gold-pop)' }}
                     className="from-phone"
                     href="/site/API"
                   >
                     Resources
                   </a>
 
-                  <a onClick={this.props.logoutUser} className="logout-btn">
+                  <a onClick={() => loginAPI.logout()} className="logout-btn">
                     <i className="fas fa-sign-out-alt"></i>
                     Logout
                   </a>
                 </div>
               ) : (
-                <></>
-              )}{' '}
+                  <></>
+                )}{' '}
             </div>
           </div>
         </header>
@@ -222,4 +223,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, {logoutUser})(withRouter(Header));
+export default connect(mapStateToProps, { logoutUser })(withRouter(Header));

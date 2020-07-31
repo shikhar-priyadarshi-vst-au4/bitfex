@@ -2,35 +2,39 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getCurrentProfile} from '../../../../redux/actions/profileActions';
 import QRCode from 'qrcode.react';
-import axios from 'axios';
-import {BaseApiUrl} from '../../../../redux/config';
-
+import {compose} from 'redux';
+import {responseMsg} from './chnage-2fa_Dispatcher';
+import store from '../../../../Redux_Store/store';
+import {change2faApi} from './change_2fa_API';
+import {withAlert} from 'react-alert';
 import './change-2fa.css';
 
 class Change2FA extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showQR: false,
-      secret_key_2fa: '',
-      mfa_for_enabling: '',
-      copied: false,
-      error: '',
-    };
-  }
+  state = {
+    showQR: false,
+    secret_key_2fa: '',
+    mfa_for_enabling: '',
+    copied: false,
+    error: '',
+  };
 
-  componentDidMount = () => {
-    setTimeout(() => {
-      if (!this.props.profile.profile.enabled_2fa) this.getSecretKeyFor2FA();
-    });
+  componentDidMount = () => {};
+
+  componentWillReceiveProps = (nextProps) => {
+    console.log('nextProps', nextProps);
+    if (nextProps.faState.secret_key_response_msg)
+      this.setState({showQR: false});
+    /*console.log('nextProps', nextProps);
+    const {secret_key_response_msg} = this.props.faState;
+    if (
+      nextProps.faState.secret_key_response_msg !==
+      this.props.faState.secret_key_response_msg
+    )
+      this.props.alert.show(nextProps.faState.secret_key_response_msg);*/
   };
 
   getSecretKeyFor2FA = () => {
-    let url = BaseApiUrl + '/users/secret_key_2fa';
-    axios.get(url).then((res) => {
-      let {secret_key_2fa} = res.data;
-      this.setState({secret_key_2fa});
-    });
+    change2faApi.getSecretKeyFor2FA();
   };
 
   handleMFACode = (e) => {
@@ -47,30 +51,29 @@ class Change2FA extends Component {
       this.setState({copied: false});
     }, 3000);
   };
-
+  hanldleEnable = () => {
+    this.setState({showQR: true});
+    change2faApi.getSecretKeyFor2FA();
+  };
   changeMFAStatus = (bool) => {
-    let url = BaseApiUrl + '/users/change_2fa_status';
     let token_2fa = this.state.mfa_for_enabling;
-    axios
-      .post(url, {token_2fa, enabled_2fa: bool})
-      .then((res) => {
-        this.props.getCurrentProfile();
-        this.getSecretKeyFor2FA();
-      })
-      .catch((er) => {
-        let data = er.response.data;
-        if (data.type == 'invalid_data')
-          this.setState({error: 'Invalid Token !'});
-        else this.setState({error: 'Something went wrong !'});
-      });
+    if (token_2fa.length < 6)
+      this.setState({error: 'Token must be greater than 6 digits'});
+    else {
+      const data = {token_2fa, enabled_2fa: bool};
+      change2faApi.changeMFAStatus(data);
+    }
   };
 
   copyRef = React.createRef();
 
   render() {
     const Profile = this.props.heading;
+    let link = '';
     const {enabled_2fa, email} = this.props.profile.profile;
-    const link = `otpauth://totp/Alpha5(${email})/?secret=${this.state.secret_key_2fa}`;
+    if (this.props.faState.secret_key_2fa) {
+      link = `otpauth://totp/Alpha5(${email})/?secret=${this.props.faState.secret_key_2fa}`;
+    }
 
     return (
       <>
@@ -102,7 +105,7 @@ class Change2FA extends Component {
               </p>
               {!enabled_2fa ? (
                 <button
-                  onClick={() => this.setState({showQR: true})}
+                  onClick={this.hanldleEnable}
                   className="form-btn yellow"
                 >
                   ENABLE
@@ -116,13 +119,15 @@ class Change2FA extends Component {
                 </button>
               )}
             </div>
-            {this.state.showQR && !enabled_2fa ? (
+            {this.state.showQR &&
+            this.props.faState.secret_key_2fa &&
+            !enabled_2fa ? (
               <div className="qr-container ga-secure-code ml-auto mr-auto d-flex">
                 <QRCode includeMargin={true} size={200} value={link} />
                 <div className="qr-result">
                   <div className="input-with-copy">
                     <input
-                      value={this.state.secret_key_2fa}
+                      value={this.props.faState.secret_key_2fa}
                       type="text"
                       readOnly
                       ref={this.copyRef}
@@ -192,8 +197,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   errors: state.errors,
   profile: state.profile,
+  faState: state.faReducer,
 });
 
-export default connect(mapStateToProps, {
-  getCurrentProfile,
-})(Change2FA);
+export default compose(withAlert(), connect(mapStateToProps, {}))(Change2FA);

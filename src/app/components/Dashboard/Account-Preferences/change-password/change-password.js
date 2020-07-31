@@ -2,16 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {clearErrors} from '../../../../redux/actions/errorActions';
 import ConfirmPasswordChangeModal from './passwordUpdateModal';
-import {
-  changePassword,
-  resetChangePassword,
-} from '../../../../redux/actions/authActions';
-
+import {Slide} from 'react-awesome-reveal';
+import {changePasswordAPI} from './ChangePasswordAPI';
+import NotAuthorized from '../../../Dashboard/NotAuthroized';
 const validPassword = RegExp(
   '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})',
 );
 
-class ChangePassword extends Component {
+class ChangePasswordFrom extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,12 +36,12 @@ class ChangePassword extends Component {
     if (nextProps.auth.passwordChanged && !this.state.passwordChanged) {
       this.setState({passwordChanged: true});
       setTimeout(() => {
-        this.props.resetChangePassword(false);
+        changePasswordAPI.resetChangePassword(false);
       }, 3000);
     } else if (!nextProps.auth.passwordChanged && this.state.passwordChanged) {
       this.setState({passwordChanged: false});
     }
-    if (nextProps.errors.type) {
+    if (nextProps.errors) {
       this.setState({formError: this.errorMap[nextProps.errors.type]});
     }
   };
@@ -122,14 +120,20 @@ class ChangePassword extends Component {
   };
 
   onSubmit = (e) => {
+    const {setForm} = this.props;
     e.preventDefault();
     const {old_password, password, password_confirmation} = this.state;
     if (this.allowSubmission()) {
-      this.props.changePassword({
+      console.log('hitted');
+      this.props.getPasswordValue({
         old_password,
         password,
         password_confirmation,
       });
+      changePasswordAPI.getEmailVerificationCode(
+        this.props.profile.profile.email,
+      );
+      this.props.navigation.next();
     } else {
       let oldPasswordError = '';
       let newPasswordError = '';
@@ -154,62 +158,74 @@ class ChangePassword extends Component {
   };
 
   render() {
+    const {next} = this.props.navigation;
+    console.log(this.props.profile.profile);
     return (
       <>
-        <div className="main">
-          <div className="main-header">
-            <h3>Account & Preferences</h3>
-            <div className="main-sub-header">
-              Change Password
-              <hr />
-            </div>
+        {!this.props.profile.profile.enabled_2fa && (
+          <div className="main d-flex justify-content-center mt-5">
+            {' '}
+            <NotAuthorized />
           </div>
-          <div className="main-body">
-            <div className="form-body white-bg">
-              {this.getHeading()}
-              <div className="form-container">
-                <div className="a5-login-field">
-                  <input
-                    onInput={this.oldPasswordChange}
-                    type="password"
-                    placeholder="Old Password"
-                  />
-                  <span className="a5-login-error">
-                    {this.state.oldPasswordError}
-                  </span>
-                </div>
-                <div className="a5-login-field">
-                  <input
-                    onInput={this.newPasswordChange}
-                    type="password"
-                    placeholder="New Password"
-                  />
-                  <span className="a5-login-error">
-                    {this.state.newPasswordError}
-                  </span>
-                </div>
-                <div className="a5-login-field">
-                  <input
-                    onInput={this.confirmpasswordChange}
-                    type="password"
-                    placeholder="Confirm New Password"
-                  />
-                  <span className="a5-login-error">
-                    {this.state.confirmNewPasswordError}
-                  </span>
-                </div>
-                <div className="form-btn-holder align-items-center mt-5">
-                  <a
-                    onClick={this.onSubmit}
-                    className="form-register align-items-center"
-                  >
-                    Change Password
-                  </a>
-                </div>
+        )}
+        {this.props.profile.profile.enabled_2fa && (
+          <div className="main">
+            <div className="main-header">
+              <h3>Account & Preferences</h3>
+              <div className="main-sub-header">
+                Change Password
+                <hr />
               </div>
             </div>
+            <Slide direction="right">
+              <div className="main-body">
+                <div className="form-body white-bg">
+                  {this.getHeading()}
+                  <div className="form-container">
+                    <div className="a5-login-field">
+                      <input
+                        onInput={this.oldPasswordChange}
+                        type="password"
+                        placeholder="Old Password"
+                      />
+                      <span className="a5-login-error">
+                        {this.state.oldPasswordError}
+                      </span>
+                    </div>
+                    <div className="a5-login-field">
+                      <input
+                        onInput={this.newPasswordChange}
+                        type="password"
+                        placeholder="New Password"
+                      />
+                      <span className="a5-login-error">
+                        {this.state.newPasswordError}
+                      </span>
+                    </div>
+                    <div className="a5-login-field">
+                      <input
+                        onInput={this.confirmpasswordChange}
+                        type="password"
+                        placeholder="Confirm New Password"
+                      />
+                      <span className="a5-login-error">
+                        {this.state.confirmNewPasswordError}
+                      </span>
+                    </div>
+                    <div className="form-btn-holder align-items-center mt-5">
+                      <a
+                        onClick={this.onSubmit}
+                        className="form-register align-items-center "
+                      >
+                        Next
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Slide>
           </div>
-        </div>
+        )}
       </>
     );
   }
@@ -218,10 +234,9 @@ class ChangePassword extends Component {
 const mapStateToProps = (state) => ({
   errors: state.errors,
   auth: state.auth,
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, {
   clearErrors,
-  changePassword,
-  resetChangePassword,
-})(ChangePassword);
+})(ChangePasswordFrom);
