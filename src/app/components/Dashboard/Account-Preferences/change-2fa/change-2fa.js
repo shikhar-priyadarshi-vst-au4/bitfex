@@ -7,6 +7,7 @@ import API from '../../../../Redux_Store/newConfig';
 import store from '../../../../Redux_Store/store';
 import {change2faApi} from './change_2fa_API';
 import {withAlert} from 'react-alert';
+import axios from 'axios';
 import './change-2fa.css';
 
 class Change2FA extends Component {
@@ -19,15 +20,18 @@ class Change2FA extends Component {
   };
 
   componentDidMount = () => {
-    setTimeout(() => {
-      if (!this.props.profile.profile.enabled_2fa) this.getSecretKeyFor2FA();
-    });
+    if (!this.props.profile.profile.enabled_2fa) this.getSecretKeyFor2FA();
   };
 
   componentWillReceiveProps = (nextProps) => {
-    console.log('nextProps', nextProps);
-    if (nextProps.faState.secret_key_response_msg)
+    console.log('msg1', nextProps.faState.secret_key_response_msg);
+    console.log('msg2', this.props.faState.secret_key_response_msg);
+    if (
+      nextProps.faState.secret_key_response_msg !==
+      this.props.faState.secret_key_response_msg
+    )
       this.setState({showQR: false});
+
     /*console.log('nextProps', nextProps);
     const {secret_key_response_msg} = this.props.faState;
     if (
@@ -38,16 +42,34 @@ class Change2FA extends Component {
   };
 
   getSecretKeyFor2FA = async () => {
-    try {
-      const value = await API.get('/users/secret_key_2fa');
-      const {secret_key_2fa} = value.data;
-      this.setState({secret_key_2fa});
-    } catch (er) {
-      console.log(er);
+    if (!!localStorage.getItem('token')) {
+      console.log(localStorage.getItem('token'));
+      try {
+        const value = await API.get('/users/secret_key_2fa');
+        const {secret_key_2fa} = value.data;
+        this.setState({secret_key_2fa});
+      } catch (er) {
+        console.log(er);
+      }
     }
+  };
+  getSecretKeyFor2FAdemo = () => {
+    var result = fetch('/users/secret_key_2fa', {
+      method: 'get',
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => console.log('sss', data, 'ss'));
   };
 
   handleMFACode = (e) => {
+    store.dispatch({type: 'SET_SECRET_KEY_ERROR', payload: null});
     let val = e.target.value;
     this.setState({mfa_for_enabling: val, error: ''});
   };
@@ -69,13 +91,19 @@ class Change2FA extends Component {
     else {
       const data = {token_2fa, enabled_2fa: bool};
       change2faApi.changeMFAStatus(data);
+      this.setState({secret_key_2fa: '', showQR: false});
     }
+  };
+  handleEnable = () => {
+    this.setState({showQR: true});
+    this.getSecretKeyFor2FA();
   };
 
   copyRef = React.createRef();
 
   render() {
     const Profile = this.props.heading;
+    console.log(this.props.faState);
     let link = '';
     const {enabled_2fa, email} = this.props.profile.profile;
     if (this.state.secret_key_2fa) {
@@ -111,10 +139,7 @@ class Change2FA extends Component {
                 to verify your account every time you sign in
               </p>
               {!enabled_2fa ? (
-                <button
-                  onClick={() => this.setState({showQR: true})}
-                  className="form-btn yellow"
-                >
+                <button onClick={this.handleEnable} className="form-btn yellow">
                   ENABLE
                 </button>
               ) : (
