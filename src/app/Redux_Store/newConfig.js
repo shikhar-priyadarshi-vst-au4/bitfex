@@ -1,7 +1,7 @@
 import axios from 'axios';
 const token = localStorage.getItem('token');
 export default axios.create({
-  baseURL: 'https://dev.bitfex.com/api/v1',
+  baseURL: 'https://uat.alpha5.io/api/v1',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
