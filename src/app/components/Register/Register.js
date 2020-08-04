@@ -137,7 +137,6 @@ export class Register extends Component {
         passwordErr,
         confirmPassErr,
         emailErr,
-
         agreementErr,
       });
     }
@@ -326,6 +325,8 @@ export class Register extends Component {
           <ConfirmEmailModal
             hideEmailModal={this.hideEmailModal}
             onSubmit={this.submitEmailVerificationCode}
+            emailid={this.state.email}
+            resendCategory="sign_up"
           />
         ) : (
             <></>

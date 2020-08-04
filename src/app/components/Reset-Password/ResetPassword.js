@@ -32,8 +32,17 @@ export class ResetPassword extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log('props', nextProps);
-    if (nextProps.auth.emailVerificationSend == true)
+    if (nextProps.auth.emailVerificationSend == true) {
       this.props.history.push('/password-change');
+      store.dispatch({type: 'EMAIL_VERIFICATION_SEND_SUCCESS', payload: null});
+    }
+    if (nextProps.auth.emailVerificationSend == false) {
+      this.setState({emailError: 'No such user Found.Please Register'});
+      setTimeout(() => {
+        this.setState({emailError: ''});
+      }, 1000);
+      store.dispatch({type: 'EMAIL_VERIFICATION_SEND_SUCCESS', payload: null});
+    }
   }
   submit = (e) => {
     e.preventDefault();
@@ -44,7 +53,7 @@ export class ResetPassword extends Component {
     } else {
       let emailError = '';
       if (!email) {
-        emailError = "don't left blank";
+        emailError = 'Field is Required';
       } else if (!validEmailRegex.test(email))
         emailError = 'Please Enter a Valid Email !';
       this.setState({

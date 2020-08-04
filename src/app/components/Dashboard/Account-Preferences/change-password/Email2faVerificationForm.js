@@ -5,6 +5,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {clearErrors} from '../../../../redux/actions/errorActions';
 import {Slide} from 'react-awesome-reveal';
 import store from '../../../../Redux_Store/store';
+import {resendEmailAPI} from '../../../confirm-email-code/confirm-mail-api';
 import {withAlert} from 'react-alert';
 class Email2faVerfication extends Component {
   constructor(props) {
@@ -17,11 +18,47 @@ class Email2faVerfication extends Component {
       faCodeError: '',
       formError: '',
       isDirty: false,
+      disabled: '',
+      seconds: 60,
+      result: '',
     };
   }
 
   errorMap = {
     password_or_email_invalid: 'Invalid Email or Password!',
+  };
+
+  componentDidMount = () => {
+    if (this.state.seconds > 0) {
+      this.timer = setInterval(() => {
+        let seconds = this.state.seconds - 1;
+        this.setState({seconds});
+      }, 1000);
+    }
+  };
+
+  componentWillUpdate = (newProps, newState) => {
+    if (this.state.seconds === 1) {
+      clearInterval(this.timer, this.setState({disabled: 'show'}));
+    }
+    if (newState.seconds === 0) {
+      this.setState({seconds: 60});
+    }
+  };
+
+  handleResendEmail = (e) => {
+    e.preventDefault();
+    resendEmailAPI.resendEmail(
+      this.props.profile.profile.email,
+      'change_password',
+    );
+    this.setState({result: ''});
+    if (this.state.seconds > 0) {
+      this.timer = setInterval(() => {
+        let seconds = this.state.seconds - 1;
+        this.setState({seconds, disabled: ''});
+      }, 1000);
+    }
   };
 
   emailCodeChange = (e) => {
@@ -46,8 +83,22 @@ class Email2faVerfication extends Component {
     this.setState({faCode, faCodeError, formError: ''});
   };
   componentWillReceiveProps = (nextProps) => {
+    console.log('nextProps', nextProps);
     if (nextProps.errors === 'Token MisMatch') {
       this.props.alert.error('Wrong Token or Password Entered');
+      setTimeout(() => {
+        store.dispatch({type: 'SET_ERRORS', payload: null});
+      }, 1000);
+    }
+
+    if (nextProps.auth.resendMailStatus === true) {
+      this.setState({
+        result: 'Code Sucessfully Send on registerd email id',
+      });
+      store.dispatch({type: 'RESEND_EMAIL_STATUS', payload: null});
+      setTimeout(() => {
+        this.setState({result: ''});
+      }, 2000);
     }
 
     if (nextProps.auth.passwordChanged === true) {
@@ -104,10 +155,15 @@ class Email2faVerfication extends Component {
           </div>
           <Slide direction="right">
             <div className="main-body">
-              <div className="form-body white-bg">
+              <div className="form-body white-bg" style={{minWidth: '35rem'}}>
                 <h3>Security Verification</h3>
-                <div className="form-container">
-                  <div className="a5-login-field">
+                <div className="form-container" style={{minWidth: '33rem'}}>
+                  <span style={{marginLeft: '3rem'}}>
+                    <strong style={{fontWeight: '500', color: '#f9a931'}}>
+                      {this.state.result}
+                    </strong>
+                  </span>
+                  <div className="a5-login-field" style={{marginTop: '-31px'}}>
                     <input
                       onInput={this.emailCodeChange}
                       type="text"
@@ -118,7 +174,44 @@ class Email2faVerfication extends Component {
                     </span>
                   </div>
 
-                  <div className="a5-login-field">
+                  <div
+                    className=" d-flex justify-content-around"
+                    style={{marginTop: '28px'}}
+                  >
+                    <div className="emailMsg">
+                      {' '}
+                      <span
+                        style={{
+                          fontWeight: '100',
+                          fontSize: '14px',
+                        }}
+                      >
+                        Enter the 6 digit code received by{' '}
+                        <strong style={{fontWeight: '500', color: '#f9a931'}}>
+                          {this.props.profile.profile.email}
+                        </strong>
+                      </span>
+                    </div>
+                    <div className="already">
+                      <button
+                        disabled={!this.state.disabled}
+                        style={{
+                          fontSize: '14px',
+                          color: this.state.disabled ? '#f9a931' : '#666666',
+                          border: 'none',
+                          background: 'none',
+                          marginTop: '8px',
+                          outline: 'none',
+                        }}
+                        onClick={this.handleResendEmail}
+                      >
+                        Resend Email{' '}
+                        {this.state.disabled ? null : `${this.state.seconds}s`}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="a5-login-field" style={{marginTop: '-31px'}}>
                     <input
                       onInput={this.google2FACodeChange}
                       type="text"
