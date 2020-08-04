@@ -1,8 +1,9 @@
-import {GET_ALL_API_SECRET_KEY} from '../types';
+import {GET_ALL_API_SECRET_KEY, GENERATE_KEY_PAIR_STATUS} from '../types';
 
 const initialState = {
   apisecretkeys: [],
   loading: true,
+  generateKeyPairStatus: null,
 };
 
 export default (state = initialState, action) => {
@@ -12,6 +13,11 @@ export default (state = initialState, action) => {
         ...state,
         apiSecretKeysArray: action.payload,
         loading: false,
+      };
+    case GENERATE_KEY_PAIR_STATUS:
+      return {
+        ...state,
+        generateKeyPairStatus: action.payload,
       };
     default:
       return state;

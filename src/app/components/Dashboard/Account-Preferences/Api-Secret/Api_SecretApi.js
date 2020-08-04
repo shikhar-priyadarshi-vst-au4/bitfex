@@ -1,7 +1,10 @@
 import axios from 'axios';
 import store from '../../../../Redux_Store/store';
 import API from '../../../../Redux_Store/newConfig';
-import {GET_ALL_API_SECRET_KEY} from '../../../../Redux_Store/types';
+import {
+  GET_ALL_API_SECRET_KEY,
+  GENERATE_KEY_PAIR_STATUS,
+} from '../../../../Redux_Store/types';
 import {getAllApiSecret} from './Api_SecretDispatcher';
 
 class ApiSecretKeyAPI {
@@ -58,9 +61,11 @@ class ApiSecretKeyAPI {
         if (Array.isArray(ar)) ar.unshift({...value.data, secret: secret_key});
         else ar = [{...value.data, secret: secret_key}];
         store.dispatch(getAllApiSecret(ar));
+        store.dispatch({type: GENERATE_KEY_PAIR_STATUS, payload: true});
       }
     } catch (er) {
       console.log(er);
+      store.dispatch({type: GENERATE_KEY_PAIR_STATUS, payload: false});
     }
   };
 
@@ -73,9 +78,10 @@ class ApiSecretKeyAPI {
         let ar = store.getState().apikeys.apiSecretKeysArray;
         let newarr = ar.filter((el) => el.name != data.name);
         store.dispatch(getAllApiSecret(newarr));
+        store.dispatch({type: GENERATE_KEY_PAIR_STATUS, payload: true});
       }
     } catch (er) {
-      console.log(er);
+      store.dispatch({type: GENERATE_KEY_PAIR_STATUS, payload: false});
     }
   };
 
