@@ -39,17 +39,18 @@ export class Withdraw extends Component {
 
   render() {
     const {heading, routes} = this.props;
+    console.log('props', this.props.profile.profile.enabled_2fa);
+    console.log('hitted');
     console.log('apicollection', this.state.currencyArrayForSelect);
     const {allWithdrawBTC} = this.props.withdraw;
     return (
       <>
-        {this.props.profile.profile.enabled_2fa && (
+        {!this.props.profile.profile.enabled_2fa && (
           <div className="main d-flex justify-content-center mt-5">
-            {' '}
             <NotAuthorized />
           </div>
         )}
-        {!this.props.profile.profile.enabled_2fa && (
+        {this.props.profile.profile.enabled_2fa && (
           <div className="main">
             <div className="main-header">
               <h3>Exchange Wallet</h3>
