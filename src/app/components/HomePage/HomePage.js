@@ -1,20 +1,20 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import greendotLeft from '../../../lp-assets/dreen-dot-left.svg';
 import greendotRight from '../../../lp-assets/green-dot-rght.svg';
-import smartCryptoLaptop from '../../../lp-assets/smart-crypto-laptop.png';
-import smartProduct1 from '../../../lp-assets/smart-prod-1.svg';
-import smartProduct2 from '../../../lp-assets/smart-product-2.png';
+import smartCryptoLaptop from '../../../lp-assets/Slice 2.svg';
+import smartProduct1 from '../../../lp-assets/Group 890.svg';
+import smartProduct2 from '../../../lp-assets/bullbear iphone 1.svg';
 import greenDownArrow from '../../../lp-assets/green-down-arrow.svg';
-import riskIcon from '../../../lp-assets/risk-icon.svg';
-import pipelineIcon from '../../../lp-assets/pipline-icon.svg';
-import portfolioIcon from '../../../lp-assets/portfolio-icon.svg';
-import A5TIcon from '../../../lp-assets/a5t-icon.svg';
-import gravityDeviceUIMockup from '../../../lp-assets/Gravity-Devices-UI-Mockup-Set-Scene.png';
-import gravityDeviceUIMockupIpad from '../../../lp-assets/Gravity-Devices-UI-Mockup-Set-Scene.png';
-import {connect} from 'react-redux';
+import riskIcon from '../../../lp-assets/Group 915.png';
+import pipelineIcon from '../../../lp-assets/Group 916.png';
+import portfolioIcon from '../../../lp-assets/Subtract.png';
+import A5TIcon from '../../../lp-assets/Union.png';
+import gravityDeviceUIMockup from '../../../lp-assets/lap.svg';
+import gravityDeviceUIMockupIpad from '../../../lp-assets/lap.svg';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import '../../../landing-page.scoped.css';
 
 class HomePage extends Component {
@@ -36,15 +36,15 @@ class HomePage extends Component {
               of features on crypto’s most sophisticated liquidity engine.
             </p>
             <div className="smart-crypto-register d-flex justify-content-center align-items-center">
-              <div className="green-left">
+              {/* <div className="green-left">
                 <img src={greendotLeft} alt="" />
-              </div>
+              </div> */}
               <div className="smart-crypto-register">
                 <Link to="/register">Register</Link>
               </div>
-              <div className="green-right">
+              {/* <div className="green-right">
                 <img src={greendotRight} alt="" />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="image-holder">
@@ -116,7 +116,7 @@ class HomePage extends Component {
             Derivatives Trading
           </h3>
           <div className="down-arrow">
-            <img src={greenDownArrow} alt="" />
+            <img src={greenDownArrow} alt="" style={{ transform: "scaleY(-1)" }} />
           </div>
 
           <div className="features d-flex flex-wrap">

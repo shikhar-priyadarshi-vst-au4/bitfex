@@ -156,8 +156,9 @@ class Login extends Component {
       <>
         <div className="dark-bg dark-body">
           <div className="form-head">
-            <h3>Trade Smart</h3>
-            <p>On the most simple crypto derivatives platform.</p>
+            <h3>Trade Simple</h3>
+            <p>Alpha5 is building the most trustworthy</p>
+            <p>cryptocurrency derivatives trading platform</p>
           </div>
           <div className="form-body">
             <h3>Sign in to your account</h3>
@@ -203,17 +204,12 @@ class Login extends Component {
                 >
                   LOGIN
                 </a>
-                <div className="already">
-                  <span>Don't have an account?</span> <br />
-                  <Link to="/register">REGISTER</Link>
-                </div>
+
               </div>
-            </div>
-          </div>
-          <div className="reset-password">
-            <div className="reset-password-description">
-              <span>Trouble signing in ? </span>
-              <Link to={'reset-password'}> Forgot Password</Link>
+              <div className="already">
+                <span style={{ marginRight: "5px" }}>Don't have an account?</span>
+                <Link to="/register">REGISTER</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -229,6 +225,14 @@ class Login extends Component {
     );
   }
 }
+
+
+// {/* <div className="reset-password">
+//   <div className="reset-password-description">
+//     <span>Trouble signing in ? </span>
+//     <Link to={'reset-password'}> Forgot Password</Link>
+//   </div>
+// </div> */}
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,

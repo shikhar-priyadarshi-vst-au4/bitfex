@@ -2,8 +2,10 @@
   --back-ground-white: #ffffff;
   --btn-skew: skew(-20deg, 0);
   --gold-pop: #ffb13c;
+  --blue-pop: #47A1FB;
   --faded-text: #828282;
   --black-text: #000000;
+  --white-text: #ffffff;
   --faded-white: #f2f2f2;
   --dark-bg: #151515;
   --form-text: #bdbdbd;
@@ -55,7 +57,7 @@ a:hover {
 }
 
 .coming-soon h3 {
-  color: var(--gold-pop);
+  color: var(--blue-pop);
   font-size: 4rem;
   text-align: center;
   margin: auto;
@@ -98,8 +100,8 @@ header.header.dark-bg {
 }
 
 .header-btn-holder .header-register span:nth-child(1) {
-  color: var(--black-text);
-  background-color: var(--gold-pop);
+  color: var(--white-text);
+  background-color: var(--blue-pop);
   text-transform: uppercase;
   font-family: var(--btn-font);
   font-size: 10px;
@@ -108,20 +110,20 @@ header.header.dark-bg {
   padding-right: 0.85rem;
   padding-left: 0.85rem;
   border-radius: 3px;
-  border-top: 1px solid var(--gold-pop);
-  border-left: 1px solid var(--gold-pop);
-  border-bottom: 1px solid var(--gold-pop);
+  border-top: 1px solid var(--blue-pop);
+  border-left: 1px solid var(--blue-pop);
+  border-bottom: 1px solid var(--blue-pop);
 }
 
 .header-btn-holder .header-register span:nth-child(2) {
   transform: skew(-12deg, 0) translateX(-0.5rem);
   display: inline-block;
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
   min-width: 0.7rem;
   border-radius: 0 3px 3px 0;
-  border-top: 1px solid var(--gold-pop);
-  border-right: 1px solid var(--gold-pop);
-  border-bottom: 1px solid var(--gold-pop);
+  border-top: 1px solid var(--blue-pop);
+  border-right: 1px solid var(--blue-pop);
+  border-bottom: 1px solid var(--blue-pop);
 }
 
 .header-btn-holder .header-login {
@@ -135,13 +137,13 @@ header.header.dark-bg {
   min-width: 0.7rem;
   border-radius: 3px 0 0 3px;
   min-height: 1.7rem;
-  border-top: 1.5px solid var(--gold-pop);
-  border-left: 1.5px solid var(--gold-pop);
-  border-bottom: 1.5px solid var(--gold-pop);
+  border-top: 1.5px solid var(--blue-pop);
+  border-left: 1.5px solid var(--blue-pop);
+  border-bottom: 1.5px solid var(--blue-pop);
 }
 
 .header-btn-holder .header-login span:nth-child(2) {
-  color: var(--black-text);
+  color: var(--blue-pop);
   background-color: var(--back-ground-white);
   text-transform: uppercase;
   font-family: var(--btn-font);
@@ -155,15 +157,15 @@ header.header.dark-bg {
   min-width: 4.85rem;
   text-align: center;
 
-  border-top: 1.5px solid var(--gold-pop);
-  border-right: 1.5px solid var(--gold-pop);
-  border-bottom: 1.5px solid var(--gold-pop);
+  border-top: 1.5px solid var(--blue-pop);
+  border-right: 1.5px solid var(--blue-pop);
+  border-bottom: 1.5px solid var(--blue-pop);
 }
 
 a.exchange-btn-header {
   padding: 1rem;
-  border-left: 1px solid var(--gold-pop);
-  border-right: 1px solid var(--gold-pop);
+  border-left: 1px solid var(--form-text);
+  border-right: 1px solid var(--form-text);
   color: var(--black-text);
   font-weight: bolder;
   transition: 0.8s ease-out;
@@ -171,7 +173,7 @@ a.exchange-btn-header {
 }
 
 a.exchange-btn-header:hover {
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
   color: var(--black-text);
 }
 
@@ -182,7 +184,7 @@ a.exchange-btn-header:hover {
 }
 
 .menu-btn-bar {
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
   margin-top: 0.3rem;
   display: block;
   width: 2.35rem;
@@ -212,20 +214,32 @@ a.exchange-btn-header:hover {
 }
 
 .smart-crypto-notice p {
-  max-width: 70%;
+  max-width: 75%;
   margin: 1.6rem auto;
   color: var(--black-text);
+  font-family: DM Sans;
+font-style: normal;
+font-weight: 500;
+font-size: 21px;
+line-height: 30px;
+text-align: center;
+color: #828282;
 }
 
 .smart-crypto-register a {
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
   padding: 0.8rem 2.5rem;
   text-transform: uppercase;
   font-style: var(--btn-font);
   font-weight: bolder;
   border-radius: 3px;
   margin: 1rem;
-  color: var(--black-text);
+  color: var(--white-text);
+  font-family: Bai Jamjuree;
+/* font-style: normal;
+font-weight: bold;
+font-size: 21px;
+line-height: 24px; */
 }
 
 .smart-crypto .image-holder {
@@ -291,7 +305,7 @@ a.exchange-btn-header:hover {
 }
 
 .smart-prod-desc h3 {
-  color: var(--gold-pop);
+  color: var(--blue-pop);
   font-size: 1.4rem;
   transition: all 0.8s ease-out;
 }
@@ -321,7 +335,7 @@ a.exchange-btn-header:hover {
 }
 
 .smart-prod-desc ul li::before {
-  background: var(--gold-pop);
+  background: var(--blue-pop);
   border-radius: 1px;
   content: '';
   transform: rotate(-45deg);
@@ -336,7 +350,7 @@ a.exchange-btn-header:hover {
   padding: 0.5rem 2rem;
   text-transform: uppercase;
   border-radius: 4px;
-  border: 0.5px solid var(--gold-pop);
+  border: 0.5px solid var(--blue-pop);
   font-weight: bolder;
   font-size: 0.8rem;
   margin: 1rem 0;
@@ -346,7 +360,7 @@ a.exchange-btn-header:hover {
 }
 
 .contracts-btn:hover {
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
   color: var(--black-text);
 }
 
@@ -365,16 +379,17 @@ a.exchange-btn-header:hover {
 }
 
 .img-bottom-bg .smart-crypto-register a {
-  background-color: var(--dark-bg);
-  border: 1px solid var(--gold-pop);
+  background-color: var(--blue-pop);
+  border: 1px solid var(--blue-pop);
   color: var(--back-ground-white);
   transition: 0.8s ease-out;
+  
 }
 
-.img-bottom-bg .smart-crypto-register a:hover {
-  background-color: var(--gold-pop);
+/* .img-bottom-bg .smart-crypto-register a:hover {
+  background-color: var(--blue-pop);
   color: var(--black-text);
-}
+} */
 
 .smart-prod-suite .img-bottom-bg .reg-an-account {
   width: 30%;
@@ -556,12 +571,12 @@ a.exchange-btn-header:hover {
 }
 
 .dot-list li.selected {
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
   min-width: 25px;
 }
 
 .start-trading-now {
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
   height: 440px;
 }
 
@@ -683,7 +698,7 @@ footer.footer {
 }
 
 .footer-list li:nth-child(1) {
-  color: var(--gold-pop);
+  color: var(--blue-pop);
   font-size: 1rem;
   /* text-transform: uppercase; */
 }
@@ -725,7 +740,7 @@ footer.footer {
 
 .api a {
   padding: 10px;
-  border: 1px solid var(--gold-pop);
+  border: 1px solid var(--blue-pop);
   border-radius: 5px;
   color: var(--faded-white);
   transition: 0.8s ease-out;
@@ -733,7 +748,7 @@ footer.footer {
 
 .api a:hover {
   color: var(--black-text);
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
 }
 
 .api h3 {
@@ -763,18 +778,28 @@ footer.footer {
 }
 
 .form-head h3 {
-  color: var(--gold-pop);
+  color: var(--blue-pop);
+  font-family: DM Sans;
+font-style: normal;
+font-weight: 500;
+font-size: 56px;
+line-height: 60px;
 }
 
 .form-head p {
-  max-width: 31.25rem;
+  /* max-width: 31.25rem; */
   margin: 0 auto;
   padding: 0 3rem;
+  font-family: DM Sans;
+font-style: normal;
+font-weight: 500;
+font-size: 21px;
+line-height: 30px;
 }
 
 .form-body {
   background-color: var(--back-ground-white);
-  max-width: 30.25rem;
+  max-width: 380px;
   margin: 0.5rem auto;
   border-radius: 5px;
   contain: content;
@@ -785,6 +810,13 @@ footer.footer {
 .form-body h3 {
   text-align: center;
   padding-top: 1rem;
+  letter-spacing: -1px;
+  font-family: DM Sans;
+  color: #BDBDBD;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 50px;
 }
 
 .form-body h3.error {
@@ -808,13 +840,13 @@ footer.footer {
 }
 
 .form-body .form-container {
-  max-width: 25.625rem;
+  max-width: 320px;
   margin: 0 auto;
   padding: 0;
 }
 
 .a5-login-field {
-  margin: 0.5rem 0;
+  margin: 1rem 0;
   padding-top: 2rem;
   height: 60px;
 }
@@ -824,7 +856,7 @@ footer.footer {
   border: none;
   border-bottom: 1.5px solid var(--form-text);
   padding: 0.8rem 0;
-  color: var(--form-text);
+  color: var(--blue-pop);
   outline: none;
 }
 
@@ -833,24 +865,30 @@ footer.footer {
 }
 
 .a5-login-field input:focus::-webkit-input-placeholder {
-  color: var(--gold-pop);
+  color: var(--blue-pop);
 }
 
 .a5-login-field input:focus {
-  color: var(--gold-pop);
-  border-bottom: 1.5px solid var(--gold-pop);
+  color: var(--blue-pop);
+  border-bottom: 1.5px solid var(--blue-pop);
 }
 
 .a5-login-error {
   color: red;
   font-size: 0.8rem;
   /*  */
-  width: 100%;
+  /* width: 100%; */
   display: block;
 }
 
 .agreement {
   margin-top: 4rem;
+}
+
+#agree-terms{
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: center;
 }
 
 .a5-checkbox {
@@ -894,7 +932,7 @@ footer.footer {
 
 /* When the checkbox is checked, add a blue background */
 .a5-checkbox input:checked ~ .checkmark {
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -924,7 +962,8 @@ footer.footer {
 
 .form-btn-holder {
   display: flex;
-  padding-bottom: 3rem;
+  justify-content: center;
+  padding-bottom: 1rem;
   margin-top: 5rem;
 }
 
@@ -938,7 +977,7 @@ footer.footer {
 }
 
 .reset-password-description a {
-  color: var(--gold-pop);
+  color: var(--blue-pop);
 }
 
 .reset-password-description span {
@@ -946,49 +985,55 @@ footer.footer {
 }
 
 .already {
-  margin-left: auto;
-  text-align: right;
+  text-align: center;
+  margin-bottom: 2em;
 }
 
 .already a {
-  color: var(--gold-pop) !important;
+  color: var(--blue-pop) !important;
   font-family: var(--btn-font);
   font-weight: bolder;
 }
 
 .form-register {
   padding: 0.5rem 1rem;
-  background-color: var(--gold-pop);
+  width: 100%;
+  text-align: center;
+  background-color: var(--blue-pop);
   border-radius: 3px;
   font-weight: bolder;
   font-family: var(--btn-font);
-  color: var(--black-text) !important;
+  color: #ffffff !important;
   cursor: pointer;
 }
 
 .i-agree-text {
   color: var(--black-text) !important;
-  font-weight: bolder;
+  font-family: DM Sans;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 23px;
 }
 
 .i-agree-text a {
   color: var(--black-text) !important;
   font-weight: bolder;
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 .i-agree-text a:hover {
-  color: var(--gold-pop) !important;
+  color: var(--blue-pop) !important;
 }
 
 #registerForm .a5-login-field {
-  margin: 0;
+  margin: 0em 0em 1em  0em;
   padding: 0;
-  height: 52px;
+  height: 55px;
 }
 
 #registerForm .a5-login-field input {
-  padding: 0.2rem 0;
+  padding: 0.4rem 0;
 }
 
 .a5-login-field.form-style .a5-select-input {
@@ -1009,7 +1054,7 @@ footer.footer {
 }
 
 #registerForm .form-btn-holder {
-  margin-top: 2.5rem;
+  margin-top: 1rem;
 }
 
 #registerForm .a5-login-error {
@@ -1334,15 +1379,18 @@ footer.footer {
     margin-top: 2rem;
   }
   .form-body {
-    max-width: 95%;
+    max-width: 85%;
   }
 
   .form-body .form-container {
-    max-width: 90%;
+    max-width: 80%;
   }
   .smart-crypto .image-holder img {
     width: 165%;
     transform: translate(-20%, 0px);
+  }
+  .i-agree-text{
+    font-size: 0.5em;
   }
 }
 
@@ -1367,6 +1415,7 @@ footer.footer {
   height: 75px;
   text-indent: -9999px;
   overflow: hidden;
+  color: var(--blue-pop);
 }
 
 .sticky-telegram a::before {
@@ -1415,7 +1464,7 @@ a.weibo {
   border-radius: 24px;
   margin-top: 0.35rem !important;
   overflow: hidden;
-  background-color: var(--gold-pop);
+  background-color: var(--blue-pop);
   padding-left: 0.05rem;
 }
 

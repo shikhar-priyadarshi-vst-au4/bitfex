@@ -1,15 +1,16 @@
 import React from 'react';
-import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from '../home-page/HomePageContent';
 import RegisterContent from '../register/RegisterContent';
 import LoginContent from '../login/LoginContent';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import ForgotPassword from '../ForgotPassContent/ForgotPasswordContent';
 import ResetPassword from '../reset-password-form/reset-password-form-content';
-import {positions, Provider as AlertProvider} from 'react-alert';
+import { positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+import { Acceptance } from '../../components/Acceptance/acceptance'
 
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import store from '../../Redux_Store/store';
 
 const options = {
@@ -26,6 +27,7 @@ export default class App extends React.Component {
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route path="/register" component={RegisterContent} />
+              {/* <Route path="/acceptance" component={Acceptance} /> */}
               <Route path="/login" component={LoginContent} />
               <Route path="/reset-password" component={ForgotPassword} />
               <Route path="/password-change" component={ResetPassword} />

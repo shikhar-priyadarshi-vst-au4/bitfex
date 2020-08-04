@@ -1,20 +1,20 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Register.css';
 import A5DBSelect from '../Dashboard/a5-themed-select/a5-themed-select';
 import isEmpty from '../../validation/is-empty';
-import {connect} from 'react-redux';
-import {compose} from 'redux';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import {
   verifyEmail,
   hideEmailVerification,
 } from '../../redux/actions/authActions';
 import ConfirmEmailModal from '../confirm-email-code/confirm-email';
-import {withRouter} from 'react-router-dom';
-import {clearErrors} from '../../redux/actions/errorActions';
-import {registerAPI} from './Register_Api';
+import { withRouter } from 'react-router-dom';
+import { clearErrors } from '../../redux/actions/errorActions';
+import { registerAPI } from './Register_Api';
 import store from '../../Redux_Store/store';
-import {withAlert} from 'react-alert';
+import { withAlert } from 'react-alert';
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
 );
@@ -73,7 +73,7 @@ export class Register extends Component {
 
   onSubmit = () => {
     this.checkAgreementAndCountry();
-    store.dispatch({type: 'EMAIL_EXIST', payload: null});
+    store.dispatch({ type: 'EMAIL_EXIST', payload: null });
     store.dispatch({
       type: 'SHOW_EMAIL_VERIFICATION',
       payload: false,
@@ -81,7 +81,7 @@ export class Register extends Component {
   };
 
   checkAgreementAndCountry = () => {
-    const {agreement} = this.state;
+    const { agreement } = this.state;
     let agreementErr = '';
     if (!agreement) agreementErr = 'Please agree to terms first !';
     this.setErrors(agreementErr);
@@ -145,7 +145,7 @@ export class Register extends Component {
 
   submit = () => {
     console.log('submitted');
-    let {email, firstName, lastName, password, confirmPass} = this.state;
+    let { email, firstName, lastName, password, confirmPass } = this.state;
 
     let userData = {
       email,
@@ -161,23 +161,23 @@ export class Register extends Component {
     let firstName = e.target.value;
     let firstNameErr = '';
     if (!firstName) firstNameErr = 'First Name is required !';
-    this.setState({firstName, firstNameErr, formError: ''});
+    this.setState({ firstName, firstNameErr, formError: '' });
   };
 
   lastNameHandle = (e) => {
     let lastName = e.target.value;
     let lastNameErr = '';
     if (!lastName) lastNameErr = 'Last Name is required !';
-    this.setState({lastName, lastNameErr, formError: ''});
+    this.setState({ lastName, lastNameErr, formError: '' });
   };
 
   emailHandle = (e) => {
-    store.dispatch({type: 'EMAIL_EXIST', payload: null});
+    store.dispatch({ type: 'EMAIL_EXIST', payload: null });
     let email = e.target.value;
     let emailErr = '';
     if (!email) emailErr = 'Email is required !';
     else if (!validEmailRegex.test(email)) emailErr = 'Invalid Email !';
-    this.setState({email, emailErr, formError: ''});
+    this.setState({ email, emailErr, formError: '' });
   };
 
   passwordHandle = (e) => {
@@ -189,7 +189,7 @@ export class Register extends Component {
     else if (!validPassword.test(password))
       passwordErr =
         'at least 1 lowercase, 1 uppercase, 1 special & 1 number character required!';
-    this.setState({password, passwordErr, formError: ''});
+    this.setState({ password, passwordErr, formError: '' });
   };
 
   cnfrmPassHandle = (e) => {
@@ -197,7 +197,7 @@ export class Register extends Component {
     let confirmPassErr = '';
     if (confirmPass != this.state.password)
       confirmPassErr = 'Passwords must Match !';
-    this.setState({confirmPass, confirmPassErr, formError: ''});
+    this.setState({ confirmPass, confirmPassErr, formError: '' });
   };
 
   agreementHandle = (e) => {
@@ -216,7 +216,7 @@ export class Register extends Component {
   };
 
   hideEmailModal = () => {
-    this.setState({showEmailVerificationModal: false});
+    this.setState({ showEmailVerificationModal: false });
   };
 
   submitEmailVerificationCode = (token) => {
@@ -240,15 +240,41 @@ export class Register extends Component {
     // console.log(this.state.showEmailVerificationModal);
     return (
       <>
-        <div className="vh-100 dark-bg dark-body">
+        <div className="dark-bg dark-body">
           <div className="form-head">
-            <h3>Trade Smart</h3>
-            <p>On the most simple crypto derivatives platform.</p>
+            <h3>Trade Simple</h3>
+            <p>Alpha5 is building the most trustworthy</p>
+            <p>cryptocurrency derivatives trading platform</p>
           </div>
           <div className="form-body">
             <h3>Create an account</h3>
             {formError ? <h3 className="error">{formError}</h3> : <></>}
             <div id="registerForm" className="form-container">
+              <div className="a5-login-field">
+                <input
+                  onInput={this.emailHandle}
+                  type="text"
+                  placeholder="Email"
+                />
+                <span className="a5-login-error">{emailErr}</span>
+              </div>
+              <div className="a5-login-field">
+                <input
+                  onInput={this.passwordHandle}
+                  type="password"
+                  placeholder="Password"
+                />
+
+                <span className="a5-login-error">{passwordErr}</span>
+              </div>
+              <div className="a5-login-field">
+                <input
+                  onInput={this.cnfrmPassHandle}
+                  type="password"
+                  placeholder="Confirm Password"
+                />
+                <span className="a5-login-error">{confirmPassErr}</span>
+              </div>
               <div className="a5-login-field">
                 <input
                   onInput={this.firstNameHandle}
@@ -265,32 +291,7 @@ export class Register extends Component {
                 />
                 <span className="a5-login-error">{lastNameErr}</span>
               </div>
-              <div className="a5-login-field">
-                <input
-                  onInput={this.emailHandle}
-                  type="text"
-                  placeholder="Email"
-                />
-                <span className="a5-login-error">{emailErr}</span>
-              </div>
-              <div className="a5-login-field">
-                <input
-                  onInput={this.passwordHandle}
-                  type="password"
-                  placeholder="Password"
-                />
-                <span className="a5-login-error">{passwordErr}</span>
-              </div>
-              <div className="a5-login-field">
-                <input
-                  onInput={this.cnfrmPassHandle}
-                  type="password"
-                  placeholder="Confirm Password"
-                />
-                <span className="a5-login-error">{confirmPassErr}</span>
-              </div>
-
-              <div className="agreement">
+              <div id="agree-terms">
                 <label className="a5-checkbox">
                   <span className="i-agree-text">
                     I Agree To The{' '}
@@ -312,11 +313,12 @@ export class Register extends Component {
                 >
                   REGISTER
                 </a>
-                <div className="already">
-                  <span>Already have an account?</span> <br />
-                  <Link to="/login">LOGIN</Link>
-                </div>
               </div>
+              <div className="already">
+                <span style={{ marginRight: "5px" }}>Already have an account?</span>
+                <Link to="/login">LOGIN</Link>
+              </div>
+
             </div>
           </div>
         </div>
@@ -326,12 +328,13 @@ export class Register extends Component {
             onSubmit={this.submitEmailVerificationCode}
           />
         ) : (
-          <></>
-        )}
+            <></>
+          )}
       </>
     );
   }
 }
+
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
