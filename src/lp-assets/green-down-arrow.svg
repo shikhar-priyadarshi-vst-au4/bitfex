@@ -1,4 +1,4 @@
-<svg width="90" height="70" viewBox="0 0 90 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- <svg width="90" height="70" viewBox="0 0 90 70" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d)">
 <path d="M64.5 25.5L46.4142 43.5858C45.6332 44.3668 44.3668 44.3668 43.5858 43.5858L25.5 25.5" stroke="#32E83C" stroke-width="3"/>
 </g>
@@ -13,4 +13,8 @@
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
 </filter>
 </defs>
+</svg>
+ -->
+<svg xmlns="http://www.w3.org/2000/svg" width="46" height="45" viewBox="0 0 46 45" fill="none">
+<path d="M2 24L20.1716 5.82842C21.7337 4.26633 24.2663 4.26633 25.8284 5.82842L44 24" stroke="#2297F1" stroke-width="3"/>
 </svg>
