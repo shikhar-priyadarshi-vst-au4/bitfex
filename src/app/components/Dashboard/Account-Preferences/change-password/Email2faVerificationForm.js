@@ -174,10 +174,7 @@ class Email2faVerfication extends Component {
                     </span>
                   </div>
 
-                  <div
-                    className=" d-flex justify-content-around"
-                    style={{marginTop: '28px'}}
-                  >
+                  <div className=" d-flex " style={{marginTop: '28px'}}>
                     <div className="emailMsg">
                       {' '}
                       <span
@@ -192,7 +189,7 @@ class Email2faVerfication extends Component {
                         </strong>
                       </span>
                     </div>
-                    <div className="already">
+                    <div className="already ml-3">
                       <button
                         disabled={!this.state.disabled}
                         style={{
@@ -211,7 +208,7 @@ class Email2faVerfication extends Component {
                     </div>
                   </div>
 
-                  <div className="a5-login-field" style={{marginTop: '-31px'}}>
+                  <div className="a5-login-field" style={{marginTop: '-53px'}}>
                     <input
                       onInput={this.google2FACodeChange}
                       type="text"
@@ -221,21 +218,26 @@ class Email2faVerfication extends Component {
                       {this.state.faCodeError}
                     </span>
                   </div>
-
-                  <div className="form-btn-holder align-items-center mt-5">
-                    <a
-                      onClick={previous}
-                      className="form-register align-items-center"
-                    >
+                  <div className=" d-flex " style={{marginTop: '32px'}}>
+                    <div className="emailMsg">
+                      <span
+                        style={{
+                          fontWeight: '100',
+                          fontSize: '14px',
+                        }}
+                      >
+                        Enter the 6 digit 2FA code from google authenticator app
+                      </span>
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-around mt-5 mb-3">
+                    <button onClick={previous} className="form-btn yellow">
                       Previous
-                    </a>
+                    </button>
 
-                    <a
-                      onClick={this.onSubmit}
-                      className="form-register align-items-center ml-2"
-                    >
+                    <button onClick={this.onSubmit} className="form-btn yellow">
                       Change Password
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

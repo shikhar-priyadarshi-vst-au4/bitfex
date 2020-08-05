@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import A5Logo from '../../../lp-assets/a5-black-header-logo.svg';
-import '../../../landing-page.scoped.css';
+//import '../../../landing-page.scoped.css';
 
 class index extends Component {
   constructor(props) {

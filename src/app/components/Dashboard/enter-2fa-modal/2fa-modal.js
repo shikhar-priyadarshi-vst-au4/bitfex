@@ -180,7 +180,7 @@ class MFAModal extends Component {
           <div
             onClick={(e) => e.stopPropagation()}
             className="box-modal"
-            style={{minHeight: '38rem', minWidth: '40rem'}}
+            style={{minHeight: '35rem', minWidth: '40rem'}}
           >
             <div className="box-modal-header text-center">
               <h3>Security Verification</h3>
@@ -239,10 +239,7 @@ class MFAModal extends Component {
                         {this.state.emailCodeError}
                       </span>
                     </div>
-                    <div
-                      className=" d-flex justify-content-around"
-                      style={{marginTop: '28px'}}
-                    >
+                    <div className=" d-flex" style={{marginTop: '32px'}}>
                       <div className="emailMsg">
                         {' '}
                         <span
@@ -257,7 +254,7 @@ class MFAModal extends Component {
                           </strong>
                         </span>
                       </div>
-                      <div className="already">
+                      <div className="already ml-5">
                         <button
                           disabled={!this.state.disabled}
                           style={{
@@ -279,7 +276,7 @@ class MFAModal extends Component {
                     </div>
                     <div
                       className="a5-login-field"
-                      style={{marginTop: '-18px'}}
+                      style={{marginTop: '-52px'}}
                     >
                       <input
                         onInput={this.google2FACodeChange}
@@ -290,7 +287,7 @@ class MFAModal extends Component {
                         {this.state.faCodeError}
                       </span>
                     </div>
-                    <div className=" d-flex " style={{marginTop: '28px'}}>
+                    <div className=" d-flex " style={{marginTop: '32px'}}>
                       <div className="emailMsg">
                         {' '}
                         <span
@@ -304,14 +301,12 @@ class MFAModal extends Component {
                         </span>
                       </div>
                     </div>
-                    <div className="form-btn-holder align-items-center mt-5">
-                      <a
-                        onClick={this.onSubmit}
-                        className="form-register align-items-center"
-                      >
-                        Submit
-                      </a>
-                    </div>
+                    <button
+                      onClick={this.onSubmit}
+                      className="form-btn yellow mt-3"
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
               </div>

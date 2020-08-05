@@ -6,6 +6,7 @@ import {compose} from 'redux';
 import isEmpty from '../../validation/is-empty';
 import {resendEmailAPI} from './confirm-mail-api';
 import {withAlert} from 'react-alert';
+import './confirm-mail.css';
 import store from '../../Redux_Store/store';
 class VerifyEmailCode extends Component {
   constructor(props) {

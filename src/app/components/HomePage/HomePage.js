@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import greendotLeft from '../../../lp-assets/dreen-dot-left.svg';
 import greendotRight from '../../../lp-assets/green-dot-rght.svg';
 import smartCryptoLaptop from '../../../lp-assets/Slice 2.svg';
@@ -12,9 +12,9 @@ import portfolioIcon from '../../../lp-assets/Subtract.png';
 import A5TIcon from '../../../lp-assets/Union.png';
 import gravityDeviceUIMockup from '../../../lp-assets/lap.svg';
 import gravityDeviceUIMockupIpad from '../../../lp-assets/lap.svg';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import '../../../landing-page.scoped.css';
 
 class HomePage extends Component {
@@ -116,7 +116,11 @@ class HomePage extends Component {
             Derivatives Trading
           </h3>
           <div className="down-arrow">
-            <img src={greenDownArrow} alt="" style={{ transform: "scaleY(-1)" }} />
+            <img
+              src={greenDownArrow}
+              alt=""
+              style={{transform: 'scaleY(-1)'}}
+            />
           </div>
 
           <div className="features d-flex flex-wrap">

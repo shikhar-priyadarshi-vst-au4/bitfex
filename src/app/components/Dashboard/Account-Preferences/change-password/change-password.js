@@ -213,12 +213,12 @@ class ChangePasswordFrom extends Component {
                       </span>
                     </div>
                     <div className="form-btn-holder align-items-center mt-5">
-                      <a
+                      <button
                         onClick={this.onSubmit}
-                        className="form-register align-items-center "
+                        className="form-btn yellow"
                       >
-                        Next
-                      </a>
+                        Continue
+                      </button>
                     </div>
                   </div>
                 </div>
