@@ -1,0 +1,66 @@
+.box-modal-email {
+    min-width: 32rem;
+    min-height: 18rem;
+    background-color: white;
+    max-width: 0;
+    margin: 10rem auto auto;
+    border-radius: 5px;
+    color: var(--default-color);
+}
+
+.box-modal-body-email {
+    margin: 39px 29px;
+}
+
+.securty-heading {
+    text-align: center;
+    padding-top: 1rem;
+    letter-spacing: -1px;
+    font-family: DM Sans;
+    color: #BDBDBD;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 50px;
+}
+
+.input-box-format input {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid var(--form-text);
+    padding: 0.8rem 0;
+    color: var(--blue-pop);
+    outline: none;
+}
+
+.form-btn-holder-email {
+    padding-bottom: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-verify {
+    padding: 0.5rem 1rem;
+    width: 34%;
+    text-align: center;
+    background-color: var(--blue-pop);
+    border-radius: 3px;
+    font-weight: bolder;
+    font-family: var(--btn-font);
+    color: #ffffff !important;
+    cursor: pointer;
+}
+
+.resend-mail {
+    font-size: 14px;
+    color: rgb(71, 161, 251);
+    border: none;
+    margin-left: 206px;
+    background: none;
+    margin-right: 5px;
+    outline: none;
+    margin-top: 5px;
+}
+
+.emailMsgclass {
+    margin-top: 15px;
+}

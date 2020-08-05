@@ -5,6 +5,7 @@ import {currencyOptions} from '../../fakeStore';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {withAlert} from 'react-alert';
+import {Empty} from 'antd';
 import './Withdraw.css';
 
 class WithdrawCoins extends Component {
@@ -240,13 +241,13 @@ class WithdrawCoins extends Component {
                 </li>
               </ul>
             </div>
-            <div className="table-container contained deposits mt-5 w-80 pb-3">
-              <div className="table-header">
-                <h3>Withdrawal History</h3>
-              </div>
-              <div className="a5-table d-flex-justify-content-center">
-                {location.pathname == BTC ? (
-                  <>
+            {location.pathname == BTC && allWithdrawBTC.length > 0 ? (
+              <>
+                <div className="table-container deposit-history w-80 mt-5">
+                  <div className="table-header">
+                    <h3>Deposit History</h3>
+                  </div>
+                  <div className="a5-table d-flex justify-content-center">
                     {allWithdrawBTC &&
                       allWithdrawBTC.map((item, index) => {
                         return (
@@ -268,10 +269,40 @@ class WithdrawCoins extends Component {
                           </table>
                         );
                       })}
-                  </>
-                ) : (
-                  <>
-                    {' '}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="d-flex justify-content-center mt-5">
+                <Empty
+                  image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                  imageStyle={{
+                    height: 60,
+                    marginBottom: '15px',
+                  }}
+                  description={
+                    <span>
+                      <strong
+                        style={{
+                          fontWeight: '500',
+                          color: '#f9a931',
+                          marginRight: '35px',
+                        }}
+                      >
+                        No withdrwal history!
+                      </strong>
+                    </span>
+                  }
+                />
+              </div>
+            )}
+            {location.pathname == USDT && allWithdrawUSDT.length > 0 ? (
+              <>
+                <div className="table-container deposit-history w-80 mt-5">
+                  <div className="table-header">
+                    <h3>Deposit History</h3>
+                  </div>
+                  <div className="a5-table d-flex justify-content-center">
                     {allWithdrawUSDT &&
                       allWithdrawUSDT.map((item, index) => {
                         return (
@@ -280,7 +311,7 @@ class WithdrawCoins extends Component {
                               <tr>
                                 <th>Quantity</th>
                                 <th>Date</th>
-                                <th>Tme</th>
+                                <th>Time</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -293,10 +324,12 @@ class WithdrawCoins extends Component {
                           </table>
                         );
                       })}
-                  </>
-                )}
-              </div>
-            </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </>

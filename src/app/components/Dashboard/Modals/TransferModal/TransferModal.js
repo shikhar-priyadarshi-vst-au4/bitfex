@@ -114,18 +114,13 @@ export class TransferModel extends Component {
       <>
         <div onClick={this.curtainClick} className="curtain">
           <div
-            className="box-modal"
+            className="box-modal-new"
             onClick={(e) => {
               e.stopPropagation();
             }}
           >
-            <div className="box-modal-header">
-              <h3>
-                Transfer
-                <span onClick={this.closeModal} className="close-modal">
-                  X
-                </span>
-              </h3>
+            <div className="box-modal-header text-center">
+              <h3>Transfer</h3>
             </div>
             <div className="box-modal-body">
               <div className="transfer-bubble-holder d-flex justify-content-center align-items-center">

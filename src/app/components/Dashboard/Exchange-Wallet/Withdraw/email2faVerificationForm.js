@@ -5,7 +5,7 @@ import {setMFAAuthentication} from '../../../redux/actions/authActions';
 import {resendEmailAPI} from '../../confirm-email-code/confirm-mail-api';
 import {apiSecretKeyAPI} from '../Account-Preferences/Api-Secret/Api_SecretApi';
 import store from '../../../Redux_Store/store';
-class MFAModal extends Component {
+class WithdrwalConfirmation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,16 +14,11 @@ class MFAModal extends Component {
       successmsg: '',
       emailCodeError: '',
       faCodeError: '',
-      apiKeyError: '',
       formError: '',
       isDirty: false,
-      showNext: false,
-      ShowPrev: true,
-      apiKeyName: this.props.tokenToDelete || null,
       disabled: '',
       seconds: 60,
       result: '',
-      generateKeyPairStatus: '',
     };
   }
   errorMap = {
@@ -49,12 +44,8 @@ class MFAModal extends Component {
 
   handleResendEmail = (e) => {
     e.preventDefault();
-    if (this.props.validateFor === 'generateApiKeys')
-      resendEmailAPI.resendEmail(
-        this.props.profile.profile.email,
-        'generate_key_pair',
-      );
-    if (this.props.validateFor === 'deleteApiKeys')
+
+    if (this.props.validateFor === '')
       resendEmailAPI.resendEmail(
         this.props.profile.profile.email,
         'delete_key_pair',
@@ -180,7 +171,7 @@ class MFAModal extends Component {
           <div
             onClick={(e) => e.stopPropagation()}
             className="box-modal"
-            style={{minHeight: '35rem', minWidth: '40rem'}}
+            style={{minHeight: '38rem', minWidth: '40rem'}}
           >
             <div className="box-modal-header text-center">
               <h3>Security Verification</h3>
@@ -239,7 +230,10 @@ class MFAModal extends Component {
                         {this.state.emailCodeError}
                       </span>
                     </div>
-                    <div className=" d-flex" style={{marginTop: '32px'}}>
+                    <div
+                      className=" d-flex justify-content-around"
+                      style={{marginTop: '28px'}}
+                    >
                       <div className="emailMsg">
                         {' '}
                         <span
@@ -254,7 +248,7 @@ class MFAModal extends Component {
                           </strong>
                         </span>
                       </div>
-                      <div className="already ml-5">
+                      <div className="already">
                         <button
                           disabled={!this.state.disabled}
                           style={{
@@ -276,7 +270,7 @@ class MFAModal extends Component {
                     </div>
                     <div
                       className="a5-login-field"
-                      style={{marginTop: '-52px'}}
+                      style={{marginTop: '-18px'}}
                     >
                       <input
                         onInput={this.google2FACodeChange}
@@ -287,7 +281,7 @@ class MFAModal extends Component {
                         {this.state.faCodeError}
                       </span>
                     </div>
-                    <div className=" d-flex " style={{marginTop: '32px'}}>
+                    <div className=" d-flex " style={{marginTop: '28px'}}>
                       <div className="emailMsg">
                         {' '}
                         <span
@@ -301,12 +295,14 @@ class MFAModal extends Component {
                         </span>
                       </div>
                     </div>
-                    <button
-                      onClick={this.onSubmit}
-                      className="form-btn yellow mt-3"
-                    >
-                      Submit
-                    </button>
+                    <div className="form-btn-holder align-items-center mt-5">
+                      <a
+                        onClick={this.onSubmit}
+                        className="form-register align-items-center"
+                      >
+                        Submit
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -329,4 +325,6 @@ const mapStateToProps = (state) => ({
   apikeys: state.apikeys,
 });
 
-export default connect(mapStateToProps, {setMFAAuthentication})(MFAModal);
+export default connect(mapStateToProps, {setMFAAuthentication})(
+  WithdrwalConfirmation,
+);
