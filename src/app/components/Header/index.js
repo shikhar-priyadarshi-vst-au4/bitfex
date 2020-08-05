@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import A5Logo from '../../../lp-assets/a5-black-header-logo.svg';
 import '../../../landing-page.scoped.css';
 
@@ -16,12 +16,12 @@ class index extends Component {
   };
 
   bodyClickListener = (e) => {
-    this.setState({sidebarToggle: false});
+    this.setState({ sidebarToggle: false });
   };
 
   toggleSidebar = () => {
     let sidebarToggle = !this.state.sidebarToggle;
-    this.setState({sidebarToggle});
+    this.setState({ sidebarToggle });
   };
 
   goToHome = () => {
@@ -38,7 +38,7 @@ class index extends Component {
             </div>
             <div
               style={
-                this.state.sidebarToggle ? {right: '0px'} : {right: '-300px'}
+                this.state.sidebarToggle ? { right: '0px' } : { right: '-300px' }
               }
               className="header-right d-flex ml-auto mr-4"
             >

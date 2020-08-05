@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import a5whiteLogo from '../../../lp-assets/a5-white-header-logo.svg';
 import mediumMonogram from '../../../lp-assets/medium-monogram.svg';
 import linkedinIcon from '../../../lp-assets/LinkedIN.svg';
@@ -12,7 +12,7 @@ class index extends Component {
     return (
       <>
         {' '}
-        <footer className="footer dark-bg">
+        <footer className="footer dark-bl">
           <div className="footer-center">
             <div className="footer-logo">
               <img src={a5whiteLogo} alt="" />

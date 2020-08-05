@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Header from '../../components/login-header/login-header';
 import Footer from '../../components/Footer';
 import ChangePassword from '../../components/Reset-Password/Reset-Password-form';

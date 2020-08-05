@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ForgotHeader from '../../components/ForgotPassword/ForgotHeader';
 import Footer from '../../components/Footer';
 import ResetPassword from '../../components/Reset-Password/ResetPassword';

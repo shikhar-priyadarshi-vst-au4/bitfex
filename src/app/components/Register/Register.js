@@ -239,7 +239,7 @@ export class Register extends Component {
     // console.log(this.state.showEmailVerificationModal);
     return (
       <>
-        <div className="dark-bg dark-body">
+        <div className="dark-bl dark-body-register">
           <div className="form-head">
             <h3>Trade Simple</h3>
             <p>Alpha5 is building the most trustworthy</p>
@@ -319,6 +319,11 @@ export class Register extends Component {
               </div>
 
             </div>
+          </div>
+          <div className="register-footer">
+            <div onClick={() => { window.location.href = "terms/about-us.html" }}>About Us</div>
+            <div onClick={() => { window.location.href = "terms/terms-of-use.html" }}>Privacy Policy</div>
+            <div onClick={() => { window.location.href = "terms/privacy-policy.html" }}>Terms & Conditions</div>
           </div>
         </div>
         {this.state.showEmailVerificationModal ? (
