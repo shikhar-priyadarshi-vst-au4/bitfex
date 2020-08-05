@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {withAlert} from 'react-alert';
 import {depositApi} from './Deposit_Api';
 import QRCode from 'qrcode.react';
-
+import {Empty} from 'antd';
 import {currencyOptions} from '../../fakeStore';
 
 class DepositCoins extends Component {
@@ -18,6 +18,8 @@ class DepositCoins extends Component {
       copied: false,
       defaultCurrency: '',
       activeQrCode: '',
+      showTableBTC: false,
+      showTableUSDT: true,
     };
   }
 
@@ -113,6 +115,8 @@ class DepositCoins extends Component {
     const USDT = routes[2].layout + routes[2].path;
     const defaultCurrency = this.state.defaultCurrency;
     const {allDepositBTC, allDepositUSDT} = this.props.deposit;
+    if (allDepositBTC.length > 0) this.setState({showTableBTC: true});
+    if (allDepositUSDT.length > 0) this.setState({showTableUSDT: true});
     return (
       <>
         <div className="main">
@@ -229,13 +233,13 @@ class DepositCoins extends Component {
                 </div>
               </div>
             )}
-            <div className="table-container deposit-history w-80 mt-5">
-              <div className="table-header">
-                <h3>Deposit History</h3>
-              </div>
-              <div className="a5-table d-flex justify-content-center">
-                {location.pathname == BTC ? (
-                  <>
+            {location.pathname == BTC && allDepositBTC.length > 0 ? (
+              <>
+                <div className="table-container deposit-history w-80 mt-5">
+                  <div className="table-header">
+                    <h3>Deposit History</h3>
+                  </div>
+                  <div className="a5-table d-flex justify-content-center">
                     {allDepositBTC &&
                       allDepositBTC.map((item, index) => {
                         return (
@@ -257,10 +261,40 @@ class DepositCoins extends Component {
                           </table>
                         );
                       })}
-                  </>
-                ) : (
-                  <>
-                    {' '}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="d-flex justify-content-center mt-5">
+                <Empty
+                  image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                  imageStyle={{
+                    height: 60,
+                    marginBottom: '15px',
+                  }}
+                  description={
+                    <span>
+                      <strong
+                        style={{
+                          fontWeight: '500',
+                          color: '#f9a931',
+                          marginRight: '35px',
+                        }}
+                      >
+                        No deposit history!
+                      </strong>
+                    </span>
+                  }
+                />
+              </div>
+            )}
+            {location.pathname == USDT && allDepositUSDT.length > 0 ? (
+              <>
+                <div className="table-container deposit-history w-80 mt-5">
+                  <div className="table-header">
+                    <h3>Deposit History</h3>
+                  </div>
+                  <div className="a5-table d-flex justify-content-center">
                     {allDepositUSDT &&
                       allDepositUSDT.map((item, index) => {
                         return (
@@ -269,7 +303,7 @@ class DepositCoins extends Component {
                               <tr>
                                 <th>Quantity</th>
                                 <th>Date</th>
-                                <th>Tme</th>
+                                <th>Time</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -282,10 +316,12 @@ class DepositCoins extends Component {
                           </table>
                         );
                       })}
-                  </>
-                )}
-              </div>
-            </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </>

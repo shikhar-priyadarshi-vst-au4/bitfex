@@ -5,6 +5,16 @@
     width: 80%;
 }
 
+.box-modal-new {
+    min-width: 35rem;
+    min-height: 30rem;
+    background-color: white;
+    max-width: 0;
+    margin: 10rem auto auto;
+    border-radius: 5px;
+    color: var(--default-color);
+}
+
 .bubble-container h3 {
     font-size: 1rem;
     color: black;

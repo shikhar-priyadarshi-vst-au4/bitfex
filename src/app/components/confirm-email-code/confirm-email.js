@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Row, Col} from 'react-bootstrap';
 import {Link, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import isEmpty from '../../validation/is-empty';
@@ -70,79 +71,58 @@ class VerifyEmailCode extends Component {
     return (
       <>
         <div onClick={() => this.props.hideEmailModal()} className="curtain">
-          <div onClick={(e) => e.stopPropagation()} className="box-modal">
-            <div className="box-modal-header">
-              <h5>Security verifiction</h5>
+          <div onClick={(e) => e.stopPropagation()} className="box-modal-email">
+            <div className="securty-heading ">
+              <h3>Security verification</h3>
             </div>
-            <div className="box-modal-body">
+            <div className="box-modal-body-email">
               <div className="transfer-form">
-                <div className="transfer-form-field">
-                  <div
-                    className="row"
-                    style={{padding: '2px', marginBottom: '3px'}}
-                  >
-                    <div className="col-md-12">
-                      <p>Please Verify Your Account</p>
-                    </div>
-                  </div>
+                <div className="input-box-format">
                   <input
-                    placeholder={'Enter Email verification code'}
-                    style={{width: '100%'}}
-                    type="text"
                     onInput={this.handleCode}
+                    type="text"
+                    placeholder={'Enter Email verification code'}
                   />
-                  <span
-                    className="transfer-form-field-error"
-                    style={{
-                      marginRight: '100%',
-                      color: 'red',
-                      display: 'block',
-                    }}
-                  >
+                  <span className="a5-login-error">
+                    {' '}
                     {this.state.formError}
                   </span>
-                  <div className="emailMsg">
-                    {' '}
-                    <span
-                      style={{
-                        fontWeight: '100',
-                        fontSize: '14px',
-                      }}
-                    >
-                      Enter the 6 digit code received by{' '}
-                      <strong style={{fontWeight: '500', color: '#f9a931'}}>
-                        {this.props.emailid}
-                      </strong>
-                    </span>
-                  </div>
-                  <div
-                    className="form-btn-holder d-flex justify-content-around"
-                    style={{marginTop: '2rem'}}
+                </div>
+
+                <div className="emailMsgclass">
+                  {' '}
+                  <span
+                    style={{
+                      fontWeight: '100',
+                      fontSize: '14px',
+                    }}
                   >
-                    <a
-                      onClick={this.handleSubmit}
-                      className="form-register align-items-center"
+                    Enter the 6 digit code received by{' '}
+                    <strong style={{fontWeight: '500', color: '#47a1fb'}}>
+                      {this.props.emailid}
+                    </strong>
+                  </span>
+                </div>
+                <div
+                  className="d-flex form-btn-holder-email "
+                  style={{marginTop: '3rem'}}
+                >
+                  <a onClick={this.handleSubmit} className="btn-verify">
+                    Verify
+                  </a>
+                  <div>
+                    <button
+                      className="resend-mail"
+                      disabled={!this.state.disabled}
+                      style={{
+                        color: this.state.disabled ? '#47a1fb' : '#666666',
+                        outline: 'none',
+                      }}
+                      onClick={this.handleResendEmail}
                     >
-                      Verify
-                    </a>
-                    <div className="already">
-                      <button
-                        disabled={!this.state.disabled}
-                        style={{
-                          fontSize: '14px',
-                          color: this.state.disabled ? '#f9a931' : '#666666',
-                          border: 'none',
-                          marginLeft: '100px',
-                          background: 'none',
-                          marginRight: '5px',
-                          outline: 'none',
-                        }}
-                        onClick={this.handleResendEmail}
-                      >
-                        Resend Email{' '}
-                        {this.state.disabled ? null : `${this.state.seconds}s`}
-                      </button>
-                    </div>
+                      Resend{' '}
+                      {this.state.disabled ? null : `${this.state.seconds}s`}
+                    </button>
                   </div>
                 </div>
               </div>

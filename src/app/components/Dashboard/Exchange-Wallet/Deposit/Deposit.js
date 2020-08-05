@@ -15,6 +15,7 @@ export class Deposit extends Component {
     this.state = {
       currencyArrayForSelect: [],
       IsEmpty: false,
+      showTable: false,
     };
   }
 
@@ -36,8 +37,11 @@ export class Deposit extends Component {
   };
 
   render() {
-    console.log('depost', this.props.deposit);
     const {allDepositBTC} = this.props.deposit;
+    console.log('depost', allDepositBTC.length);
+    if (allDepositBTC.length > 0) {
+      this.setState({showTable: true});
+    }
     return (
       <>
         <div className="main">
@@ -80,39 +84,65 @@ export class Deposit extends Component {
                 }}
               />
             </div>
-            <div className="table-container deposit-history w-80 mt-5">
-              <div className="table-header">
-                <h3>Deposit History</h3>
+            {allDepositBTC.length > 0 &&
+              allDepositBTC.map((item, index) => {
+                return (
+                  <>
+                    <div className="table-container deposit-history w-80 mt-5">
+                      <div className="table-header">
+                        <h3>Deposit History</h3>
+                      </div>
+                      <div className="a5-table d-flex justify-content-center">
+                        <table className="table">
+                          <thead>
+                            <tr>
+                              <th>Asset</th>
+                              <th>Deposit</th>
+                              <th>Deposit History</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>USDT</td>
+                              <td>-0.05166684</td>
+                              <td>0.00020265</td>
+                            </tr>
+                            <tr>
+                              <td>BTC</td>
+                              <td>-0.05166684</td>
+                              <td>0.00020265</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </>
+                );
+              })}
+            {!this.state.showTable && (
+              <div className="d-flex justify-content-center">
+                <Empty
+                  image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                  imageStyle={{
+                    height: 60,
+                    marginBottom: '15px',
+                  }}
+                  description={
+                    <span>
+                      <strong
+                        style={{
+                          fontWeight: '500',
+                          color: '#f9a931',
+                          marginRight: '35px',
+                        }}
+                      >
+                        No deposit history!
+                      </strong>
+                    </span>
+                  }
+                />
               </div>
-              <div className="a5-table d-flex justify-content-center">
-                {allDepositBTC &&
-                  allDepositBTC.map((item, index) => {
-                    return (
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th>Asset</th>
-                            <th>Deposit</th>
-                            <th>Deposit History</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>USDT</td>
-                            <td>-0.05166684</td>
-                            <td>0.00020265</td>
-                          </tr>
-                          <tr>
-                            <td>BTC</td>
-                            <td>-0.05166684</td>
-                            <td>0.00020265</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    );
-                  })}
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </>

@@ -7,6 +7,7 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {withAlert} from 'react-alert';
 import {withdrawApi} from './WithDraw_Api';
+import {Empty} from 'antd';
 import NotAuthorized from '../../../Dashboard/NotAuthroized';
 export class Withdraw extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export class Withdraw extends Component {
     this.state = {
       currencyArrayForSelect: [],
       selectedCurrency: {},
+      showTable: '',
     };
   }
 
@@ -39,10 +41,8 @@ export class Withdraw extends Component {
 
   render() {
     const {heading, routes} = this.props;
-    console.log('props', this.props.profile.profile.enabled_2fa);
-    console.log('hitted');
-    console.log('apicollection', this.state.currencyArrayForSelect);
     const {allWithdrawBTC} = this.props.withdraw;
+    if (allWithdrawBTC.length > 0) this.setState({showTable: false});
     return (
       <>
         {!this.props.profile.profile.enabled_2fa && (
@@ -93,14 +93,14 @@ export class Withdraw extends Component {
                   }}
                 />
               </div>
-              <div className="table-container deposit-history w-80 mt-5">
-                <div className="table-header">
-                  <h3>Withdrawal History</h3>
-                </div>
-                <div className="a5-table d-flex justify-content-center">
-                  {allWithdrawBTC &&
-                    allWithdrawBTC.map((item, index) => {
-                      return (
+              {allWithdrawBTC &&
+                allWithdrawBTC.map((item, index) => {
+                  return (
+                    <div className="table-container deposit-history w-80 mt-5">
+                      <div className="table-header">
+                        <h3>Withdrawal History</h3>
+                      </div>
+                      <div className="a5-table d-flex justify-content-center">
                         <table className="table">
                           <thead>
                             <tr>
@@ -122,10 +122,34 @@ export class Withdraw extends Component {
                             </tr>
                           </tbody>
                         </table>
-                      );
-                    })}
+                      </div>
+                    </div>
+                  );
+                })}
+              {!this.state.showTable && (
+                <div className="d-flex justify-content-center">
+                  <Empty
+                    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    imageStyle={{
+                      height: 60,
+                      marginBottom: '15px',
+                    }}
+                    description={
+                      <span>
+                        <strong
+                          style={{
+                            fontWeight: '500',
+                            color: '#f9a931',
+                            marginRight: '35px',
+                          }}
+                        >
+                          No withdrwal history!
+                        </strong>
+                      </span>
+                    }
+                  />
                 </div>
-              </div>
+              )}
             </div>
           </div>
         )}

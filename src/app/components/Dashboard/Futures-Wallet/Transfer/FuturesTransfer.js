@@ -34,58 +34,6 @@ export class FuturesTransfer extends Component {
   render() {
     return (
       <>
-        {/* <div className="containment">
-          <div className="balances pb-5">
-            <h3>Futures Wallet</h3>
-            <hr />
-            <div className="left-sided">
-              <div className="d-flex justify-content-start">
-                <button
-                  onClick={() => {
-                    this.showTransferBalanceModal('exchange', 'futures');
-                  }}
-                  className="a5-button-primary transfer-balance"
-                >
-                  Transfer
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="balances mt-2">
-            <div className="table-container contained futures-wallet-table pb-3">
-              <div className="table-header">
-                <h3>Futures Wallet Details</h3>
-              </div>
-              <div className="a5-table d-flex-justify-content-center">
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>Asset</th>
-                      <th>NAV</th>
-                      <th>UPL</th>
-                      <th>Available Balance</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>BTC</td>
-                      <td>0.000</td>
-                      <td>0.000</td>
-                      <td>0.000</td>
-                    </tr>
-                    <tr>
-                      <td>USDT</td>
-                      <td>0.000</td>
-                      <td>0.000</td>
-                      <td>0.000</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
         <div className="main">
           <div className="main-header">
             <h3>Futures Wallet</h3>
@@ -96,14 +44,14 @@ export class FuturesTransfer extends Component {
           </div>
           <div className="main-body">
             <div className="form-btn-holder align-items-center mt-5">
-              <a
+              <button
                 onClick={() => {
                   this.showTransferBalanceModal('exchange', 'futures');
                 }}
-                className="form-register align-items-center"
+                className="form-btn yellow"
               >
                 Transfer Amount
-              </a>
+              </button>
             </div>
             <div className="table-container w-80 pb-3">
               <div className="table-header">

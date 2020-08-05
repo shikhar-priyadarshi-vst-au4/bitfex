@@ -85,10 +85,19 @@ class ResetPasswordForm extends Component {
   };
 
   resetPassword = () => {
-    const {password, confirmPass, token} = this.state;
+    let {
+      password,
+      passwordErr,
+      confirmPass,
+      confirmPassErr,
+      token,
+      tokenErr,
+    } = this.state;
+
     const email = this.props.auth.userEmail;
     const password_confirmation = confirmPass;
     let url = BaseApiUrl + '/users/reset_password';
+
     if (this.allowSubmit()) {
       const UserPasswordDetails = {
         email: email,
@@ -112,7 +121,7 @@ class ResetPasswordForm extends Component {
               this.setState({formError: 'Invalid Code!', errored: true});
             }
           });*/
-    } else {
+    } /*else {
       this.setState({
         formError: 'Some error occured please retry!',
         errored: true,
@@ -120,6 +129,24 @@ class ResetPasswordForm extends Component {
       setTimeout(() => {
         this.props.history.push('/reset-password');
       }, 3000);
+    }*/ else {
+      let confirmPassErr = '';
+      let passwordErr = '';
+
+      if (!password) {
+        passwordErr = 'Password is required !';
+      }
+      if (!password) {
+        confirmPassErr = 'Confirm Password is required !';
+      }
+      if (!token) {
+        tokenErr = 'Token is required !';
+      }
+      this.setState({
+        confirmPassErr,
+        passwordErr,
+        tokenErr,
+      });
     }
   };
 
@@ -172,9 +199,7 @@ class ResetPasswordForm extends Component {
                   type="number"
                   placeholder="Enter Verification Code"
                 />
-                {/* <span className="a5-login-error">
-                  {this.state.confirmPassErr}
-                </span> */}
+                <span className="a5-login-error">{this.state.tokenErr}</span>
               </div>
               <div className="form-btn-holder align-items-center">
                 <a
