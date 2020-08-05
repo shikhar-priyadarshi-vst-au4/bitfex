@@ -1,0 +1,41 @@
+.dark-body-register {
+    padding: 4rem 0rem 0.5rem 0rem;
+    margin-top: 3rem;
+    /* contain: content; */
+    min-height: 100vh;
+    overflow: auto;
+  }
+  
+  .dark-body-register::-webkit-scrollbar {
+    display: none;
+  }
+  
+
+.register-footer{
+    font-family: DM Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 23px;
+/* identical to box height, or 144% */
+
+
+/* Gray 3 */
+
+color: #828282;
+mix-blend-mode: normal;
+opacity: 0.8;
+
+display : flex;
+justify-content : flex-start;
+margin: 3rem 0rem 2rem 1rem;
+}
+
+.register-footer > div {
+    margin : 0em 0.8em;
+    cursor: pointer;
+}
+
+.register-footer :hover {
+    color : #ffffff;
+}

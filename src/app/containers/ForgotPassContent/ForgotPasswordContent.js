@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Footer from '../../components/Footer';
 import ForgotPassword from '../../components/Reset-Password/ResetPassword';
 import Header from '../../components/login-header/login-header';
@@ -8,7 +8,7 @@ export class ForgotPasswordContent extends Component {
       <div>
         <Header />
         <ForgotPassword />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

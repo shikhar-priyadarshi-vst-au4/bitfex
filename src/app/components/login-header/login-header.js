@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import Logo from '../../../lp-assets/a5-white-header-logo.svg';
 
@@ -12,7 +12,7 @@ class LoginHeader extends Component {
   render() {
     return (
       <>
-        <header className="header dark-bg d-flex align-items-center w-100">
+        <header className="header dark-bl d-flex align-items-center w-100">
           <div className="logo ml-5">
             <Link to="/">
               <img src={Logo} />

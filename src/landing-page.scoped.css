@@ -8,6 +8,7 @@
   --white-text: #ffffff;
   --faded-white: #f2f2f2;
   --dark-bg: #151515;
+  --dark-bl: #1A232B;
   --form-text: #bdbdbd;
   --btn-font: 'Bai Jamjuree', sans-serif;
   font-family: 'DM Sans', sans-serif !important;
@@ -48,6 +49,10 @@ a:hover {
   background-color: var(--dark-bg) !important;
 }
 
+.dark-bl{
+  background-color: var(--dark-bl) !important;
+}
+
 .coming-soon {
   background: rgba(0, 0, 0, 0.5);
   height: 100vh;
@@ -78,7 +83,7 @@ a:hover {
 header.header {
   min-height: 4.17375rem;
   background-color: #ffffff;
-  border-bottom: 2px solid var(--faded-white);
+  /* border-bottom: 2px solid var(--faded-white); */
   position: fixed;
   top: 0;
   z-index: 100;
@@ -149,10 +154,11 @@ header.header.dark-bg {
   font-family: var(--btn-font);
   font-size: 10px;
   font-weight: 600;
-  padding: 0.35rem;
-  padding-bottom: 0rem;
+  /* padding: 0.25rem 0.85rem; */
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
   padding-right: 0.85rem;
-  padding-left: 0.85rem;
+  padding-left: 0.85rem; 
   border-radius: 3px;
   min-width: 4.85rem;
   text-align: center;
@@ -370,7 +376,7 @@ line-height: 24px; */
 }
 
 .smart-prod-suite .img-bottom-bg {
-  background-image: url(./lp-assets/smart-product-bottom.svg);
+  background-image: url(./lp-assets/Slice143.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 1920px 385px;
@@ -964,12 +970,20 @@ line-height: 30px;
   display: flex;
   justify-content: center;
   padding-bottom: 1rem;
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 .reset-password {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  font-family: DM Sans;
+  padding-top: 1em;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 23px;
+letter-spacing: 0.2px;
+color: #4F4F4F !important;
 }
 
 .reset-password-description {

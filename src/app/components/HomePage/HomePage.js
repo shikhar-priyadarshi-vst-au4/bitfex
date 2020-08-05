@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import greendotLeft from '../../../lp-assets/dreen-dot-left.svg';
 import greendotRight from '../../../lp-assets/green-dot-rght.svg';
-import smartCryptoLaptop from '../../../lp-assets/Slice 2.svg';
+import smartCryptoLaptop from '../../../lp-assets/Slice12.png';
 import smartProduct1 from '../../../lp-assets/Group 890.svg';
-import smartProduct2 from '../../../lp-assets/bullbear iphone 1.svg';
+import smartProduct2 from '../../../lp-assets/bullbear-iphone-1.png';
 import greenDownArrow from '../../../lp-assets/green-down-arrow.svg';
 import riskIcon from '../../../lp-assets/Group 915.png';
 import pipelineIcon from '../../../lp-assets/Group 916.png';
 import portfolioIcon from '../../../lp-assets/Subtract.png';
 import A5TIcon from '../../../lp-assets/Union.png';
-import gravityDeviceUIMockup from '../../../lp-assets/lap.svg';
-import gravityDeviceUIMockupIpad from '../../../lp-assets/lap.svg';
+import gravityDeviceUIMockup from '../../../lp-assets/Gravity-Devices12345.png';
+import gravityDeviceUIMockupIpad from '../../../lp-assets/Gravity-Devices12345.png';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
@@ -52,7 +52,7 @@ class HomePage extends Component {
           </div>
         </section>
 
-        <section className="section smart-prod-suite dark-bg">
+        <section className="section smart-prod-suite dark-bl">
           <h3>Smart Product Suite</h3>
           <div className="smart-prod-container d-flex justify-content-center">
             <div className="img-holder-rt">

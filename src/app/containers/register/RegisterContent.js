@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Header from '../../components/login-header/login-header';
 import Footer from '../../components/Footer';
 import Register from '../../components/Register/Register';
@@ -9,7 +9,7 @@ export class RegisterContent extends Component {
       <div>
         <Header />
         <Register />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }
