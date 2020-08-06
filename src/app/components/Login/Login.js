@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Link, withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
-import {loginUser} from '../../redux/actions/authActions';
-import {clearErrors} from '../../redux/actions/errorActions';
-import {SIGN_IN} from '../../constant';
+// import { loginUser } from '../../redux/actions/authActions';
+// import { clearErrors } from '../../redux/actions/errorActions';
+import { loginUser } from './Login.api';
+import { clearErrors } from './Login.action'
+import { SIGN_IN } from '../../constant';
 import EmailVerifiction from '../Model/EmailVerifiction';
 import './Login.css';
 
-const validEmailRegex = RegExp(
-  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-);
+const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 
 class Login extends Component {
   constructor(props) {
@@ -42,15 +42,15 @@ class Login extends Component {
       // window.location.href = '/trade';
     }
     if (nextProps.auth.logInInfo.email_confirmed === false) {
-      this.setState({emailConfirmation: nextProps.auth.registerInfo});
+      this.setState({ emailConfirmation: nextProps.auth.registerInfo });
       this.showTransferBalanceModal();
-    }
 
+    }
     if (
       nextProps.errors.type === 'not_found' ||
       nextProps.errors.type === 'forbidden'
     ) {
-      this.setState({formError: 'Invalid username or password!'});
+      this.setState({ formError: 'Invalid username or password!' });
     }
     if (nextProps.errors.type === 'invalid_data') {
       this.setState({
@@ -62,20 +62,20 @@ class Login extends Component {
   componentWillUpdate = (newProps, newState) => {
     if (newState.formError) {
       setTimeout(() => {
-        this.setState({formError: ''});
+        this.setState({ formError: '' });
       }, 7000);
     }
   };
 
   allowSubmission = () => {
-    const {emailRequired, passwordRequired, isDirty} = this.state;
+    const { emailRequired, passwordRequired, isDirty } = this.state;
     return !(emailRequired || passwordRequired) && isDirty;
   };
 
   LoginForm = (e) => {
     e.preventDefault();
-    const {email, password, token_2fa} = this.state;
-    if (this.allowSubmission() && email != '' && password != '') {
+    const { email, password, token_2fa } = this.state;
+    if (this.allowSubmission() && email !== '' && password !== '') {
       this.props.loginUser(email, password, token_2fa);
     } else {
       let emailRequired = '';
@@ -101,7 +101,7 @@ class Login extends Component {
 
   handleEmailInput = (e) => {
     e.preventDefault();
-    let email = e.target.value;
+    const email = e.target.value;
     let emailRequired = '';
     if (!email) {
       emailRequired = 'Email is Required !';
@@ -109,32 +109,32 @@ class Login extends Component {
       emailRequired = 'Please enter a valid email!';
     }
     this.props.clearErrors();
-    this.setState({emailRequired, email, formError: '', isDirty: true});
+    this.setState({ emailRequired, email, formError: '', isDirty: true });
   };
 
   handlePasswordInput = (e) => {
     e.preventDefault();
-    let password = e.target.value;
+    const password = e.target.value;
     let passwordRequired = '';
     if (!password) {
       passwordRequired = 'Password is required !';
     }
     this.props.clearErrors();
-    this.setState({passwordRequired, password, formError: '', isDirty: true});
+    this.setState({ passwordRequired, password, formError: '', isDirty: true });
   };
 
   twoFectorcode = (e) => {
     e.preventDefault();
-    let token_2fa = e.target.value;
-    this.setState({token_2fa, formError: '', isDirty: true});
+    const token_2fa = e.target.value;
+    this.setState({ token_2fa, formError: '', isDirty: true });
   };
 
   showTransferBalanceModal = (e) => {
-    this.setState({openTransferBalModal: true});
+    this.setState({ openTransferBalModal: true });
   };
 
   hideTransferBalanceModal = () => {
-    this.setState({openTransferBalModal: false});
+    this.setState({ openTransferBalModal: false });
   };
 
   render() {
@@ -249,7 +249,7 @@ class Login extends Component {
             </div>
           </section>
         </div>
-        {this.state.registerData != '' ? (
+        {this.state.registerData !== '' ? (
           <EmailVerifiction
             show={this.state.openTransferBalModal}
             onHide={this.hideTransferBalanceModal}
@@ -272,6 +272,6 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {loginUser, clearErrors})(
+export default connect(mapStateToProps, { loginUser, clearErrors })(
   withRouter(Login),
 );

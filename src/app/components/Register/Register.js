@@ -1,21 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Link, withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
-import {registerUser} from '../../redux/actions/authActions';
-import {clearErrors} from '../../redux/actions/errorActions';
-import isEmpty from '../../validation/is-empty';
-import {SIGN_UP} from '../../constant';
-import EmailVerifiction from '../Model/EmailVerifiction';
+import { registerUser } from './Register.api';
+import { clearErrors } from '../../redux/actions/errorActions';
+import { SIGN_UP } from '../../constant';
+import EmailVerifiction from '../core/EmailVerifiction';
 import './Register.css';
-
-const validEmailRegex = RegExp(
-  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-);
-const validPassword = RegExp(
-  '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})',
-);
+import { validateEmail, validatePassword, checkConfirmPassword, isEmpty, isNotEmpty } from '../../utils/validate'
 
 export class Register extends Component {
   constructor(props) {
@@ -53,34 +46,24 @@ export class Register extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.errors.type === 'validation') {
-      this.setState({formError: 'The email has already been taken!'});
+      this.setState({ formError: 'The email has already been taken!' });
     }
     if (nextProps.errors.type === 'forbidden') {
-      this.setState({formError: 'Server err please try again later!'});
+      this.setState({ formError: 'Server err please try again later!' });
     }
-    console.log(nextProps.auth);
     if (!isEmpty(nextProps.auth.registerInfo)) {
-      this.setState({registerData: nextProps.auth.registerInfo});
+      this.setState({ registerData: nextProps.auth.registerInfo });
       this.showTransferBalanceModal();
     }
     if (!isEmpty(nextProps.auth.sendEmail)) {
-      this.setState({successmsg: 'Email Verification code sent successfully'});
+      this.setState({ successmsg: 'Email Verification code sent successfully' });
     }
-    if (nextProps.auth.isAuthenticated) {
-      // this.props.history.push('/dashboard/account');
-    }
-
-    // } else if (nextProps.auth.isAuthenticated) {
-    //   this.props.history.push('/dashboard/account');
-    // }
   };
-
-  componentDidUpdate = () => {};
 
   componentWillUpdate = (newProps, newState) => {
     if (newState.formError) {
       setTimeout(() => {
-        this.setState({formError: ''});
+        this.setState({ formError: '' });
       }, 3000);
     }
   };
@@ -121,12 +104,12 @@ export class Register extends Component {
     } = this.state;
     if (
       this.allowSubmission() &&
-      email != '' &&
-      password != '' &&
-      password_confirmation != '' &&
-      first_name != '' &&
-      last_name != '' &&
-      country != ''
+      isNotEmpty(email) &&
+      isNotEmpty(password) &&
+      isNotEmpty(password_confirmation) &&
+      isNotEmpty(first_name) &&
+      isNotEmpty(last_name) &&
+      isNotEmpty(country)
     ) {
       this.props.registerUser({
         email,
@@ -137,40 +120,13 @@ export class Register extends Component {
         country,
       });
     } else {
-      let emailError = '';
-      let passError = '';
-      let cnfPassError = '';
-      let countryError = '';
-      let firstNameError = '';
-      let lastnameError = '';
-
-      if (!email) {
-        emailError = 'Email is Required !';
-      } else if (!validEmailRegex.test(email)) {
-        emailError = 'Please enter a valid email!';
-      }
-      if (!password) {
-        passError = 'Password is required !';
-      }
-      if (!password_confirmation) {
-        cnfPassError = 'Please enter confirm password!';
-      }
-      if (!country) {
-        countryError = 'Please choose a country!';
-      }
-      if (!first_name) {
-        firstNameError = 'First Name is required!';
-      }
-      if (!last_name) {
-        lastnameError = 'last Name is required!';
-      }
       this.setState({
-        emailError,
-        passError,
-        cnfPassError,
-        countryError,
-        firstNameError,
-        lastnameError,
+        emailError: validateEmail(email),
+        passError: validatePassword(password),
+        cnfPassError: isEmpty(password_confirmation) ? 'Please enter confirm password!' : "",
+        countryError: isEmpty(country) ? 'Please choose a country!' : "",
+        firstNameError: isEmpty(first_name) ? 'First Name is required!' : "",
+        lastnameError: isEmpty(last_name) ? 'last Name is required!' : "",
         email,
         formError: '',
         isDirty: true,
@@ -181,46 +137,25 @@ export class Register extends Component {
   handleEmailInput = (e) => {
     e.preventDefault();
     let email = e.target.value;
-    let emailError = '';
-    if (!email) {
-      emailError = 'Email is Required !';
-    } else if (!validEmailRegex.test(email)) {
-      emailError = 'Please enter a valid email!';
-    }
     this.props.clearErrors();
-    this.setState({emailError, email, formError: '', isDirty: true});
+    this.setState({ emailError: validateEmail(email), email, formError: '', isDirty: true });
   };
 
   handlePasswordInput = (e) => {
     e.preventDefault();
     let password = e.target.value;
-    let passError = '';
-    if (!password) {
-      passError = 'Password is required !';
-    } else if (password.length < 8) {
-      passError = 'Password should be minimum of min 8 characters!';
-    } else if (!validPassword.test(password)) {
-      passError =
-        'Your password must contain at least one lowercase letter, one capital letter, one special character and one number!';
-    }
     this.props.clearErrors();
-    this.setState({password, passError, formError: '', isDirty: true});
+    this.setState({ password, passError: validatePassword(password), formError: '', isDirty: true });
   };
 
   handleCnfrmPasswordInput = (e) => {
     e.preventDefault();
     let password_confirmation = e.target.value;
-    const {password} = this.state;
-    let cnfPassError = '';
-    if (!password_confirmation) {
-      cnfPassError = 'Please enter confirm password!';
-    } else if (password_confirmation !== password) {
-      cnfPassError = 'Password must match!';
-    }
+    const { password } = this.state;
     this.props.clearErrors();
     this.setState({
       password_confirmation,
-      cnfPassError,
+      cnfPassError: checkConfirmPassword(password, password_confirmation),
       formError: '',
       isDirty: true,
     });
@@ -229,42 +164,30 @@ export class Register extends Component {
   handleContryChange = (e) => {
     e.preventDefault();
     let country = e.target.value;
-    let countryError = '';
-    if (!country) {
-      countryError = 'Please choose a country!';
-    }
     this.props.clearErrors();
-    this.setState({country, countryError, formError: '', isDirty: true});
+    this.setState({ country, countryError: isEmpty(country) ? 'Please choose a country!' : "", formError: '', isDirty: true });
   };
 
   handleFirstNameInput = (e) => {
     e.preventDefault();
     let first_name = e.target.value;
-    let firstNameError = '';
-    if (!first_name) {
-      firstNameError = 'First Name is required!';
-    }
     this.props.clearErrors();
-    this.setState({firstNameError, first_name, formError: '', isDirty: true});
+    this.setState({ firstNameError: isEmpty(first_name) ? 'First Name is required!' : "", first_name, formError: '', isDirty: true });
   };
 
   handleLastnameInput = (e) => {
     e.preventDefault();
     let last_name = e.target.value;
-    let lastnameError = '';
-    if (!last_name) {
-      lastnameError = 'last Name is required!';
-    }
     this.props.clearErrors();
-    this.setState({lastnameError, last_name, formError: '', isDirty: true});
+    this.setState({ lastnameError: isEmpty(last_name) ? 'last Name is required!' : "", last_name, formError: '', isDirty: true });
   };
 
   showTransferBalanceModal = (e) => {
-    this.setState({openTransferBalModal: true});
+    this.setState({ openTransferBalModal: true });
   };
 
   hideTransferBalanceModal = () => {
-    this.setState({openTransferBalModal: false});
+    this.setState({ openTransferBalModal: false });
   };
 
   render() {
@@ -520,6 +443,6 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {registerUser, clearErrors})(
+export default connect(mapStateToProps, { registerUser, clearErrors })(
   withRouter(Register),
 );

@@ -1,17 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Link, withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
-import isEmpty from '../../validation/is-empty';
-import {forgotPassword} from '../../redux/actions/authActions';
-import {clearErrors} from '../../redux/actions/errorActions';
+// import { forgotPassword } from '../../redux/actions/authActions';
+import { forgotPassword } from './ForgetPassword.api';
+import { clearErrors } from './ForgetPassword.action';
+// import { clearErrors } from '../../redux/actions/errorActions';
 import './ForgotPassword.css';
 import Bitfex_log from '../../../assets/img/bitfex-logo-dark.svg';
-
-const validEmailRegex = RegExp(
-  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-);
+import { validateEmail, validatePassword, isEmpty, isNotEmpty } from '../../utils/validate';
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -52,35 +50,29 @@ class ForgotPassword extends Component {
   componentWillUpdate = (newProps, newState) => {
     if (newState.formError) {
       setTimeout(() => {
-        this.setState({formError: ''});
+        this.setState({ formError: '' });
       }, 6000);
     }
     if (newState.successmsg) {
       setTimeout(() => {
-        this.setState({successmsg: ''});
+        this.setState({ successmsg: '' });
       }, 3000);
     }
   };
 
   allowSubmission = () => {
-    const {emailError, isDirty} = this.state;
+    const { emailError, isDirty } = this.state;
     return !emailError && isDirty;
   };
 
   sensEmail = (e) => {
     e.preventDefault();
-    const {email} = this.state;
+    const { email } = this.state;
     if (this.allowSubmission()) {
       this.props.forgotPassword(email);
     } else {
-      let emailError = '';
-      if (!email) {
-        emailError = 'Email is Required !';
-      } else if (!validEmailRegex.test(email)) {
-        emailError = 'Please enter a valid email!';
-      }
       this.setState({
-        emailError,
+        emailError: validateEmail(email),
         email,
         formError: '',
         isDirty: true,
@@ -91,14 +83,9 @@ class ForgotPassword extends Component {
   handleEmailInput = (e) => {
     e.preventDefault();
     let email = e.target.value;
-    let emailError = '';
-    if (!email) {
-      emailError = 'Email is Required !';
-    } else if (!validEmailRegex.test(email)) {
-      emailError = 'Please enter a valid email!';
-    }
+
     this.props.clearErrors();
-    this.setState({emailError, email, formError: '', isDirty: true});
+    this.setState({ emailError: validateEmail(email), email, formError: '', isDirty: true });
   };
 
   render() {
@@ -223,6 +210,6 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, {forgotPassword, clearErrors})(
+export default connect(mapStateToProps, { forgotPassword, clearErrors })(
   withRouter(ForgotPassword),
 );

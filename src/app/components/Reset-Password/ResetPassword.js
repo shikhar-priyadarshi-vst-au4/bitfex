@@ -1,17 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Link, withRouter, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Link, withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
-import isEmpty from '../../validation/is-empty';
-import {resetPassword, sendEmail} from '../../redux/actions/authActions';
-import {clearErrors} from '../../redux/actions/errorActions';
-import {FORGOT_PASSWORD} from '../../constant';
+import { resetPassword, sendEmail } from '../../redux/actions/authActions';
+import { clearErrors } from '../../redux/actions/errorActions';
+import { FORGOT_PASSWORD } from '../../constant';
 import Bitfex_log from '../../../assets/img/bitfex-logo-dark.svg';
-
-const validPassword = RegExp(
-  '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})',
-);
+import { validatePassword, checkConfirmPassword, isEmpty, isNotEmpty, isEqual, isNotEqual, checkLength } from '../../utils/validate';
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -38,15 +34,14 @@ class ResetPassword extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.errors.type === 'forbidden') {
-      this.setState({formError: 'Invalid username'});
+      this.setState({ formError: 'Invalid username' });
     }
-    if (!isEmpty(nextProps.auth.forgotPasswordEmail.email)) {
-      this.setState({email: nextProps.auth.forgotPasswordEmail.email});
+    if (isNotEmpty(nextProps.auth.forgotPasswordEmail.email)) {
+      this.setState({ email: nextProps.auth.forgotPasswordEmail.email });
     }
-    if (!isEmpty(nextProps.auth.resetPasswordValue)) {
-      this.setState({successmsg: 'Your password reset successfully'});
+    if (isNotEmpty(nextProps.auth.resetPasswordValue)) {
+      this.setState({ successmsg: 'Your password reset successfully' });
       setTimeout(() => {
-        // return <Redirect to="/login" />;
         this.props.history.push('/login');
       }, 2000);
     }
@@ -60,49 +55,36 @@ class ResetPassword extends Component {
   componentWillUpdate = (newProps, newState) => {
     if (newState.formError) {
       setTimeout(() => {
-        this.setState({formError: ''});
+        this.setState({ formError: '' });
       }, 3000);
     }
     if (newState.successmsg) {
       setTimeout(() => {
-        this.setState({successmsg: ''});
+        this.setState({ successmsg: '' });
       }, 2000);
     }
   };
 
   allowSubmission = () => {
-    const {passError, cnfPassError, tokenError, isDirty} = this.state;
+    const { passError, cnfPassError, tokenError, isDirty } = this.state;
     return !(passError || cnfPassError || tokenError) && isDirty;
   };
 
   restPassword = (e) => {
     e.preventDefault();
-    const {email, password, password_confirmation, token} = this.state;
+    const { email, password, password_confirmation, token } = this.state;
     if (
       this.allowSubmission() &&
-      password != '' &&
-      password_confirmation != '' &&
-      token != ''
+      isNotEmpty(password) &&
+      isNotEmpty(password_confirmation) &&
+      isNotEmpty(token)
     ) {
-      this.props.resetPassword({email, password, password_confirmation, token});
+      this.props.resetPassword({ email, password, password_confirmation, token });
     } else {
-      let passError = '';
-      let cnfPassError = '';
-      let tokenError = '';
-
-      if (!password) {
-        passError = 'Password is Required!';
-      }
-      if (!password_confirmation) {
-        cnfPassError = 'Please enter confirm password!';
-      }
-      if (!token) {
-        tokenError = 'Token is Required!';
-      }
       this.setState({
-        passError,
-        cnfPassError,
-        tokenError,
+        passError: isEmpty(password) ? 'Password is Required!' : "",
+        cnfPassError: isEmpty(password_confirmation) ? 'Please enter confirm password!' : "",
+        tokenError: isEmpty(token) ? 'Token is Required!' : "",
         password,
         formError: '',
         isDirty: true,
@@ -113,33 +95,19 @@ class ResetPassword extends Component {
   handlePasswordInput = (e) => {
     e.preventDefault();
     let password = e.target.value;
-    let passError = '';
-    if (!password) {
-      passError = 'Password is required !';
-    } else if (password.length < 8) {
-      passError = 'Password should be minimum of min 8 characters!';
-    } else if (!validPassword.test(password)) {
-      passError =
-        'Your password must contain at least one lowercase letter, one capital letter, one special character and one number!';
-    }
+    let passError = validatePassword(password);
     this.props.clearErrors();
-    this.setState({password, passError, formError: '', isDirty: true});
+    this.setState({ password, passError, formError: '', isDirty: true });
   };
 
   handleCnfrmPasswordInput = (e) => {
     e.preventDefault();
     let password_confirmation = e.target.value;
-    const {password} = this.state;
-    let cnfPassError = '';
-    if (!password_confirmation) {
-      cnfPassError = 'Please enter confirm password!';
-    } else if (password_confirmation !== password) {
-      cnfPassError = 'Password must match!';
-    }
+    const { password } = this.state;
     this.props.clearErrors();
     this.setState({
       password_confirmation,
-      cnfPassError,
+      cnfPassError: checkConfirmPassword(password, password_confirmation),
       formError: '',
       isDirty: true,
     });
@@ -148,16 +116,10 @@ class ResetPassword extends Component {
   handleTokenInput = (e) => {
     e.preventDefault();
     let token = e.target.value;
-    let tokenError = '';
-    if (!token) {
-      tokenError = 'Please enter token!';
-    } else if (token.length < 6) {
-      tokenError = 'Password should be minimum of min 6 numbers!';
-    }
     this.props.clearErrors();
     this.setState({
       token,
-      tokenError,
+      tokenError: isEmpty(token) ? 'Please enter token!' : checkLength(token, 6) ? 'Password should be minimum of min 6 numbers!' : "",
       formError: '',
       isDirty: true,
     });
@@ -166,8 +128,8 @@ class ResetPassword extends Component {
   handleEmail = (e) => {
     e.preventDefault();
     this.props.sendEmail(this.state.email, FORGOT_PASSWORD);
-    if (!isEmpty(this.props.auth.sendEmail)) {
-      this.setState({successmsg: 'Email Verification code sent successfully'});
+    if (isNotEmpty(this.props.auth.sendEmail)) {
+      this.setState({ successmsg: 'Email Verification code sent successfully' });
     }
   };
 
