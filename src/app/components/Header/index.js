@@ -32,15 +32,15 @@ class index extends Component {
     return (
       <>
         <>
-          <header className="header d-flex align-items-center w-100">
+          <header className="header d-flex align-items-center justify-content-between w-100">
             <div onClick={this.goToHome} className="logo ml-5">
               <img src={A5Logo} alt="Alpha5" />
             </div>
             <div
               style={
-                this.state.sidebarToggle ? { right: '0px' } : { right: '-300px' }
+                this.state.sidebarToggle ? { right: '0px' } : { right: '-300px', marginRight: "4rem" }
               }
-              className="header-right d-flex ml-auto mr-4"
+              className="header-right d-flex"
             >
               <a className="exchange-btn-header ml-auto mr-5" href="/trade">
                 Exchange
@@ -48,10 +48,10 @@ class index extends Component {
               <div className="header-btn-holder d-flex align-items-center">
                 <Link className="header-register" to="/register">
                   <span>Register</span>
-                  <span className="skew"></span>
+                  {/* <span className="skew"></span> */}
                 </Link>
                 <Link className="header-login" to="/login">
-                  <span></span>
+                  {/* <span></span> */}
                   <span>Log in</span>
                 </Link>
               </div>

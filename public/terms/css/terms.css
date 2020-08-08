@@ -1,6 +1,6 @@
 #about-us {
   margin: 0 auto;
-  margin-top: 6rem;
+  margin-top: 2rem;
   padding: 5rem;
   width: auto;
 }
@@ -27,3 +27,13 @@ p {
 .footer-center {
   padding-top: unset;
 }
+
+/* #about-us > div > img{
+  width : 100%;
+} */
+
+/* @media (min-width : 900px) {
+  #about-us > div > img {
+    width : 100vw !important; 
+  }
+} */

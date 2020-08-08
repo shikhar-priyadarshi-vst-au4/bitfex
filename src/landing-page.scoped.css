@@ -71,7 +71,7 @@ a:hover {
 
 .curtain {
   min-height: 120vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
@@ -100,11 +100,23 @@ header.header.dark-bg {
 }
 
 .header-btn-holder .header-register {
-  display: inline-flex;
-  margin-right: -0.5rem;
+  /* display: inline-flex; */
+  border-radius: 3px;
+  border: 2px solid var(--blue-pop);
+/* padding : 5px 10px; */
+font-size: 0.8em;
+/* font-weight : 500;*/
+text-transform: uppercase; 
+font-family: Bai Jamjuree;
+font-style: normal;
+font-weight: bold;
+padding : 5px 1em;
+background-color: var(--blue-pop);
+color : var(--white-text);
+  /* margin-right: -0.5rem; */
 }
 
-.header-btn-holder .header-register span:nth-child(1) {
+/* .header-btn-holder .header-register span:nth-child(1) {
   color: var(--white-text);
   background-color: var(--blue-pop);
   text-transform: uppercase;
@@ -121,7 +133,7 @@ header.header.dark-bg {
 }
 
 .header-btn-holder .header-register span:nth-child(2) {
-  transform: skew(-12deg, 0) translateX(-0.5rem);
+  transform: skew(-12deg, 0) translateX(-0.5rem); 
   display: inline-block;
   background-color: var(--blue-pop);
   min-width: 0.7rem;
@@ -129,13 +141,25 @@ header.header.dark-bg {
   border-top: 1px solid var(--blue-pop);
   border-right: 1px solid var(--blue-pop);
   border-bottom: 1px solid var(--blue-pop);
-}
+} */
 
 .header-btn-holder .header-login {
-  display: inline-flex;
+  /* display: inline-flex; */
+  border-radius: 3px;
+  border: 2px solid var(--blue-pop);
+  font-size: 0.8em;
+  /* font-weight : 500;*/
+  text-transform: uppercase; 
+  font-family: Bai Jamjuree;
+font-style: normal;
+font-weight: bold;
+padding : 5px 2em;
+margin : 0 1rem;
+background-color: var(--back-ground-white);
+color : var(--blue-pop);
 }
 
-.header-btn-holder .header-login span:nth-child(1) {
+/* .header-btn-holder .header-login span:nth-child(1) {
   transform: skew(-12deg, 0) translateX(0.5rem);
   display: inline-block;
   background-color: var(--back-ground-white);
@@ -154,7 +178,7 @@ header.header.dark-bg {
   font-family: var(--btn-font);
   font-size: 10px;
   font-weight: 600;
-  /* padding: 0.25rem 0.85rem; */
+  padding: 0.25rem 0.85rem; 
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   padding-right: 0.85rem;
@@ -166,7 +190,7 @@ header.header.dark-bg {
   border-top: 1.5px solid var(--blue-pop);
   border-right: 1.5px solid var(--blue-pop);
   border-bottom: 1.5px solid var(--blue-pop);
-}
+} */
 
 a.exchange-btn-header {
   padding: 1rem;
@@ -834,7 +858,6 @@ line-height: 30px;
 .form-instruction {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
 }
 
 .form-instruction + .form-container .a5-login-field {
@@ -842,7 +865,8 @@ line-height: 30px;
 }
 
 .form-instruction p {
-  width: 80%;
+  width: 100%;
+  margin : 0 1.6rem
 }
 
 .form-body .form-container {
@@ -854,6 +878,11 @@ line-height: 30px;
 .a5-login-field {
   margin: 1rem 0;
   padding-top: 2rem;
+  height: 60px;
+}
+
+.a5-reset-field {
+  margin: 1rem 0;
   height: 60px;
 }
 
@@ -875,6 +904,28 @@ line-height: 30px;
 }
 
 .a5-login-field input:focus {
+  color: var(--blue-pop);
+  border-bottom: 1.5px solid var(--blue-pop);
+}
+
+.a5-reset-field input {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid var(--form-text);
+  padding: 0.8rem 0;
+  color: var(--blue-pop);
+  outline: none;
+}
+
+.a5-reset-field input::-webkit-input-placeholder {
+  color: var(--form-text);
+}
+
+.a5-reset-field input:focus::-webkit-input-placeholder {
+  color: var(--blue-pop);
+}
+
+.a5-reset-field input:focus {
   color: var(--blue-pop);
   border-bottom: 1.5px solid var(--blue-pop);
 }
@@ -973,6 +1024,13 @@ line-height: 30px;
   margin-top: 2rem;
 }
 
+.form-btn-reset {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+  margin: 1rem 0rem;
+}
+
 .reset-password {
   display: flex;
   justify-content: flex-end;
@@ -1010,6 +1068,18 @@ color: #4F4F4F !important;
 }
 
 .form-register {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  text-align: center;
+  background-color: var(--blue-pop);
+  border-radius: 3px;
+  font-weight: bolder;
+  font-family: var(--btn-font);
+  color: #ffffff !important;
+  cursor: pointer;
+}
+
+.form-reset-password {
   padding: 0.5rem 1rem;
   width: 100%;
   text-align: center;

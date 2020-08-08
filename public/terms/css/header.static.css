@@ -1,0 +1,175 @@
+:root {
+    --back-ground-white: #ffffff;
+    --btn-skew: skew(-20deg, 0);
+    --gold-pop: #ffb13c;
+    --blue-pop: #47A1FB;
+    --faded-text: #828282;
+    --black-text: #000000;
+    --white-text: #ffffff;
+    --faded-white: #f2f2f2;
+    --dark-bg: #151515;
+    --dark-bl: #1A232B;
+    --form-text: #bdbdbd;
+    --btn-font: 'Bai Jamjuree', sans-serif;
+    font-family: 'DM Sans', sans-serif !important;
+  }
+  .menu-btn {
+    display: none;
+    margin-left: auto;
+    margin-right: 0.5rem;
+  }
+  
+  .menu-btn-bar {
+    background-color: var(--blue-pop);
+    margin-top: 0.3rem;
+    display: block;
+    width: 2.35rem;
+    height: 0.25rem;
+    margin-left: 0.5rem;
+  }
+  
+
+.static-header{
+    min-height: 4.17375rem;
+    background-color: #1A232B;
+    width: 100%;
+    border-bottom: 2px solid var(--faded-white);
+    position: sticky; 
+    top: 0;
+    z-index: 100;
+}
+
+header.static-header.dark-bg {
+    border-bottom: 2px solid var(--black-text);
+  }
+  
+  .static-header-links {
+    padding-top: 1rem;
+    margin-right: 2rem;
+    color: var(--black-text);
+  }
+  
+  .static-header-btn-holder .static-header-register {
+    display: inline-flex;
+    margin-right: -0.5rem;
+  }
+  
+  .static-header-btn-holder .static-header-register span:nth-child(1) {
+    color: var(--white-text);
+    background-color: var(--blue-pop);
+    text-transform: uppercase;
+    font-family: var(--btn-font);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 0.35rem;
+    padding-right: 0.85rem;
+    padding-left: 0.85rem;
+    border-radius: 3px;
+    border-top: 1px solid var(--blue-pop);
+    border-left: 1px solid var(--blue-pop);
+    border-bottom: 1px solid var(--blue-pop);
+  }
+  
+  .static-header-btn-holder .static-header-register span:nth-child(2) {
+    transform: skew(-12deg, 0) translateX(-0.5rem);
+    display: inline-block;
+    background-color: var(--blue-pop);
+    min-width: 0.7rem;
+    border-radius: 0 3px 3px 0;
+    border-top: 1px solid var(--blue-pop);
+    border-right: 1px solid var(--blue-pop);
+    border-bottom: 1px solid var(--blue-pop);
+  }
+  
+  .static-header-btn-holder .static-header-login {
+    display: inline-flex;
+  }
+  
+  .static-header-btn-holder .static-header-login span:nth-child(1) {
+    transform: skew(-12deg, 0) translateX(0.5rem);
+    display: inline-block;
+    background-color: var(--back-ground-white);
+    min-width: 0.7rem;
+    border-radius: 3px 0 0 3px;
+    min-height: 1.7rem;
+    border-top: 1.5px solid var(--blue-pop);
+    border-left: 1.5px solid var(--blue-pop);
+    border-bottom: 1.5px solid var(--blue-pop);
+  }
+  
+  .static-header-btn-holder .static-header-login span:nth-child(2) {
+    color: var(--blue-pop);
+    background-color: var(--back-ground-white);
+    text-transform: uppercase;
+    font-family: var(--btn-font);
+    font-size: 10px;
+    font-weight: 600;
+    /* padding: 0.25rem 0.85rem; */
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-right: 0.85rem;
+    padding-left: 0.85rem; 
+    border-radius: 3px;
+    min-width: 4.85rem;
+    text-align: center;
+  
+    border-top: 1.5px solid var(--blue-pop);
+    border-right: 1.5px solid var(--blue-pop);
+    border-bottom: 1.5px solid var(--blue-pop);
+  }
+  
+  a.exchange-btn-static-header {
+    padding: 1rem;
+    border-left: 1px solid var(--form-text);
+    border-right: 1px solid var(--form-text);
+    color: var(--black-text);
+    font-weight: bolder;
+    transition: 0.8s ease-out;
+    /* color: var(--gold-pop); */
+  }
+  
+  a.exchange-btn-static-header:hover {
+    background-color: var(--blue-pop);
+    color: var(--black-text);
+  }
+  
+
+@media (max-width: 1024px) {
+
+.static-header-right {
+    position: absolute;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    right: 0px;
+    top: 0;
+    margin-right: 0 !important;
+    padding: 3rem;
+    background-color: #ffffff;
+    min-height: 100vh;
+    transition: 0.4s ease-out;
+    z-index: 1000;
+  }
+
+  .static-header-links {
+    margin-top: -12rem;
+  }
+
+
+  .static-header-btn-holder {
+    margin-top: -0.5rem;
+  }
+  a.exchange-btn-static-header {
+    padding: 1rem;
+    color: var(--black-text);
+    margin-top: 3rem;
+    margin-right: auto !important;
+    /* margin-left: 0 !important; */
+    /* color: var(--gold-pop);
+      background-color: var(--dark-bg); */
+  }
+
+  .menu-btn {
+    display: flex;
+  }
+
+}

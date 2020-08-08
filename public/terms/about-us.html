@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us - Alpha5.com</title>
   <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png" />
   <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png" />
@@ -20,25 +20,30 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png" />
   <link rel="stylesheet" href="/bootstrap.min.css" />
-  <link rel="stylesheet" href="/landing-page.scoped.css" />
+  <!-- <link rel="stylesheet" href="/landing-page.scoped.css" /> -->
   <link rel="stylesheet" href="css/terms.css" />
+  <link rel="stylesheet" href="css/header.static.css" />
+  <link rel="stylesheet" href="css/footer.static.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="header.js"></script>
 </head>
 
-<body>
-  <header class="header d-flex align-items-center w-100">
-    <div class="logo ml-5">
-      <img src="/assets/a5-black-header-logo.svg" alt="" />
+<body id="main">
+  <div id="overlay"></div>
+  <header class="static-header d-flex align-items-center">
+    <div class="logo ml-5" onclick="home()" style="cursor: pointer;">
+      <img src="/lp-assets/images/icons/a5-black-header-logo.svg" alt="" />
     </div>
-    <div class="header-right d-flex ml-auto mr-4">
-      <a class="exchange-btn-header ml-auto mr-5" href="/trade">
+    <div class="static-header-right d-flex ml-auto mr-4" id="menu">
+      <a class="exchange-btn-static-header ml-auto mr-5" href="/trade">
         Exchange
       </a>
-      <div class="header-btn-holder d-flex align-items-center">
-        <a class="header-register" href="/register.html">
+      <div class="static-header-btn-holder d-flex align-items-center">
+        <a class="static-header-register" href="/register.html">
           <span>Register</span>
           <span class="skew"></span>
         </a>
-        <a class="header-login" href="/login.html">
+        <a class="static-header-login" href="/login.html">
           <span></span>
           <span>Log in</span>
         </a>
@@ -54,23 +59,28 @@
   <div id="about-us">
 
 
-    <p class="text-center">
+    <p class="text-center" style="line-height: 2rem;
+    color: black;
+    font-size: 1.4rem;
+    padding: 1rem 2rem;">
       Alpha5 is an advanced cryptocurrency derivatives platform created by veterans of derivatives trading. It’s built
       on the premise of simplicity & sophistication, aiming to establish products & liquidity that will drive the
       longevity of the ecosystem.
     </p>
-
+    <div class="d-flex justify-content-center my-2">
+      <img src="/lp-assets/images/partners.png" style="width: 80%;" />
+    </div>
 
   </div>
 
-  <footer class="footer dark-bg">
-    <div class="footer-center">
-      <div class="footer-logo">
-        <img src="/assets/a5-white-header-logo.svg" alt="" />
+  <footer class="static-footer dark-bg">
+    <div class="static-footer-center">
+      <div class="static-footer-logo">
+        <img src="/db-assets/a5-white-header-logo.svg" alt="" />
       </div>
-      <div class="footer-main d-flex">
-        <div class="footer-links-container d-flex">
-          <ul class="footer-list products">
+      <div class="static-footer-main d-flex">
+        <div class="static-footer-links-container d-flex">
+          <ul class="static-footer-list products">
             <li>Products</li>
             <!-- <li><a href="">European Digitals Option</a></li> -->
             <li>
@@ -86,8 +96,8 @@
               <a href="/site/Product Pipeline/index.html">Exotic Options</a>
             </li>
           </ul>
-          <div class="footer-column-2 d-flex flex-column">
-            <ul class="footer-list about-us">
+          <div class="static-footer-column-2 d-flex flex-column">
+            <ul class="static-footer-list about-us">
               <li>About us</li>
               <li><a href="/terms/about-us.html">About</a></li>
               <li>
@@ -95,37 +105,37 @@
               </li>
               <li><a href="/terms/privacy-policy.html">Privacy Policy</a></li>
             </ul>
-            <ul class="footer-list support">
+            <ul class="static-footer-list support">
               <li>Support</li>
               <!-- <li><a href="">Helpdesk</a></li> -->
               <li><a href="mailto:support@alpha5.io">Contact</a></li>
             </ul>
           </div>
-          <div class="footer-column-3 d-flex flex-column">
-            <ul class="footer-list resources">
+          <div class="static-footer-column-3 d-flex flex-column">
+            <ul class="static-footer-list resources">
               <li>Resources</li>
               <!-- <li><a href="/site/Fees/index.html">Fees</a></li> -->
               <li><a href="/site/General/index.html">Documentation</a></li>
               <li><a href="/media.html">Media</a></li>
             </ul>
-            <ul class="footer-list follow-us">
+            <ul class="static-footer-list follow-us">
               <li>Need help? Get in touch</li>
               <li class="d-flex">
                 <a class="medium" href="https://medium.com/@alpha5_io">
-                  <img src="/assets/medium-monogram.svg" alt="" />
+                  <img src="/lp-assets/images/icons/medium-monogram.svg" alt="" />
                 </a>
                 <a href="https://LinkedIn.com/company/alpha5exchange">
-                  <img src="/assets/LinkedIN.svg" />
+                  <img src="/lp-assets/images/icons/LinkedIN.svg" />
                 </a>
 
                 <a href="https://twitter.com/alpha5_io">
-                  <img src="/assets/Twitter.svg" />
+                  <img src="/lp-assets/images/icons/Twitter.svg" />
                 </a>
                 <a class="weibo" href="https://weibo.com/u/7426297907">
-                  <img src="/assets/weibo-icon.svg" alt="" />
+                  <img src="/lp-assets/images/icons/weibo-icon.svg" alt="" />
                 </a>
                 <a href="https://t.me/Alpha5_en/2">
-                  <img src="/assets/telegram.svg" />
+                  <img src="/lp-assets/images/icons/telegram.svg" />
                 </a>
               </li>
             </ul>
@@ -136,31 +146,10 @@
           <p>A powerful API designed to handle the hardest of moments.</p>
           <a href="/site/API/index.html">DOCUMENTATION</a>
         </div>
-        <ul class="footer-list follow-us-ipad">
-          <li>Need help? Get in touch</li>
-          <li class="d-flex">
-            <a class="medium" href="https://medium.com/@alpha5_io">
-              <img src="/assets/medium-monogram.svg" alt="" />
-            </a>
-            <a href="https://LinkedIn.com/company/alpha5exchange">
-              <img src="/assets/LinkedIN.svg" />
-            </a>
-
-            <a href="https://twitter.com/alpha5_io">
-              <img src="/assets/Twitter.svg" />
-            </a>
-            <a class="weibo" href="https://weibo.com/u/7426297907">
-              <img src="/assets/weibo-icon.svg" alt="" />
-            </a>
-            <a href="https://t.me/Alpha5_en/2">
-              <img src="/assets/telegram.svg" />
-            </a>
-          </li>
-        </ul>
       </div>
     </div>
   </footer>
+
 </body>
-<script src="/header.js"></script>
 
 </html>

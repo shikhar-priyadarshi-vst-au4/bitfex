@@ -79,7 +79,7 @@ export class ResetPassword extends Component {
               </p>
             </div>
             <div className="form-container">
-              <div className="a5-login-field">
+              <div className="a5-reset-field">
                 <input
                   onInput={this.emailHandle}
                   type="text"
@@ -88,10 +88,10 @@ export class ResetPassword extends Component {
                 <span className="a5-login-error">{this.state.emailError}</span>
               </div>
 
-              <div className="form-btn-holder align-items-center">
+              <div className="form-btn-reset align-items-center">
                 <a
                   onClick={this.submit}
-                  className="form-register align-items-center"
+                  className="form-reset-password align-items-center"
                 >
                   Request Reset Code
                 </a>
